@@ -1,0 +1,5 @@
+runit-services (0.1.0) unstable; urgency=low
+
+  * initial version (closes: #330029).
+
+ -- Gerrit Pape <pape@smarden.org>  Wed, 28 Dec 2005 10:33:01 +0000

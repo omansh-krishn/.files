@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+DIR =$(shell pwd)/debian/runit-services
+
+build: deb-checkdir build-stamp
+build-stamp: 
+	for i in `find sv -type f`; do echo /etc/$$i; done \
+	  >debian/runit-services.conffiles
+	touch build-stamp
+
+clean: deb-checkdir deb-checkuid
+	rm -f build-stamp debian/runit-services.conffiles
+	rm -rf '$(DIR)'
+	rm -f debian/files
+
+install: deb-checkdir deb-checkuid build-stamp
+	rm -rf '$(DIR)'
+	install -d -m0755 '$(DIR)'/etc/sv
+	for i in sv/*; do cp -RP $$i '$(DIR)'/etc/sv/ || exit 1; done
+	ln -s /usr/share/doc/runit-services/README '$(DIR)'/etc/sv/README
+
+binary-indep: deb-checkdir deb-checkuid install runit-services.deb
+	dpkg-gencontrol -isp -prunit-services -P'$(DIR)'
+	dpkg -b '$(DIR)' ..
+
+binary-arch: 
+
+binary: binary-indep binary-arch
+
+.PHONY: build clean install binary-indep binary-arch binary
+
+include debian/implicit

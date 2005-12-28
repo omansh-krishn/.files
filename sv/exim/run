@@ -1,0 +1,5 @@
+#!/bin/sh
+exec 1>&2
+exec tcpsvd -l0 -i./peers -umail \
+  -c60 -C'20:421 per host concurrency limit reached\r\n' \
+    0 25 exim -bs

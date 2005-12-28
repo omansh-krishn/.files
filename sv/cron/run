@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+exec 1>&2
+
+! test -h /var/service/socklog-unix || sv start socklog-unix
+
+exec chpst -m3000000 cron -f

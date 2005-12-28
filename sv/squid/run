@@ -1,0 +1,16 @@
+#!/bin/sh
+exec 1>&2
+set -e
+
+SQUID_MAXFD=4096
+
+test $SQUID_MAXFD -le 4096 || SQUID_MAXFD=4096
+setfilemax() {
+  test -f /proc/sys/fs/file-max || return 0
+  global_file_max=`cat /proc/sys/fs/file-max`
+  minimal_file_max=$(($SQUID_MAXFD + 4096))
+  test "$global_file_max" -gt "$minimal_file_max" ||
+    echo "$minimal_file_max" >/proc/sys/fs/file-max
+}
+setfilemax
+exec chpst -m7000000 -o"$SQUID_MAXFD" squid -N

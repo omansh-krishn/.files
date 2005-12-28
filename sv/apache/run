@@ -1,0 +1,4 @@
+#!/bin/sh
+exec 1>&2
+apachectl configtest || sv stop $(pwd)
+exec chpst -m5000000 -e./env apache -F

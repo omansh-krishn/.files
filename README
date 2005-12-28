@@ -1,0 +1,86 @@
+The /etc/sv/ directory contains service directories for a collection of
+services available in Debian, to have them run under runit service
+supervision instead of sysvinit or through init.d scripts.  The runit
+package provides a compatiblity interface to the Debian-usual init scripts
+so that after switching a service to runit supervision, it still can be
+controlled through the /etc/init.d/<service> interface.
+
+To put a Debian service under runit supervision control, instead of having
+it started through the init script, stop the service through the original
+init script, divert the init script included in the package that provides
+the service, replace the init script with a symbolic link to the
+/usr/bin/sv program, and finally tell runit about the new service it
+should supervise.
+
+
+Here's an example on how to do so with the cron service.
+
+(1) Stop the service through the original init script
+
+ # /etc/init.d/cron stop
+
+(2) divert the original init script [*]
+
+ # dpkg-divert --add /etc/init.d/cron
+
+(3) replace the init script with a symbolic link to the /usr/bin/sv
+    program
+
+ # mv /etc/init.d/cron /etc/init.d/cron.distrib &&
+   ln -s /usr/bin/sv /etc/init.d/cron
+
+(4) tell runit about the new service
+
+ # ln -s /etc/sv/cron /var/service/
+
+The service will be picked up and started by runit within the next five
+seconds, and automatically started on system boot.
+
+Check the status of the cron service using the sv program
+
+ # sv status cron
+ run: cron: (pid 19833) 3s
+
+or through the init script interface
+
+ # /etc/init.d/cron status
+ run: cron: (pid 19833) 4s
+
+See the sv(8) man page for details on how to control and signal the
+service.  See the documentation of the runit package on how service
+supervision generally works.
+
+ $ man sv
+ $ w3m /usr/share/doc/runit/index.html
+
+[*] Note that with current dpkg new versions of the now diverted original
+    init script provided by the cron package will be installed as
+    /etc/init.d/cron.distrib.dpkg-new
+
+
+To switch a service back from runit service supervision to the usual init
+script, remove the symbolic link in /var/service/ so that runit no longer
+controls the service, remove the symbolic link to the sv program in
+/etc/init.d/, and remove the diversion of the init script, and finally
+re-enable the service through the usual init script.  E.g. for the cron
+service.
+
+(1) remove the symbolic link in /var/service/ [*]
+
+ # rm /var/service/cron
+
+(2) remove the symbolic link to the sv program in /etc/init.d/
+
+ # rm /etc/init.d/cron
+
+(3) remove the diversion of the init script
+
+ # dpkg-divert --remove /etc/init.d/cron
+
+(4) re-enable the service through the usual init script
+
+ # /etc/init.d/cron start
+
+[*] runit will recognize the removed symbolic link within the next five
+    seconds, then tells the supervisor to stop the service, and finally
+    stops supervising it.

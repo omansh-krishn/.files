@@ -1,0 +1,6 @@
+#!/bin/sh
+exec 2>&1
+
+. ./interfaces || exit 1
+
+exec chpst -m3000000 dhclient -d -e $INTERFACES

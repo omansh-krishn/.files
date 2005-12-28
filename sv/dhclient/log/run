@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+LOG=/var/log/dhclient
+
+test -d "$LOG" || mkdir -p -m0750 "$LOG" && chown log:adm "$_"
+
+exec chpst -ulog:adm svlogd -tt "$LOG"
