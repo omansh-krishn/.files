@@ -1,0 +1,5 @@
+#!/bin/sh
+exec 2>&1
+exportfs -a -u -v
+! test -h /var/service/portmap || ! sv start portmap >/dev/null ||
+  exec rpc.nfsd -- 0

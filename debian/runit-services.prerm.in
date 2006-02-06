@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+test "$1" = 'remove' || exit 0
+
+for i in |SERVICES|; do
+  test -d /etc/sv/"$i" || continue
+  sv status /etc/sv/"$i" >/dev/null || continue
+  sv force-stop /etc/sv/"$i"
+  ! test -h /var/service/"$i" ||
+    test `readlink /var/service/"$i"` != /etc/sv/"$i" ||
+      rm -f /var/service/"$i"
+  sv exit /etc/sv/"$i"
+done

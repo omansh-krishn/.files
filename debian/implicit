@@ -1,4 +1,4 @@
-# $Id: implicit,v 1.10 2004/07/03 15:20:00 pape Exp $
+# $Id: implicit,v 1.1.1.1 2005/12/28 10:35:57 pape Exp $
 
 .PHONY: deb-checkdir deb-checkuid
 

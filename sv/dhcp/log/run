@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-LOG=/var/log/dhclient
+LOG=/var/log/dhcp
 
 test -d "$LOG" || mkdir -p -m0750 "$LOG" && chown log:adm "$LOG"
 

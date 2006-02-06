@@ -1,3 +1,23 @@
+runit-services (0.2.0) unstable; urgency=low
+
+  * sv/ssh/log/run: don't use "$_" in run script (patch from Joshua N
+    Pritikin, closes: #350918).
+  * debian/rules: create ./supervise/ subdirectory symlinks instead of
+    including them in .tar.gz; symlink /var/log/<service>/ if exists to
+    /etc/sv/<service>/log/main/.
+  * sv/dhclient/log/run: don't use "$_" in run script.
+  * debian/runit-services.prerm.in: new; shutdown enabled services on
+    package removal.
+  * debian/rules: create debian/runit-services.prerm from
+    debian/runit-services.prerm.in.
+  * debian/implicit: update to revision 1.11.
+
+  * sv/portmap: new; add portmap service directory.
+  * sv/nfs-kernel-server: new; add nfs-kernel-server services directory.
+  * sv/dhcp: new; add dhcp service directory.
+
+ -- Gerrit Pape <pape@smarden.org>  Mon,  6 Feb 2006 17:49:07 +0000
+
 runit-services (0.1.0) unstable; urgency=low
 
   * initial version (closes: #330029).

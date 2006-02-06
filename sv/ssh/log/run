@@ -3,6 +3,6 @@ set -e
 
 LOG=/var/log/ssh
 
-test -d "$LOG" || mkdir -p -m0750 "$LOG" && chown log:adm "$_"
+test -d "$LOG" || mkdir -p -m0750 "$LOG" && chown log:adm "$LOG"
 
 exec chpst -ulog:adm svlogd -tt "$LOG"

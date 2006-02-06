@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+exec 2>&1
+
+RPCNFSDCOUNT=8
+RPCMOUNTDOPTS=
+
+sv start portmap
+
+exportfs -a -v
+rpc.nfsd -- "$RPCNFSDCOUNT"
+exec rpc.mountd -F $RPCMOUNTDOPTS
