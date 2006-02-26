@@ -1,3 +1,11 @@
+runit-services (0.2.1) unstable; urgency=low
+
+  * sv/ssh/run: don't limit memory to ssh daemon by default (closes:
+    #352959).
+  * sv/dhcp/run: add $INTERFACES to arguments to dhcpd.
+
+ -- Gerrit Pape <pape@smarden.org>  Sun, 26 Feb 2006 13:10:44 +0000
+
 runit-services (0.2.0) unstable; urgency=low
 
   * sv/ssh/log/run: don't use "$_" in run script (patch from Joshua N

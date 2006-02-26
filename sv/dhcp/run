@@ -2,4 +2,4 @@
 exec 2>&1
 
 INTERFACES=eth0
-exec dhcpd -f -d
+exec dhcpd -f -d $INTERFACES
