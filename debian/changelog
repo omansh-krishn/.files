@@ -1,3 +1,12 @@
+runit-services (0.2.2) unstable; urgency=low
+
+  * sv/portmap/run: use -f option to portmap, instead of -d.
+  * debian/copyright: 2006.
+  * debian/control: Standards-Version: 3.7.2.0.
+  * debian/implicit: update to revision 1.11.
+
+ -- Gerrit Pape <pape@smarden.org>  Sat, 27 May 2006 16:21:33 +0000
+
 runit-services (0.2.1) unstable; urgency=low
 
   * sv/ssh/run: don't limit memory to ssh daemon by default (closes:
