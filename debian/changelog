@@ -1,3 +1,9 @@
+runit-services (0.2.3) unstable; urgency=low
+
+  * sv/chrony: new; add chrony service directory.
+
+ -- Gerrit Pape <pape@smarden.org>  Thu, 29 Jun 2006 08:23:18 +0000
+
 runit-services (0.2.2) unstable; urgency=low
 
   * sv/portmap/run: use -f option to portmap, instead of -d.

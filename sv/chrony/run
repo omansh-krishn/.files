@@ -1,0 +1,3 @@
+#!/bin/sh
+exec 2>&1
+exec chpst -m3000000 chronyd -d
