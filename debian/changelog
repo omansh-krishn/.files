@@ -1,3 +1,13 @@
+runit-services (0.3.0) unstable; urgency=low
+
+  * debian/implicit: update to revision 1.11.
+  * sv/ssh/run: make sure privilege separation directory /var/run/sshd
+    exists (thx Daniel Kahn Gillmor for the patch, closes: #421398).
+  * sv/rpc.statd/: new: service directory for rpc.statd (thx Daniel Kahn
+    Gillmor for the patch, closes: #421401).
+
+ -- Gerrit Pape <pape@smarden.org>  Sun, 06 Apr 2007 14:41:16 +0000
+
 runit-services (0.2.3) unstable; urgency=low
 
   * sv/chrony: new; add chrony service directory.
