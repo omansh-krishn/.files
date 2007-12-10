@@ -1,3 +1,10 @@
+runit-services (0.3.1) unstable; urgency=low
+
+  * debian/control: move Recommends: dash, socklog-run to Suggests: (thx
+    Daniel Kahn Gillmor, closes: #450808).
+
+ -- Gerrit Pape <pape@smarden.org>  Mon, 10 Dec 2007 09:38:12 +0000
+
 runit-services (0.3.0) unstable; urgency=low
 
   * debian/implicit: update to revision 1.11.

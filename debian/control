@@ -7,8 +7,7 @@ Standards-Version: 3.7.2.0
 Package: runit-services
 Architecture: all
 Depends: runit (>> 1.3.1-0), socklog
-Recommends: dash, socklog-run
-Suggests: runit-run
+Suggests: dash, socklog-run, runit-run
 Description: a UNIX init scheme with service supervision (services)
  runit is a replacement for SysV-init and other init schemes.  It runs on
  Debian GNU/Linux, *BSD, MacOSX, and Solaris, and may be easily adapted
