@@ -31,7 +31,7 @@ Here's an example on how to do so with the cron service.
 
 (4) tell runit about the new service
 
- # ln -s /etc/sv/cron /var/service/
+ # update-service --add /etc/sv/cron
 
 The service will be picked up and started by runit within the next five
 seconds, and automatically started on system boot.
@@ -59,15 +59,14 @@ supervision generally works.
 
 
 To switch a service back from runit service supervision to the usual init
-script, remove the symbolic link in /var/service/ so that runit no longer
-controls the service, remove the symbolic link to the sv program in
-/etc/init.d/, and remove the diversion of the init script, and finally
-re-enable the service through the usual init script.  E.g. for the cron
-service.
+script, tell runit to no longer supervise the service, remove the symbolic
+link to the sv program in /etc/init.d/, and remove the diversion of the
+init script, and finally re-enable the service through the usual init
+script.  E.g. for the cron service.
 
-(1) remove the symbolic link in /var/service/ [*]
+(1) tell runit to remove the cron service from service supervision [*]
 
- # rm /var/service/cron
+ # update-service --remove /etc/sv/cron
 
 (2) remove the symbolic link to the sv program in /etc/init.d/
 
@@ -81,6 +80,6 @@ service.
 
  # /etc/init.d/cron start
 
-[*] runit will recognize the removed symbolic link within the next five
-    seconds, then tells the supervisor to stop the service, and finally
-    stops supervising it.
+[*] runit will recognize the removed service within the next five seconds,
+    then tells the supervisor to stop the service, and finally stops
+    supervising it.

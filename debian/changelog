@@ -1,3 +1,18 @@
+runit-services (0.3.2) unstable; urgency=low
+
+  * debian/copyright: 2008.
+  * debian/implicit: add proper dependencies to support 'parallel build'
+    through make -j (thx Daniel Schepler for the patch).
+  * README, sv/cron/run, sv/nfs-kernel-server/finish,
+    debian/runit-services.prerm.in: use runit's update-service program to
+    check/add/remove services, instead of dealing with symlinks in
+    /var/service/ directly.
+  * debian/control: Depends: runit (>= 1.8.0-2) (1st version that provides
+    the update-service program).
+  * debian/control: Standards-Version: 3.7.3.0.
+
+ -- Gerrit Pape <pape@smarden.org>  Sun, 17 Feb 2008 17:10:12 +0000
+
 runit-services (0.3.1) unstable; urgency=low
 
   * debian/control: move Recommends: dash, socklog-run to Suggests: (thx
