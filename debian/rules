@@ -35,13 +35,11 @@ install: deb-checkdir deb-checkuid build-stamp
 	sed -e 's/|SERVICES|/$(SERVICES)/' \
 	  <debian/runit-services.prerm.in >debian/runit-services.prerm
 
+binary: binary-indep binary-arch
 binary-indep: deb-checkdir deb-checkuid install runit-services.deb
 	dpkg-gencontrol -isp -prunit-services -P'$(DIR)'
 	dpkg -b '$(DIR)' ..
-
 binary-arch: 
-
-binary: binary-indep binary-arch
 
 .PHONY: build clean install binary-indep binary-arch binary
 

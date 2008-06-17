@@ -1,7 +1,10 @@
 #!/bin/sh
+#
+# please consider switching to the bcron-run package
+
 set -e
 exec 1>&2
 
 ! update-service --check socklog-unix || sv start socklog-unix
 
-exec chpst -m3000000 cron -f
+exec cron -f
