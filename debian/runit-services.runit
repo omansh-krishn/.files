@@ -1,0 +1,6 @@
+sv/chrony     noscripts,usr,finish
+sv/cron         noscripts,usr,finish
+sv/dhclient   noscripts,usr,finish
+sv/dhcp        noscripts,usr,finish
+sv/postfix     noscripts,usr,logscript
+sv/xdm        noscripts,usr,onupgrade=nostop,finish

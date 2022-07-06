@@ -1,14 +1,20 @@
 Source: runit-services
 Section: admin
 Priority: optional
-Maintainer: Gerrit Pape <pape@smarden.org>
-Standards-Version: 3.8.0.1
+Maintainer: Lorenzo Puliti <plorenzo@disroot.org>
+Build-Depends: debhelper-compat (= 13), dh-sequence-runit, dh-runit (>=2.14)
+Standards-Version: 4.6.1
+Vcs-Browser: https://salsa.debian.org/Lorenzo.ru.g-guest/runit-services
+Vcs-Git: https://salsa.debian.org/Lorenzo.ru.g-guest/runit-services.git
+Rules-Requires-Root: no
 
 Package: runit-services
 Architecture: all
-Depends: runit (>= 1.8.0-2), socklog
-Suggests: dash, socklog-run, runit-run
-Description: a UNIX init scheme with service supervision (services)
+Depends: ${shlibs:Depends}, ${misc:Depends},runit (>= 2.1.2-47)
+Breaks: ${runit:Breaks}
+Recommends: runit-run | runit-init
+Suggests: socklog
+Description: UNIX init scheme with service supervision (services)
  runit is a replacement for SysV-init and other init schemes.  It runs on
  Debian GNU/Linux, *BSD, MacOSX, and Solaris, and may be easily adapted
  to other Unix operating systems.  runit implements a simple three-stage
@@ -20,6 +26,7 @@ Description: a UNIX init scheme with service supervision (services)
  .
  This package contains services directories for a collection of services
  available in Debian, to have them run under runit service supervision
- instead of sysvinit or through init.d scripts.  Amongst other services,
- it includes service directories for apache, cron, dhclient, exim, gdm,
- postfix, squid, ssh.
+ instead of sysvinit or systemd. Services directories are installed under
+ /usr/share/runit/sv/ and only services of packages that are installed
+ on the system are copied to /etc/sv/. The cpsv utility can be used to
+ copy, inspect and update runscripts in /etc/sv/ after the first installation.

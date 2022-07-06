@@ -1,46 +1,4 @@
 #!/usr/bin/make -f
 
-DIR =$(shell pwd)/debian/runit-services
-
-SERVICES =$(shell ls -1 sv/ |tr '\n' ' ')
-
-build: deb-checkdir build-stamp
-build-stamp: 
-	for i in `find sv/ -type f`; do echo /etc/$$i; done \
-	  >debian/runit-services.conffiles
-	touch build-stamp
-
-clean: deb-checkdir deb-checkuid
-	rm -f build-stamp debian/runit-services.conffiles \
-	  debian/runit-services.prerm
-	rm -rf '$(DIR)'
-	rm -f debian/files
-
-install: deb-checkdir deb-checkuid build-stamp
-	rm -rf '$(DIR)'
-	install -d -m0755 '$(DIR)'/etc/sv
-	for i in $(SERVICES); do \
-	  cp -RP sv/$$i '$(DIR)'/etc/sv/ || exit 1; \
-	  ln -s /var/run/sv.$$i '$(DIR)'/etc/sv/$$i/supervise || exit 1; \
-	done
-	install -d -m0755 '$(DIR)'/etc/sv/exim/peers  # grm cvs
-	for i in $(SERVICES); do \
-	  test -d sv/$$i/log || continue; \
-	  ln -s /var/run/sv.$$i.log '$(DIR)'/etc/sv/$$i/log/supervise || \
-	    exit 1; \
-	  ln -s /var/log/$$i '$(DIR)'/etc/sv/$$i/log/main || exit 1; \
-	done
-	ln -s /usr/share/doc/runit-services/README '$(DIR)'/etc/sv/README
-	# prerm
-	sed -e 's/|SERVICES|/$(SERVICES)/' \
-	  <debian/runit-services.prerm.in >debian/runit-services.prerm
-
-binary: binary-indep binary-arch
-binary-indep: deb-checkdir deb-checkuid install runit-services.deb
-	dpkg-gencontrol -isp -prunit-services -P'$(DIR)'
-	dpkg -b '$(DIR)' ..
-binary-arch: 
-
-.PHONY: build clean install binary-indep binary-arch binary
-
-include debian/implicit
+%:
+	dh $@
