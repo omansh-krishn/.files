@@ -1,0 +1,7 @@
+#!/bin/sh
+##costom pipe control
+# this file must be set executable -- chmod +x
+# this is checked when runsv/sv is asked to send a TERM signal to the process (command t, d and x)
+# if this script exits/return with 0 runsv/sv won't send the signal to the process
+
+exec /usr/sbin/postfix stop

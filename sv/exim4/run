@@ -1,0 +1,17 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+exec 2>&1
+
+# only works for "combined" configuration mode
+QUEUERUNNER='combined'
+[ -d /run/exim4 ] || \
+  install -d -oDebian-exim -gDebian-exim -m750 /run/exim4
+LANG=C
+export LANG
+
+if [ -e /etc/runit/verbose ]; then
+        echo "invoke-run: starting ${PWD##*/}"
+fi
+#-bdf is also ok but no log to stdout for svlogd
+exec /usr/sbin/exim4 -bd -d -q${QFLAGS}${QUEUEINTERVAL} $COMMONOPTIONS $QUEUERUNNEROPTIONS $SMTPLISTENEROPTIONS

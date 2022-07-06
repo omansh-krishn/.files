@@ -1,3 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env /lib/runit/invoke-run
+
+DEFAULT_DISPLAY_MANAGER=$(cat /etc/X11/default-display-manager)
+if [ $DEFAULT_DISPLAY_MANAGER != /usr/bin/xdm ]; then
+	exit 161
+fi
+
 exec 1>&2
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
 exec xdm -nodaemon

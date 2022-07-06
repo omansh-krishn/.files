@@ -1,3 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env /lib/runit/invoke-run
 exec 2>&1
-exec chpst -m3000000 chronyd -d
+if [ -e /etc/runit/verbose ]; then
+	echo "Invoke-run: starting ${PWD##*/}"
+fi
+exec chronyd -d $DAEMON_OPTS

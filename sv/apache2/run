@@ -1,11 +1,13 @@
 #!/usr/bin/env /lib/runit/invoke-run
-set -e
 
-sv start default-syslog  &&  sv check default-syslog  ||  true
+. /etc/apache2/envvars
 
 exec 1>&2
+
+apachectl configtest  || exit 162
+
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
 
-exec cron -f
+exec  /usr/sbin/apache2 -DNO_DETACH

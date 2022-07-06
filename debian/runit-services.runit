@@ -1,6 +1,8 @@
-sv/chrony     noscripts,usr,finish
+sv/apache2  noscripts,usr,finish
+sv/chrony     noscripts,usr,finish,logscript
 sv/cron         noscripts,usr,finish
-sv/dhclient   noscripts,usr,finish
-sv/dhcp        noscripts,usr,finish
+sv/dhclient   noscripts,usr,finish,logscript
+sv/isc-dhcp-server        noscripts,usr,finish,logscript
 sv/postfix     noscripts,usr,logscript
-sv/xdm        noscripts,usr,onupgrade=nostop,finish
+sv/xdm         noscripts,usr,finish,onupgrade=nostop
+sv/exim4      noscripts,usr,finish,logscript

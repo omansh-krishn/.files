@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/sbin/apache2ctl stop && exit 0
+exit 1

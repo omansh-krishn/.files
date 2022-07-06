@@ -1,12 +1,15 @@
-#!/bin/sh
-exec 1>&2
+#!/usr/bin/env /lib/runit/invoke-run
 
-daemon_directory=/usr/lib/postfix \
-command_directory=/usr/sbin \
-config_directory=/etc/postfix \
-queue_directory=/var/spool/postfix \
-mail_owner=postfix \
-setgid_group=postdrop \
-  /etc/postfix/postfix-script check || exit 1
+exec 2>&1
 
-exec /usr/lib/postfix/master
+[ -f /etc/postfix/main.cf ] || exit 162
+postfix check || exit 162
+
+#main.cf: log to stdout
+postconf maillog_file=/dev/stdout
+postconf postlog_service_name=postlog
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/sbin/postfix start-fg
