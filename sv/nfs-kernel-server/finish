@@ -1,5 +1,0 @@
-#!/bin/sh
-exec 2>&1
-exportfs -a -u -v
-! update-service --check portmap || ! sv start portmap >/dev/null ||
-  exec rpc.nfsd -- 0

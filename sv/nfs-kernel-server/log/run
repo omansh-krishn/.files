@@ -1,8 +1,0 @@
-#!/bin/sh
-set -e
-
-LOG=/var/log/nfs-kernel-server
-
-test -d "$LOG" || mkdir -p -m0750 "$LOG" && chown log:adm "$LOG"
-
-exec chpst -ulog:adm svlogd -tt "$LOG"
