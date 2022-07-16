@@ -1,0 +1,15 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+sv check dbus || sv start dbus || exit 170
+
+if [ "$START_DAEMON" = no ]; then
+    echo "Not starting wicd daemon. Please edit /etc/default/wicd first." && exit 161
+fi
+#[ -d "/var/run/wicd" ] || mkdir -p "/var/run/wicd"
+exec 2>&1
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec   /usr/sbin/wicd -f $DAEMON_ARGS

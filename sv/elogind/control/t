@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#do not clear sessions and seats that are already in place
+# see issue 104 upstream and bug #916247 on BTS
+sv int elogind && exit 0
+
+exit 1

@@ -1,0 +1,21 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+DAEMONUSER=messagebus
+PIDDIR=/var/run/dbus
+UUIDGEN=/usr/bin/dbus-uuidgen
+UUIDGEN_OPTS=--ensure
+
+exec 2>&1
+if [ ! -d $PIDDIR ]; then
+    install -d $PIDDIR -o $DAEMONUSER -g $DAEMONUSER
+fi
+mountpoint -q /proc/ || exit 162
+if [ -x $UUIDGEN ]; then
+    $UUIDGEN $UUIDGEN_OPTS
+fi
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec dbus-daemon --system --nofork --nopidfile 

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+test -S /var/run/dbus/system_bus_socket && exit 0
+
+exit 1

@@ -1,0 +1,20 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+# exit status of on_ac_power:
+# 0= on-ac // 1= on-battery // 255=unknown, likely a desktop without APM
+if [ x"$ANACRON_RUN_ON_BATTERY_POWER" != x"yes" ] && [ -x /usr/bin/on_ac_power ]; then
+    /usr/bin/on_ac_power || retval=$?
+    if [ x"$retval" = x1 ]; then
+        echo "deferred while on battery power" && exit 161
+    fi
+fi
+exec 2>&1
+
+# don't restart anacron when it's done
+sv once anacron
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/sbin/anacron -d $ANACRON_ARGS

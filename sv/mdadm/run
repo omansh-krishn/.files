@@ -1,0 +1,14 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+[ $START_DAEMON = true ]  || exit 161
+test -f /proc/mdstat || exit 162
+
+RUNDIR=/run/mdadm
+mkdir -p $RUNDIR
+
+exec 2>&1
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /sbin/mdadm --monitor --scan  $DAEMON_OPTIONS

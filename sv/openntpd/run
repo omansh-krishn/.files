@@ -1,0 +1,13 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+if [ ! -d "/run/openntpd" ]; then 
+    mkdir -p /run/openntpd
+fi
+/usr/sbin/ntpd -n  2>&1 || exit 162
+
+exec 2>&1
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/sbin/ntpd -d -s $DAEMON_OPTS

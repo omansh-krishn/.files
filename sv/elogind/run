@@ -1,0 +1,10 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+sv start dbus  &&  sv check dbus  ||  exit 170
+exec 1>&2
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /lib/elogind/elogind

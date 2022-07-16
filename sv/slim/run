@@ -1,0 +1,23 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+DEFAULT_DISPLAY_MANAGER=$(cat /etc/X11/default-display-manager)
+
+# don't start if slim is not the default DM
+if [ $DEFAULT_DISPLAY_MANAGER != /usr/bin/slim ]; then
+	exit 161
+fi
+
+sv start dbus  && sv check dbus || true
+sv start elogind && sv check elogind || true
+
+if [ -x /bin/plymouth ] ; then
+        /bin/plymouth quit || true
+fi
+
+exec 2>&1
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/bin/slim

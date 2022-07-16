@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# race: greyed buttons on lightdm/sddm
+# make sure that elogind can see the login and that will open a session for the user
+loginctl show-seat seat0 >/dev/null && exit 0
+exit 1

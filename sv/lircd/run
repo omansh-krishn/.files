@@ -1,0 +1,15 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+if [ ! -f /etc/lirc/lirc_options.conf ]; then
+	exit 162
+fi
+exec 2>&1
+
+/usr/sbin/lircd-setup
+[ -d "/run/lirc" ] || mkdir -p "/run/lirc"
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec lircd --nodaemon --logfile /dev/stdout

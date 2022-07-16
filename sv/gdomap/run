@@ -1,0 +1,14 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+sv start default-syslog  &&  sv check default-syslog  ||  true
+
+if [ ! -d /run/gdomap ]; then
+        install -d -m 0755 /run/gdomap
+fi
+
+exec 2>&1
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/bin/gdomap  -f $GDOMAP_ARGS

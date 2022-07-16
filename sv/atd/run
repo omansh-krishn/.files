@@ -1,0 +1,11 @@
+#!/usr/bin/env /lib/runit/invoke-run
+set -e
+
+sv start default-syslog  &&  sv check default-syslog  ||  true
+
+exec 2>&1
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec atd -f -d
