@@ -1,12 +1,121 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: runit-services
-Upstream-Contact: <Lorenzo Puliti <plorenzo@disroot.org>
 
-Files: *
+Files: README
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
 License: BSD-3-Clause
 
 Files: debian/*
+Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+           2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: BSD-3-Clause
+
+Files: sv/acpi-fakekey/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/anacron/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/apache2/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/atd/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/chrony/*
+Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+           2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: BSD-3-Clause
+
+Files: sv/cron/*
+Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+           2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: BSD-3-Clause
+
+Files: sv/cups/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/dbus/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/dhclient/*
+Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+License: BSD-3-Clause
+
+Files: sv/elogind/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/exim4/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/gdomap/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/haveged/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/isc-dhcp-server/*
+Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+License: BSD-3-Clause
+
+Files: sv/lightdm/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/lircd/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/mariadb/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/mdadm/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/openntpd/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/postfix/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/preload/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/proftpd/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/rsyslog/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/sddm/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/slim/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/wicd/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/xdm/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
            2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
@@ -36,3 +145,13 @@ License: BSD-3-Clause
  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  
+License: CC0-1.0
+ To the extent possible under law, the author(s) have dedicated all copyright
+ and related and neighboring rights to this software to the public domain
+ worldwide. This software is distributed without any warranty.
+ .
+ You should have received a copy of the CC0 Public Domain Dedication along with
+ this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+ .
+ On Debian systems, the complete text of the CC0 1.0 Universal license can be
+ found in ‘/usr/share/common-licenses/CC0-1.0’.
