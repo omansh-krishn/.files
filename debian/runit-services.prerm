@@ -1,0 +1,45 @@
+#!/bin/sh
+set -e
+
+is_up () {
+# stat --> run | down
+if [ -e "/etc/sv/$name/supervise/stat" ]; then
+	stat=$(cat "/etc/sv/$name/supervise/stat")
+	if [ "$stat" != run ]; then
+		return 1
+	else
+		return 0
+	fi
+else
+	return 1
+fi
+}
+
+if [ "$1" = remove ]; then
+	for path in  /usr/share/runit/sv/* ; do
+		name=$(basename "$path")
+		if [ -e /usr/share/runit/sv/"$name"/.meta/runit-services ]; then
+			# /usr/share/runit/sv/ is empty at postrm
+			cp -r /usr/share/runit/meta/"$name" /etc/runit-services/purge-sv/
+		else
+			continue # not from this package
+		fi
+		if [ -z "${DPKG_ROOT:-}" ] ; then
+			ENABLE=yes #irrelevant for prerm
+			onupgrade=$(cat /usr/share/runit/meta/"$name"/onupgrade)
+			if [ "$onupgrade" = "nostop" ] || [ "$onupgrade" = 'reload' ]; then
+				if is_up ; then
+					echo "warning: stop $name is dangerous, skipping"
+					echo "Please stop $name manually from a getty"
+				fi
+				continue
+			fi
+			NAME=$name ENABLE=yes ONUPGRADE=$onupgrade \
+				/lib/runit-helper/runit-helper prerm "$@"
+		fi
+	done
+fi
+
+#DEBHELPER#
+
+exit 0

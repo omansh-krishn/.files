@@ -1,8 +1,0 @@
-#!/bin/sh
-set -e
-
-test "$1" = 'remove' || exit 0
-
-for i in |SERVICES|; do
-  update-service --remove /etc/sv/$i 2>/dev/null || :
-done

@@ -1,1 +1,2 @@
 /etc/sv/
+/etc/runit-services/purge-sv/
