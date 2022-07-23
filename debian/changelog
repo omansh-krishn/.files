@@ -1,3 +1,45 @@
+runit-services (0.5.0) experimental; urgency=medium
+
+  * Reintroduce the package (closes: #986656)
+  * new maintainer
+  * Overall package update:
+    - 3.0 native format, use dh sequencer
+    - build with dh-runit >= 2.14.0 (closes: #359106)
+    - dep5 copyright
+    - bump S-V to 4.6.1
+    - set Rules-requires-root to no
+    - update package description
+  * Enable the standard Salsa CI
+  * Update/rewrite old services:
+    - add apache2, remove apache;
+    - add exim4, remove exim;
+    - update cron, chrony, postfix, xdm,
+      dhclient;
+    - rename dhcp to isc-dhcpd-server
+      (closes: #351051)
+  * Add new services:
+      acpi-fakekey, anacron, atd, cups, dbus, elogind,
+      gdomap (gnustep), haveged, lightdm, lircd,
+      mariadb, mdadm, openntpd, preload, proftpd,
+      rsyslog, sddm, slim, wicd
+  * Remove obsolete services:
+     - ssh (already included in openssh-server package);
+     - portmap (no longer in Debian)
+     - nfs-kernel-server, rpc.statd, squid, exim,
+       gdm (further work is needed)
+  * Update copyright for new runscripts
+  * Sync runscript at postinstall, by using 'cpsv --sync'
+  * Add triggers to watch systemd and sysv services
+    so that installed runit services are kept in sync
+    with systemd/sysv services
+  * Stop running services on package removal
+  * postrm: disable services when the package is removed;
+     remove service and log dirs when purge is requested
+  * Update README
+  * Add lintian override for empty log directories
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Sat, 23 Jul 2022 18:11:59 +0200
+
 runit-services (0.4.0) unstable; urgency=low
 
   * sv/cron/run: no longer apply memory limit to cron (amd64 requires
