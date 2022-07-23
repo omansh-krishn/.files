@@ -1,19 +1,139 @@
-The /etc/sv/ directory contains service directories for a collection of
-services available in Debian, to have them run under runit service
-supervision instead of sysvinit or through init.d scripts.  The runit
-package provides a compatiblity interface to the Debian-usual init scripts
-so that after switching a service to runit supervision, it still can be
-controlled through the /etc/init.d/<service> interface.
+==Runit services collection==
 
-To put a Debian service under runit supervision control, instead of having
-it started through the init script, stop the service through the original
-init script, divert the init script included in the package that provides
-the service, replace the init script with a symbolic link to the
-/usr/bin/sv program, and finally tell runit about the new service it
-should supervise.
+This package provides a collection of runit services to have them run under
+runit service supervision when runit is init (runit-init package) or when it's
+available as supervision suite under another init system (runit-run package).
 
+Index:
+* Installation and upgrade of services
+* Enable or disable a service
+* Compatibility interface with init scripts
+
+== Installation and upgrade of services ==
+
+The /etc/sv/ directory contains the actual copy of each service that is
+supervised by runit; to avoid to clutter /etc/sv/ with useless directories,
+services are installed under /usr/share/runit/sv.
+
+When this package is installed, for each runit service in /usr/share/runit/sv/
+if a sysv or systemd service with the same name exists in the system, then
+the runit service is copied into /etc/sv.
+If a directory with the same name that contains local changes already exists
+in /etc/sv/ the local copy is not overwritten and a warning is printed.
+The cpsv(8) tool can be used to inspect the difference between a local service
+and the one provided by the runit-services package, for example
+
+  $ cpsv -d cron
+
+if desired, the local copy can be overwritten with the cpsv tool
+(carefull, no backup is provided!)
+
+  # cpsv -f -a cron
+
+Each time a package that ships a systemd or sysv service file is installed,
+if a runit service with the same name exists under /usr/share/runit/sv/
+then it is automatically copied into /etc/sv/ thanks to a trigger that runs
+' cpsv --sync' .
+
+When this package is upgraded, old versions of services under /etc/sv/
+are not automatically replaced by new versions in /usr/share/runit/sv/ and
+a warning is printed: to inspect the difference and possibly overwrite the old
+version in /etc/sv/ the cpsv(8) tool can be used like decribed above, or with
+one invocation for all services (again, no backup is provided!)
+
+  # cpsv -f --sync
+
+== Enable or disable a service ==
+
+During installation, when runit is init, services are automatically enabled
+and started. Each Sysv running instance, if any, is automatically replaced
+by the native runit one.
+The only exception is a bunch of services (dbus, elogind and login managers
+like slim lightdm sddm and the like) that will crush the graphic session when
+restarted: those services are enabled but the running sysv instance, if any,
+is not replaced. The replace happens automatically the next time the system
+is rebooted.
+The status of all services supervised by runit can be checked with
+
+  # sv s /etc/service/*
+
+When runit is used as a supervision suite ander another init system services
+copied into /etc/sv/ are not automatically enabled: to start a service under
+runit supervision control, first stop the service (if it's already running under
+another init system), then tell runit about the new service it should supervise.
 
 Here's an example on how to do so with the cron service.
+
+(1) Stop the service through the original init script or with systemctl
+
+    (1a) systems with runit or SysV as init
+     (if the runscript use the invoke-run interpreter this step can be skipped)
+
+        # /etc/init.d/cron stop
+
+    (1b) systems with systemd as init
+
+        # systemctl stop cron
+        # systemctl disable cron
+        # systemctl mask cron
+
+(2) tell runit about the new service
+
+        # update-service --add /etc/sv/cron
+
+The service will be picked up and started by runit within the next five
+seconds, and automatically started on system boot.
+Check the status of the cron service using the sv program
+
+ # sv status cron
+    run: cron: (pid 18851) 4s; run: log: (pid 18850) 4s
+
+See the sv(8) man page for details on how to control and signal the
+service.  See the documentation of the runit package on how service
+supervision generally works.
+
+ $ man sv
+ $ w3m /usr/share/doc/runit/html/index.html
+
+To switch a service back from runit service supervision to the init
+script or systemd service, tell runit to no longer supervise the service,
+then re-enable the service through your init system.
+E.g. for the cron service.
+
+(1) tell runit to remove the cron service from service supervision
+
+        # update-service --remove /etc/sv/cron
+
+(2) re-enable the service through the init script or with systemctl
+
+    (2a) systems with runit or SysV as init
+
+        # /etc/init.d/cron start
+
+    (2b) systems with systemd as init
+
+        # systemctl unmask cron
+        # systemctl enable cron
+        # systemctl start cron
+
+== Compatibility interface with init scripts ==
+
+The runit package provides a compatibility interface to init scripts
+so that after switching a service to runit supervision, it still can be
+controlled through the /etc/init.d/<service> interface.
+To enable the compatibility interface you need to divert the original init script
+and replace it with a symlink to /usr/bin/sv program.
+
+This approach has the advantage that when a package that includes a
+sysv script is upgraded, the correspondent runit servise is automatically
+restarted; unfortunately this doesn't work with packages that include only
+a systemd service.
+Symlinking the init script to /usr/sbin/sv should not be done with services
+that use dh-runit to include a native runit service because they already signal
+the service during upgrade.
+
+Here's an example on how to put the cron service under runit supervision
+with the compatibility interface enabled.
 
 (1) Stop the service through the original init script
 
@@ -51,7 +171,7 @@ service.  See the documentation of the runit package on how service
 supervision generally works.
 
  $ man sv
- $ w3m /usr/share/doc/runit/index.html
+ $ w3m /usr/share/doc/runit/html/index.html
 
 [*] Note that with current dpkg new versions of the now diverted original
     init script provided by the cron package will be installed as
