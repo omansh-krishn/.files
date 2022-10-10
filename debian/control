@@ -2,7 +2,7 @@ Source: runit-services
 Section: admin
 Priority: optional
 Maintainer: Lorenzo Puliti <plorenzo@disroot.org>
-Build-Depends: debhelper-compat (= 13), dh-sequence-runit, dh-runit (>=2.14)
+Build-Depends: debhelper-compat (= 13), dh-sequence-runit, dh-runit (>=2.15.0)
 Standards-Version: 4.6.1
 Vcs-Browser: https://salsa.debian.org/Lorenzo.ru.g-guest/runit-services
 Vcs-Git: https://salsa.debian.org/Lorenzo.ru.g-guest/runit-services.git
@@ -10,7 +10,7 @@ Rules-Requires-Root: no
 
 Package: runit-services
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends},runit (>= 2.1.2-47)
+Depends: ${shlibs:Depends}, ${misc:Depends},runit (>= 2.1.2-49)
 Breaks: ${runit:Breaks}
 Recommends: runit-run | runit-init
 Suggests: socklog

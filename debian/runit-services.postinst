@@ -2,23 +2,13 @@
 set -e
 
 case "$1" in
-    configure|triggered)
-	echo "sync runit services .."
-	#install runscripts, never overwrite, see policy 10.7.3
-	cpsv --sync || true
-	echo ".. done"
-	# enable new services
+    configure)
 	if [ -z "${DPKG_ROOT:-}" ] ; then
-		for path in /etc/sv/* ; do
-			name=$(basename "$path")
-			if [ ! -e /usr/share/runit/sv/"$name"/.meta/runit-services ] ; then
-				continue # not from this package
-			fi
-			enable=$(cat /usr/share/runit/meta/"$name"/enable)
-			#onupgrade=nostop to avoid restarting all services
-			NAME=$name ENABLE=yes ONUPGRADE='nostop' \
-				/lib/runit-helper/runit-helper postinst "$@"
-		done
+		echo "sync runit services.."
+		# this will copy and enable appropriate services
+		/lib/runit/trigger_sv setup
+		/lib/runit/trigger_sv upgrade
+		echo ".. done"
 	fi
     ;;
 esac
