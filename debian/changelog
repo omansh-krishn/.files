@@ -29,16 +29,14 @@ runit-services (0.5.0) experimental; urgency=medium
        gdm (further work is needed)
   * Update copyright for new runscripts
   * Sync runscript at postinstall, by using 'cpsv --sync'
-  * Add triggers to watch systemd and sysv services
-    so that installed runit services are kept in sync
-    with systemd/sysv services
+  * use runit triggers to enable/disable and restart services
   * Stop running services on package removal
   * postrm: disable services when the package is removed;
      remove service and log dirs when purge is requested
   * Update README
   * Add lintian override for empty log directories
 
- -- Lorenzo Puliti <plorenzo@disroot.org>  Sat, 23 Jul 2022 18:11:59 +0200
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Sun, 23 Oct 2022 00:46:59 +0200
 
 runit-services (0.4.0) unstable; urgency=low
 
