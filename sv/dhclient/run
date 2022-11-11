@@ -3,4 +3,4 @@ exec 2>&1
 
 . ./interfaces || exit 162
 
-exec chpst -m12000000 dhclient -d -e $INTERFACES
+exec chpst -m12000000 dhclient -d $INTERFACES
