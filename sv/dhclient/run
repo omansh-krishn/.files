@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env /lib/runit/invoke-run
 exec 2>&1
 
-. ./interfaces || exit 162
+. ./conf/interfaces || exit 162
 
 exec chpst -m12000000 dhclient -d $INTERFACES

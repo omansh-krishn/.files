@@ -1,5 +1,5 @@
 #!/bin/sh
-. ./interfaces || exit 1
+. ./conf/interfaces || exit 1
 for i in $INTERFACES; do
   ifconfig $i |grep 'inet' >/dev/null || exit 1
 done
