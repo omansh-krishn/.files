@@ -7,7 +7,7 @@ available as supervision suite under another init system (runit-run package).
 Index:
 * Installation and upgrade of services
 * Enable or disable a service
-* Compatibility interface with init scripts
+* Automatic restart of services during upgrades
 
 == Installation and upgrade of services ==
 
@@ -56,6 +56,14 @@ is rebooted.
 The status of all services supervised by runit can be checked with
 
   # sv s /etc/service/*
+
+To disable and stop a service that is automatically enabled the admin can use
+the update-service(8) tool, for example
+
+  # update-service --remove /etc/sv/cron
+
+will disable the cron service and make sure that it is not automatically enabled
+by this package.
 
 When runit is used as a supervision suite ander another init system services
 copied into /etc/sv/ are not automatically enabled: to start a service under
@@ -116,90 +124,15 @@ E.g. for the cron service.
         # systemctl enable cron
         # systemctl start cron
 
-== Compatibility interface with init scripts ==
+== Automatic restart of services during upgrades ==
 
-The runit package provides a compatibility interface to init scripts
-so that after switching a service to runit supervision, it still can be
-controlled through the /etc/init.d/<service> interface.
-To enable the compatibility interface you need to divert the original init script
-and replace it with a symlink to /usr/bin/sv program.
-
-This approach has the advantage that when a package that includes a
-sysv script is upgraded, the correspondent runit servise is automatically
-restarted; unfortunately this doesn't work with packages that include only
-a systemd service.
-Symlinking the init script to /usr/sbin/sv should not be done with services
-that use dh-runit to include a native runit service because they already signal
-the service during upgrade.
-
-Here's an example on how to put the cron service under runit supervision
-with the compatibility interface enabled.
-
-(1) Stop the service through the original init script
-
- # /etc/init.d/cron stop
-
-(2) divert the original init script [*]
-
- # dpkg-divert --add /etc/init.d/cron
-
-(3) replace the init script with a symbolic link to the /usr/bin/sv
-    program
-
- # mv /etc/init.d/cron /etc/init.d/cron.distrib &&
-   ln -s /usr/bin/sv /etc/init.d/cron
-
-(4) tell runit about the new service
-
- # update-service --add /etc/sv/cron
-
-The service will be picked up and started by runit within the next five
-seconds, and automatically started on system boot.
-
-Check the status of the cron service using the sv program
-
- # sv status cron
- run: cron: (pid 19833) 3s
-
-or through the init script interface
-
- # /etc/init.d/cron status
- run: cron: (pid 19833) 4s
-
-See the sv(8) man page for details on how to control and signal the
-service.  See the documentation of the runit package on how service
-supervision generally works.
-
- $ man sv
- $ w3m /usr/share/doc/runit/html/index.html
-
-[*] Note that with current dpkg new versions of the now diverted original
-    init script provided by the cron package will be installed as
-    /etc/init.d/cron.distrib.dpkg-new
-
-
-To switch a service back from runit service supervision to the usual init
-script, tell runit to no longer supervise the service, remove the symbolic
-link to the sv program in /etc/init.d/, and remove the diversion of the
-init script, and finally re-enable the service through the usual init
-script.  E.g. for the cron service.
-
-(1) tell runit to remove the cron service from service supervision [*]
-
- # update-service --remove /etc/sv/cron
-
-(2) remove the symbolic link to the sv program in /etc/init.d/
-
- # rm /etc/init.d/cron
-
-(3) remove the diversion of the init script
-
- # dpkg-divert --remove /etc/init.d/cron
-
-(4) re-enable the service through the usual init script
-
- # /etc/init.d/cron start
-
-[*] runit will recognize the removed service within the next five seconds,
-    then tells the supervisor to stop the service, and finally stops
-    supervising it.
+Services shipped by this package are automatically restarted when
+the package that ships the corresponding binary is upgraded,  thanks to
+a trigger.
+The trigger watches for the path of the binary, so the restart happens
+regardless of the existance of a corresponding sysv or systemd service
+with the same name in the system.
+Older version of this document mentioned a sysv compatibility layer and
+suggested to divert the init script and replace it with a symlink to sv; this
+approach is no longer necessary and discouraged, as it confuses insserv
+and doesn't work when the sysv script is missing or removed from a package.
