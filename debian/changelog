@@ -1,3 +1,15 @@
+runit-services (0.5.1) experimental; urgency=medium
+
+  * dhclient:
+     - raise memory limit
+     - remove -e option
+     - fix wrong keyword in check
+     - move interfaces file in a conf subdirectory
+  * update README
+  * update copyright
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Sun, 20 Nov 2022 14:14:41 +0100
+
 runit-services (0.5.0) experimental; urgency=medium
 
   * Reintroduce the package (closes: #986656)
