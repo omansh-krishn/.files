@@ -14,7 +14,7 @@ else
 	return 1
 fi
 }
-
+failpurge=
 case "$1" in
     purge|remove)
 	for path in /etc/runit-services/purge-sv/* ; do
@@ -30,9 +30,11 @@ case "$1" in
 					continue
 				else  #purge
 					echo "error: failed to purge $name : still running"
-					echo "please stop $name manually from a getty first"
+					echo "please disable $name manually from a getty first with"
+					echo "update-service --remove /etc/sv/$name"
 					echo "then run 'dpkg -P runit-services' "
-					exit 1
+					failpurge=1
+					continue
 				fi
 			fi
 		fi
@@ -45,6 +47,11 @@ case "$1" in
 			rm -rf /etc/runit-services/purge-sv/"$name"
 		fi
 	done
+	if [ -n "$failpurge" ] ; then
+		echo "for more details on how to purge this package read"
+		echo "https://salsa.debian.org/Lorenzo.ru.g-guest/runit-services/-/blob/master/README"
+		exit 1
+	fi
     ;;
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
     ;;

@@ -30,3 +30,6 @@ Description: UNIX init scheme with service supervision (services)
  /usr/share/runit/sv/ and only services of packages that are installed
  on the system are copied to /etc/sv/. The cpsv utility can be used to
  copy, inspect and update runscripts in /etc/sv/ after the first installation.
+ It's recommended to read
+ https://salsa.debian.org/Lorenzo.ru.g-guest/runit-services/-/blob/master/README
+ before installing this package.

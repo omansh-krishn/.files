@@ -8,6 +8,7 @@ Index:
 * Installation and upgrade of services
 * Enable or disable a service
 * Automatic restart of services during upgrades
+* Error during purge of this package
 
 == Installation and upgrade of services ==
 
@@ -136,3 +137,48 @@ Older version of this document mentioned a sysv compatibility layer and
 suggested to divert the init script and replace it with a symlink to sv; this
 approach is no longer necessary and discouraged, as it confuses insserv
 and doesn't work when the sysv script is missing or removed from a package.
+
+== Error during purge of this package ==
+
+Before removing this package, it is a good idea to switch any service provided
+by this package back from runit service supervision to the init script or systemd
+service, as described in the bottom part of the "Enable or disable a service" of
+this document.
+Attempting to purge this package while certain services are still active will
+fail with an error such as (example for dbus)
+
+        "error: failed to purge dbus : still running
+         please disable dbus manually from a getty first with
+         update-service --remove /etc/sv/dbus
+         then run 'dpkg -P runit-services' "
+
+This is because an unconditional removal of certain services may crash
+the graphic session on which the purge is performed.
+Example of such services are dbus, sddm, lightdm, slim (and any other
+login managers). If you run into the error above, the following procedure
+should work:
+
+* take note of the list of services that are blocking the purge process
+  (they are printed in the error message); for this example dbus and sddm
+  are used
+* if a graphic session is open, save all your work there and logout
+* press Ctrl+Alt*F2 to go to a virtual terminal, and login as root there
+* disable services that are blocking the purge
+   # update-service --remove /etc/sv/dbus
+   # update-service --remove /etc/sv/sddm
+* try to purge again with
+   # dpkg -P runit-services
+
+At this point you probably also want to replace runit instances with sysv
+or systemd instances:
+  for runit-init or sysvinit users
+    # /etc/init.d/dbus start
+    # /etc/init.d/sddm start
+  for systemd users
+    # systemctl unmask dbus sddm
+    # systemctl enable dbus sddm
+    # systemctl start dbus sddm
+
+press exit to logout from the virtual terminal;
+press Ctrl+Alt+F7 to access a graphic login;
+a reboot is recommended anyway.
