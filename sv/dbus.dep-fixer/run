@@ -1,4 +1,6 @@
 #!/bin/sh
+#Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
 
 # hack to fix #1024969 : dbus services fail to start as sysv scripts
 # because they are started earlier than (runit) dbus

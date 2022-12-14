@@ -1,4 +1,7 @@
 #!/bin/sh
+#Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+#License: BSD-3-Clause
+
 exec 2>&1
 
 INTERFACES=eth0

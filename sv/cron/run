@@ -1,4 +1,8 @@
 #!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+#           2022 Lorenzo Puliti <plorenzo@disroot.org>
+#License: BSD-3-Clause
+
 set -e
 
 sv start default-syslog  &&  sv check default-syslog  ||  true

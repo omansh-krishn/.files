@@ -1,4 +1,8 @@
 #!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+#       2022 Lorenzo Puliti <plorenzo@disroot.org>
+#License: BSD-3-Clause
+
 
 DEFAULT_DISPLAY_MANAGER=$(cat /etc/X11/default-display-manager)
 if [ $DEFAULT_DISPLAY_MANAGER != /usr/bin/xdm ]; then
