@@ -2,6 +2,11 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: README
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+           2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: BSD-3-Clause
+
+Files: update-copyright
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
 Files: debian/*
@@ -36,6 +41,10 @@ Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
 License: BSD-3-Clause
 
 Files: sv/cups/*
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/dbus.dep-fixer/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
@@ -118,7 +127,7 @@ License: CC0-1.0
 
 Files: sv/xdm/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
-           2022 Lorenzo Puliti <plorenzo@disroot.org>
+       2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
 License: BSD-3-Clause

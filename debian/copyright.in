@@ -2,6 +2,11 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: README
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+           2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: BSD-3-Clause
+
+Files: update-copyright
+Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
 Files: debian/*
