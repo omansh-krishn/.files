@@ -1,0 +1,44 @@
+#!/bin/sh
+
+rm -f ./debian/copyright.out
+rm -f ./debian/Addme.txt
+rm -f ./debian/Addme2.txt
+
+for runfile in ./sv/*/run; do
+	servicedir=$(dirname "$runfile")
+	service=${servicedir##*/}
+	echo "Files: sv/$service/*" >> ./debian/Addme.txt
+	while IFS= read -r line ; do
+		case "$line" in
+			\#!*)
+			  continue
+			;;
+			\#Copyright:*)
+			  echo "$line" >> ./debian/Addme.txt
+			;;
+			\#*20*)
+			  echo "$line" >> ./debian/Addme.txt
+			;;
+			\#License:*)
+			  echo "$line" >> ./debian/Addme.txt
+			;;
+			*)
+			  break
+			;;
+		esac
+#		echo "$line"
+	done < "$runfile"
+	echo >> ./debian/Addme.txt #newline
+done
+
+#remove hash
+sed 's/^#//' ./debian/Addme.txt > ./debian/Addme2.txt
+
+sed -e "/#PLACEHOLDER/r ./debian/Addme2.txt" -e "/#PLACEHOLDER/d" ./debian/copyright.in > ./debian/copyright.out
+
+mv ./debian/copyright.out ./debian/copyright
+
+#Clean
+rm -f ./debian/copyright.out
+rm -f ./debian/Addme.txt
+rm -f ./debian/Addme2.txt
