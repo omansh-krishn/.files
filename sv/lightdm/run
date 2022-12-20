@@ -2,8 +2,6 @@
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
-set -e
-
 DEFAULT_DISPLAY_MANAGER=$(cat /etc/X11/default-display-manager)
 # start only if lightdm the default DM
 if [ $DEFAULT_DISPLAY_MANAGER != /usr/sbin/lightdm ]; then

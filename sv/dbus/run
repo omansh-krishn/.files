@@ -2,8 +2,6 @@
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
-set -e
-
 DAEMONUSER=messagebus
 PIDDIR=/var/run/dbus
 UUIDGEN=/usr/bin/dbus-uuidgen

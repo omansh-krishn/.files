@@ -2,8 +2,6 @@
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
-set -e
-
 sv check dbus || sv start dbus || exit 170
 
 if [ "$START_DAEMON" = no ]; then

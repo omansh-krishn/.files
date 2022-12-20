@@ -2,8 +2,6 @@
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
-set -e
-
 if [ ! -f /etc/lirc/lirc_options.conf ]; then
 	exit 162
 fi

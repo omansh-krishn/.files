@@ -1,7 +1,6 @@
 #!/usr/bin/env /lib/runit/invoke-run
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
-set -e
 
 exec 2>&1
 

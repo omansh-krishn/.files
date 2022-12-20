@@ -3,13 +3,11 @@
 #           2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: BSD-3-Clause
 
-set -e
-
 sv start default-syslog  &&  sv check default-syslog  ||  true
 
 exec 1>&2
+
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-
 exec cron -f

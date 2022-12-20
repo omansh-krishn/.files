@@ -2,8 +2,6 @@
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
-set -e
-
 if [ ! -d "/run/openntpd" ]; then 
     mkdir -p /run/openntpd
 fi

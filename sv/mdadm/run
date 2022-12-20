@@ -2,13 +2,10 @@
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
-set -e
-
 [ $START_DAEMON = true ]  || exit 161
 test -f /proc/mdstat || exit 162
 
-RUNDIR=/run/mdadm
-mkdir -p $RUNDIR
+mkdir -p /run/mdadm
 
 exec 2>&1
 if [ -e /etc/runit/verbose ]; then
