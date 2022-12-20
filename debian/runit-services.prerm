@@ -29,7 +29,7 @@ if [ "$1" = remove ]; then
 		fi
 		if [ -z "${DPKG_ROOT:-}" ] ; then
 			ENABLE=yes #irrelevant for prerm
-			onupgrade=$(cat /usr/share/runit/meta/"$name"/onupgrade)
+			onupgrade=$(cat /usr/share/runit/sv/"$name"/.meta/onupgrade)
 			if [ "$onupgrade" = "nostop" ] || [ "$onupgrade" = 'reload' ]; then
 				if is_up ; then
 					echo "warning: stop $name is dangerous, skipping"
