@@ -1,3 +1,21 @@
+runit-services (0.5.2) experimental; urgency=medium
+
+  * Improve purge documentation (Closes: #1024962)
+  * Fix wrong boot order for sysv dbus-services (Closes: #1024969)
+  * Automate d/copyright update for runscripts:
+    - add a simple copyright header to each runfile
+    - add d/copyright.in
+    - add a script that automatically update d/copyright
+      based on copyright.in and runscripts headers
+  * update copyright and copyright.in
+  * d/prerm: fix wrong path for meta files
+  * All runscripts cleanup:
+    - do not set -e, relevant commands are tested
+    - do not use redundant 'sv check' for checking service
+      dependencies, 'sv start' is enough
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Tue, 20 Dec 2022 01:50:14 +0100
+
 runit-services (0.5.1) experimental; urgency=medium
 
   * dhclient:
