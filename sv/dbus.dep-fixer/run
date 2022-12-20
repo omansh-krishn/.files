@@ -7,8 +7,8 @@
 # run again dbus services here, only when a runscript does not exist
 # this rely on  /etc/init.d/.depend.start (insserv) boot order
 
-sv start dbus  && sv check dbus  || exit 1
-sv start elogind  && sv check elogind  || true
+sv start dbus || exit 1
+sv start elogind || true
 
 for script in '/etc/rc2.d/S'* ; do
 	[ ! -x "$script" ] && continue

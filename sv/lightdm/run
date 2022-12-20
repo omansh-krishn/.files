@@ -8,8 +8,8 @@ if [ $DEFAULT_DISPLAY_MANAGER != /usr/sbin/lightdm ]; then
 	exit 161
 fi
 
-sv start dbus  && sv check dbus  || exit 170
-sv start elogind  && sv check elogind  || true
+sv start dbus || exit 170
+sv start elogind || true
 
 if [ -r /etc/default/locale ]; then
   . /etc/default/locale

@@ -9,8 +9,8 @@ if [ $DEFAULT_DISPLAY_MANAGER != /usr/bin/sddm ]; then
 	exit 161
 fi
 
-sv start dbus  && sv check dbus  || true
-sv start elogind  && sv check elogind || true
+sv start dbus || true
+sv start elogind || true
 
 mkdir -p /var/lib/sddm
 chown -R sddm:sddm /var/lib/sddm

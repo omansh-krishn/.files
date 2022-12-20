@@ -2,7 +2,7 @@
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
-sv start default-syslog  &&  sv check default-syslog  ||  true
+sv start default-syslog ||  true
 
 if [ ! -d /run/gdomap ]; then
         install -d -m 0755 /run/gdomap
