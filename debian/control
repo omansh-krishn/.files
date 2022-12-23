@@ -10,7 +10,7 @@ Rules-Requires-Root: no
 
 Package: runit-services
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends},runit (>= 2.1.2-49)
+Depends: ${shlibs:Depends}, ${misc:Depends},runit (>= 2.1.2-51)
 Breaks: ${runit:Breaks}
 Recommends: runit-run | runit-init
 Suggests: socklog
