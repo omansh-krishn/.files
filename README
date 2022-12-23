@@ -24,17 +24,17 @@ in /etc/sv/ the local copy is not overwritten and a warning is printed.
 The cpsv(8) tool can be used to inspect the difference between a local service
 and the one provided by the runit-services package, for example
 
-  $ cpsv -d cron
+  $ cpsv d cron
 
 if desired, the local copy can be overwritten with the cpsv tool
 (carefull, no backup is provided!)
 
-  # cpsv -f -a cron
+  # cpsv -f a cron
 
 Each time a package that ships a systemd or sysv service file is installed,
 if a runit service with the same name exists under /usr/share/runit/sv/
 then it is automatically copied into /etc/sv/ thanks to a trigger that runs
-' cpsv --sync' .
+' cpsv s' .
 
 When this package is upgraded, old versions of services under /etc/sv/
 are not automatically replaced by new versions in /usr/share/runit/sv/ and
@@ -42,7 +42,7 @@ a warning is printed: to inspect the difference and possibly overwrite the old
 version in /etc/sv/ the cpsv(8) tool can be used like decribed above, or with
 one invocation for all services (again, no backup is provided!)
 
-  # cpsv -f --sync
+  # cpsv -f s
 
 == Enable or disable a service ==
 
@@ -162,7 +162,7 @@ should work:
   (they are printed in the error message); for this example dbus and sddm
   are used
 * if a graphic session is open, save all your work there and logout
-* press Ctrl+Alt*F2 to go to a virtual terminal, and login as root there
+* press Ctrl+Alt+F2 to go to a virtual terminal, and login as root there
 * disable services that are blocking the purge
    # update-service --remove /etc/sv/dbus
    # update-service --remove /etc/sv/sddm
