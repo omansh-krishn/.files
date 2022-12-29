@@ -1,3 +1,14 @@
+runit-services (0.5.3) unstable; urgency=medium
+
+  * update Readme
+  * runit-services: depends on runit >= 2.1.2-51
+  * Bump Standards-Version
+  * bump B-D dh-runit >= 2.15.2, to get rid of
+     duplicates metafiles
+  * release to unstable
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Thu, 29 Dec 2022 23:48:15 +0100
+
 runit-services (0.5.2) experimental; urgency=medium
 
   * Improve purge documentation (Closes: #1024962)
