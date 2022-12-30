@@ -1,0 +1,8 @@
+dbus.dep-fixer   #not a real service
+elogind     #too hard to install, apt refuses to remove libsystemd
+lightdm
+sddm
+slim
+xdm
+dbus      #already tested before the loop
+rsyslog  #already tested before the loop
