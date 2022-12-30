@@ -1,6 +1,7 @@
 Tests: services-test.sh
 Depends: apt-file,
   procps,
+  psmisc,
   rsyslog,
   dbus,
-Restrictions: needs-root, breaks-testbed, superficial
+Restrictions: needs-root, breaks-testbed, flaky, allow-stderr
