@@ -1,19 +1,15 @@
 #!/usr/bin/env /lib/runit/invoke-run
-#Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+#Copyright: 2022-2023 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
-DAEMONUSER=messagebus
-PIDDIR=/var/run/dbus
-UUIDGEN=/usr/bin/dbus-uuidgen
-UUIDGEN_OPTS=--ensure
-
 exec 2>&1
-if [ ! -d $PIDDIR ]; then
-    install -d $PIDDIR -o $DAEMONUSER -g $DAEMONUSER
+
+if [ ! -d /var/run/dbus ]; then
+    install -d /var/run/dbus -o messagebus -g messagebus
 fi
 mountpoint -q /proc/ || exit 162
-if [ -x $UUIDGEN ]; then
-    $UUIDGEN $UUIDGEN_OPTS
+if [ -x /usr/bin/dbus-uuidgen ]; then
+    /usr/bin/dbus-uuidgen --ensure
 fi
 
 if [ -e /etc/runit/verbose ]; then
