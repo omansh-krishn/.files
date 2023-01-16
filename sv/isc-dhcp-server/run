@@ -1,8 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env /lib/runit/invoke-run
 #Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+#        2023 Lorenzo Puliti <plorenzo@disroot.org>
 #License: BSD-3-Clause
 
 exec 2>&1
 
-INTERFACES=eth0
-exec dhcpd -f -d $INTERFACES
+dhcpd -4 -f -d -t $INTERFACESv4 || exit 162
+dhcpd -4 -f -d -T $INTERFACESv4 || exit 162
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+
+exec dhcpd -4 -f -d $INTERFACESv4
