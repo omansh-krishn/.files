@@ -49,7 +49,7 @@ Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/dbus/*
-Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+Copyright: 2022-2023 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/dhclient/*
@@ -75,6 +75,7 @@ License: CC0-1.0
 
 Files: sv/isc-dhcp-server/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+        2023 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
 Files: sv/lightdm/*
