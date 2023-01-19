@@ -1,3 +1,20 @@
+runit-services (0.5.4) unstable; urgency=medium
+
+  * Add a flaky autopkgtest
+    - d/tests/control file
+    - blacklist services that are too hard or impossible
+       to test
+    - test all non-blacklisted services
+  * update copyright
+  * dbus.dep-fixer: wait for elogind only if it's enabled
+  * isc-dhcp-server:
+      - test config and lease
+      - default to -4
+      - configurable (empty by default) interfaces
+  * dbus: simplify run script
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Thu, 19 Jan 2023 15:13:58 +0100
+
 runit-services (0.5.3) unstable; urgency=medium
 
   * update Readme
