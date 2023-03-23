@@ -1,5 +1,15 @@
 #!/bin/sh
 
+#simply invoke this as "./update-copyright" then commit the changes
+#example of expected copyright header in runsripts
+#----------------------------------------
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+#             2022  Lorenzo Puliti <plorenzo@disroot.org>
+#License: BSD-3-Clause
+#Comment: any additional comment here, one line
+#-------- rest of runscript----------
+
 rm -f ./debian/copyright.out
 rm -f ./debian/Addme.txt
 rm -f ./debian/Addme2.txt
@@ -20,6 +30,9 @@ for runfile in ./sv/*/run; do
 			  echo "$line" >> ./debian/Addme.txt
 			;;
 			\#License:*)
+			  echo "$line" >> ./debian/Addme.txt
+			;;
+			\#Comment:*)
 			  echo "$line" >> ./debian/Addme.txt
 			;;
 			*)
