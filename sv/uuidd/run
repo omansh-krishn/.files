@@ -1,0 +1,14 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2022 Cloux <cloux@rote.ch>
+#            2023 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+#Comment: adapted to Debian from https://github.com/cloux/runit-base
+
+exec 2>&1
+
+[ -d /run/uuidd ] || install -o uuidd -g uuidd -d /run/uuidd
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/sbin/uuidd --no-fork --no-pid
