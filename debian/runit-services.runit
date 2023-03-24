@@ -19,6 +19,7 @@ sv/lightdm   noscripts,usr,onupgrade=nostop,logscript,finish,bin=/usr/sbin/light
 sv/lircd         noscripts,usr,logscript,finish,bin=/usr/sbin/lircd
 sv/mariadb   noscripts,usr,logscript,finish,bin=/usr/sbin/mysqld
 sv/mdadm   noscripts,usr,finish,bin=/sbin/mdadm
+sv/network-manager      noscripts,usr,finish,bin=/usr/sbin/NetworkManager
 sv/openntpd  noscripts,usr,logscript,finish,bin=/usr/sbin/openntpd
 sv/postfix     noscripts,usr,logscript,finish,bin=/usr/sbin/postfix
 sv/preload    noscripts,usr,logscript,finish,bin=/usr/sbin/preload

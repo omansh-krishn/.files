@@ -1,0 +1,12 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2023 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+
+exec 2>&1
+
+sv start dbus || exit 170
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec chpst -o 65536 /usr/sbin/NetworkManager --no-daemon
