@@ -30,10 +30,30 @@ Files: sv/atd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/avahi-daemon/*
+Copyright: 2023 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/avahi-dnsconfd/*
+Copyright: 2023 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/bluetooth/*
+Copyright: 2022 Cloux <cloux@rote.ch>
+            2023 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+Comment: adapted to Debian from https://github.com/cloux/runit-base
+
 Files: sv/chrony/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
            2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
+
+Files: sv/connman/*
+Copyright: 2023 Dimitris <dimitris@stinpriza.org>
+            2023 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+Comment: slightly changed from the one proposed in #1032657
 
 Files: sv/cron/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
@@ -94,6 +114,10 @@ Files: sv/mdadm/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/network-manager/*
+Copyright: 2023 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
 Files: sv/openntpd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
@@ -121,6 +145,12 @@ License: CC0-1.0
 Files: sv/slim/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
+
+Files: sv/uuidd/*
+Copyright: 2022 Cloux <cloux@rote.ch>
+            2023 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+Comment: adapted to Debian from https://github.com/cloux/runit-base
 
 Files: sv/wicd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
