@@ -1,0 +1,17 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2023 Dimitris <dimitris@stinpriza.org>
+#            2023 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+#Comment: slightly changed from the one proposed in #1032657
+
+exec 2>&1
+
+sv start dbus || exit 170
+
+mkdir -p /run/connman
+ln -sf /run/connman/resolv.conf /etc/
+
+if [ "$VERBOSE" = 1 ]; then
+	echo "Invoke-run: Starting $NAME"
+fi
+exec /usr/sbin/connmand -n
