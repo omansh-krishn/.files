@@ -93,6 +93,10 @@ sv check dbus || echo "FAIL: dbus: status is not up"
 sv u dbus rsyslog
 sv s dbus rsyslog
 
+#systemd preset -- block all systemd services from being enabled automatically by APT
+mkdir -p /etc/systemd/system-preset
+echo 'disable *' > /etc/systemd/system-preset/99-default.preset
+
 # test services now
 for dir in sv/* ; do
 	service=$(basename "$dir")
@@ -156,6 +160,8 @@ for dir in sv/* ; do
 		apt-get -y clean
 	fi
 done
+
+rm /etc/systemd/system-preset/99-default.preset
 
 echo "TEST RESULTS:"
 if [ -n "$failed" ]; then
