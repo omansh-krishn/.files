@@ -107,7 +107,7 @@ for dir in sv/* ; do
 	fi
 	pkgname=$(apt-file search /etc/init.d/"$service" | grep -E "$service"$ | cut -d: -f1 | head -n 1)
 	if [ -z "$pkgname" ]; then
-		pkgname=$(apt-file search /lib/systemd/system/"$service".service | grep -E "$service"$ | cut -d: -f1 | head -n 1)
+		pkgname=$(apt-file search /lib/systemd/system/"$service".service | grep -E "$service.service"$ | cut -d: -f1 | head -n 1)
 	fi
 	if [ -z "$pkgname" ]; then
 		echo "WARNING: can't find a deb package for $service service"
