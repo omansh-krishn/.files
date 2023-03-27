@@ -1,3 +1,17 @@
+runit-services (0.6.0) experimental; urgency=medium
+
+  * update-copyright script: allow "Comment:" line
+  * new runscripts:
+     avahi-daemon, avahi-dnsconfd, uuidd, bluetooth,
+     network-manager, connman (Closes: #1032657)
+  * dhclient: don't hardcode interfaces (Closes: #1033542)
+  * update copyright
+  * testsuite:
+    - block all systemd services
+    - fix pkgname detection with systemd service
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Mon, 27 Mar 2023 17:45:24 +0200
+
 runit-services (0.5.4) unstable; urgency=medium
 
   * Add a flaky autopkgtest
