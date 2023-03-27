@@ -1,10 +1,10 @@
 #!/usr/bin/env /lib/runit/invoke-run
 #Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
-#             2022  Lorenzo Puliti <plorenzo@disroot.org>
+#             2022-2023  Lorenzo Puliti <plorenzo@disroot.org>
 #License: BSD-3-Clause
 
 exec 2>&1
 
 . ./conf/interfaces || exit 162
 
-exec chpst -m12000000 dhclient -d $INTERFACES
+exec chpst -m12000000 dhclient -d ${INTERFACES:-}
