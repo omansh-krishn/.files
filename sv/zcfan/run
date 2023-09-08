@@ -1,0 +1,9 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2023 Martin Steigerwald <martin@lichtvoll.de>
+#License: BSD-3-Clause
+
+exec 2>&1
+if [ -e /etc/runit/verbose ]; then
+        echo "Invoke-run: starting ${PWD##*/}"
+fi
+exec zcfan
