@@ -32,4 +32,5 @@ sv/slim         noscripts,usr,logscript,onupgrade=nostop,finish,bin=/usr/bin/sli
 sv/uuidd       noscripts,usr,finish,logscript,bin=/usr/sbin/uuidd
 sv/wicd        noscripts,usr,logscript,finish,bin=/usr/sbin/wicd
 sv/xdm         noscripts,usr,finish,onupgrade=nostop,bin=/usr/bin/xdm
+sv/zcfan       noscripts,usr,finish,logscript,bin=/usr/bin/zcfan
 
