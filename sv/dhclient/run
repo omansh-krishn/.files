@@ -7,4 +7,4 @@ exec 2>&1
 
 . ./conf/interfaces || exit 162
 
-exec chpst -m12000000 dhclient -d ${INTERFACES:-}
+exec chpst -m24000000 dhclient -d ${INTERFACES:-}
