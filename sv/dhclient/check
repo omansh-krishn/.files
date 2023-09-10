@@ -1,9 +1,0 @@
-#!/bin/sh
-. ./conf/interfaces
-if [ -n "$INTERFACES" ]; then
-  for i in $INTERFACES; do
-    ifconfig $i |grep 'inet' >/dev/null || exit 1
-  done
-else
-  ifconfig |grep 'inet' >/dev/null || exit 1
-fi
