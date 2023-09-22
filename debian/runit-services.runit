@@ -11,7 +11,7 @@ sv/cron         noscripts,usr,finish,bin=/usr/sbin/cron
 sv/cups/       noscripts,usr,bin=/usr/sbin/cupsd
 sv/dbus        noscripts,usr,logscript,onupgrade=reload,finish,bin=/usr/bin/dbus-daemon
 sv/dbus.dep-fixer   noscripts,usr,onupgrade=nostop,bin=/usr/bin/dbus-daemon
-sv/dhclient   noscripts,usr,finish,logscript,bin=/sbin/dhclient
+sv/dhclient   disable,noscripts,usr,finish,logscript,bin=/sbin/dhclient
 sv/elogind    noscripts,usr,finish,bin=/lib/elogind/elogind
 sv/exim4      noscripts,usr,finish,logscript,bin=/usr/sbin/exim4
 sv/gdomap/  noscripts,usr,disable,bin=/usr/bin/gdomap
