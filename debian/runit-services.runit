@@ -15,6 +15,7 @@ sv/dhclient   disable,noscripts,usr,finish,logscript,bin=/sbin/dhclient
 sv/elogind    noscripts,usr,finish,bin=/lib/elogind/elogind
 sv/exim4      noscripts,usr,finish,logscript,bin=/usr/sbin/exim4
 sv/gdomap/  noscripts,usr,disable,bin=/usr/bin/gdomap
+sv/gpm         noscripts,usr,onupgrade=nostop,bin=/usr/sbin/gpm
 sv/haveged  noscripts,usr,logscript,finish,bin=/usr/sbin/haveged
 sv/isc-dhcp-server        noscripts,usr,finish,logscript,bin=/usr/sbin/dhcpd
 sv/lightdm   noscripts,usr,onupgrade=nostop,logscript,finish,bin=/usr/sbin/lightdm

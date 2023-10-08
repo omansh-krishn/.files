@@ -1,0 +1,33 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2023 Friedhelm Mehnert <friedhelm@friedhelms.net>
+#License: GPL-2.0+
+#Comment: CFG parsing is from Debian's /etc/init.d/gpm
+
+CFG=/etc/gpm.conf
+cmdln=
+
+if [ -f $CFG ]; then
+  . $CFG
+  if [ -n "$device" ]; then cmdln="$cmdln -m $device"; fi
+  if [ -n "$type" ]; then cmdln="$cmdln -t $type"; fi
+  if [ -n "$responsiveness" ]; then cmdln="$cmdln -r $responsiveness"; fi
+  if [ -n "$sample_rate" ]; then cmdln="$cmdln -s $sample_rate"; fi
+  # Yes, this /IS/ correct! There is no space after -R!!!!!!
+  # I reserve the right to throw manpages at anyone who disagrees.
+  if [ -n "$repeat_type" ] && [ "$repeat_type" != "none" ]; then
+    cmdln="$cmdln -R$repeat_type"
+  fi
+  if [ -n "$append" ]; then cmdln="$cmdln $append"; fi
+  # If both the second device and type are specified, use it.
+  if [ -n "$device2" ] && [ -n "$type2" ] ; then
+    cmdln="$cmdln -M -m $device2 -t $type2"
+  fi
+fi
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+#mouse position and other data are only useful for debugging
+exec >/dev/null 
+exec 2>/dev/null
+exec /usr/sbin/gpm -D "${cmdln:- -m /dev/input/mice -t exps2}"
