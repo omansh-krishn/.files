@@ -1,0 +1,24 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2023 Friedhelm Mehnert <friedhelm@friedhelms.net>
+#License: CC0-1.0
+
+exec 2>&1
+
+MPDCONF_FILE=/etc/mpd.conf
+# Locatian can be changed within "/etc/default/mpd"
+if [ $MPDCONF ]; then
+   MPDCONF_FILE=$MPDCONF
+fi
+
+# The daemon refuses to start, if it can not create a pid file.
+# We must provide a directory for this. Since we don't USE the
+# pid file for anything, we can however ignore, if the locatian
+# for it has been changed within the config file. We simply
+# always use the compiled in default.
+install -m 755 --owner=mpd  --group=audio -d  /run/mpd
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/bin/mpd --no-daemon --stderr $MPDCONF_FILE
+
