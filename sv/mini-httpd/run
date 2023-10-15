@@ -1,0 +1,11 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2017 Dmitry Bogatov <KAction@disroot.org>
+#             2023  Lorenzo Puliti <plorenzo@disroot.org>
+#License: GPL-3+
+
+exec 2>&1
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/sbin/mini_httpd -C /etc/mini-httpd.conf  -D -l /dev/stdout
