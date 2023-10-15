@@ -1,3 +1,29 @@
+runit-services (0.7.0) experimental; urgency=medium
+
+  [ Martin Steigerwald ]
+  * new runscript for zcfan.
+
+  [ Lorenzo Puliti ]
+  * dhclient:
+     - raise memory limit (Closes: #1035837)
+     - remove the check file (Closes: #1038425)
+     - dhclient: ship as disabled by default
+  * new runscripts:
+     - mpd, gpm
+       + Thanks to Friedhelm Mehnert
+     - nginx, lighttpd
+  * Import the runscript from mini-httpd-run package:
+    - change the runscript to use the default config file
+    - d/control: runit-services Provides mini-httpd-run
+  * d/copyright.in: add  GPL-3+ and GPL-2.0+ text
+  * update d/copyright
+  * update the testsuite:
+    - test only a list of selected services
+    - update the testsuite for new services layout
+    - d/control: runit-services depends on runit(>=2.1.2-56)
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Sun, 15 Oct 2023 15:59:40 +0200
+
 runit-services (0.6.0) experimental; urgency=medium
 
   * update-copyright script: allow "Comment:" line
