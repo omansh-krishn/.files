@@ -1,0 +1,12 @@
+avahi-daemon
+avahi-dnsconfd
+bluetooth
+connman
+gpm
+lighttpd
+mini-httpd
+mpd
+network-manager
+nginx
+uuidd
+zcfan
