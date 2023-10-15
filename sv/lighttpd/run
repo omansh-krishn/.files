@@ -1,0 +1,26 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2023 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+
+exec 2>&1
+
+install -d -o www-data -g www-data -m 0750 "/run/lighttpd"
+install -d -o www-data -g www-data -m 0750 "/var/cache/lighttpd"
+install -d -o www-data -g www-data -m 0750 "/var/cache/lighttpd/compress"
+install -d -o www-data -g www-data -m 0750 "/var/cache/lighttpd/uploads"
+install -d -o www-data -g www-data -m 0750 "/var/log/lighttpd"
+
+if ! /usr/sbin/lighttpd -tt -f /etc/lighttpd/lighttpd.conf ; then
+    echo "${PWD##*/}: config test failed"
+    sv d "${PWD##*/}"
+fi
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf
+
+#    SIGTERM - shut down immediately (terminate existing connections, then exit)
+#    SIGINT - shut down gracefully (serve existing connections, then exit)
+#    SIGUSR1 - reload gracefully (serve existing connections, then reload config)
+#    SIGHUP - re-open log files/ for log rotation (NOTE: does not reload lighttpd configuration)
