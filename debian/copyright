@@ -74,7 +74,7 @@ License: CC0-1.0
 
 Files: sv/dhclient/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
-             2022  Lorenzo Puliti <plorenzo@disroot.org>
+             2022-2023  Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
 Files: sv/elogind/*
@@ -89,6 +89,11 @@ Files: sv/gdomap/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/gpm/*
+Copyright: 2023 Friedhelm Mehnert <friedhelm@friedhelms.net>
+License: GPL-2.0+
+Comment: CFG parsing is from Debian's /etc/init.d/gpm
+
 Files: sv/haveged/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
@@ -100,6 +105,10 @@ License: BSD-3-Clause
 
 Files: sv/lightdm/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/lighttpd/*
+Copyright: 2023 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/lircd/*
@@ -114,8 +123,22 @@ Files: sv/mdadm/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/mini-httpd/*
+Copyright: 2017 Dmitry Bogatov <KAction@disroot.org>
+             2023  Lorenzo Puliti <plorenzo@disroot.org>
+License: GPL-3+
+
+Files: sv/mpd/*
+Copyright: 2023 Friedhelm Mehnert <friedhelm@friedhelms.net>
+License: CC0-1.0
+
 Files: sv/network-manager/*
 Copyright: 2023 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/nginx/*
+Copyright: 2019 Cloux <cloux@rote.ch>
+             2023  Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/openntpd/*
@@ -161,6 +184,10 @@ Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
        2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
+Files: sv/zcfan/*
+Copyright: 2023 Martin Steigerwald <martin@lichtvoll.de>
+License: BSD-3-Clause
+
 License: BSD-3-Clause
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -196,3 +223,34 @@ License: CC0-1.0
  .
  On Debian systems, the complete text of the CC0 1.0 Universal license can be
  found in ‘/usr/share/common-licenses/CC0-1.0’.
+
+License: GPL-2.0+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ On a Debian system, you can find the full text of the GNU General
+ Public License, version 2 in /usr/share/common-licenses/GPL-2.
+
+License: GPL-3+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
