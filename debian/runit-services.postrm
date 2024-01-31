@@ -3,8 +3,8 @@ set -e
 
 is_up () {
 # stat --> run | down
-if [ -e "/etc/sv/$name/supervise/stat" ]; then
-	stat=$(cat "/etc/sv/$name/supervise/stat")
+if [ -e "/etc/service/$name/supervise/stat" ]; then
+	stat=$(cat "/etc/service/$name/supervise/stat")
 	if [ "$stat" != run ]; then
 		return 1
 	else
@@ -19,24 +19,32 @@ case "$1" in
     purge|remove)
 	for path in /etc/runit-services/purge-sv/* ; do
 		name=$(basename "$path")
-		enable=$(cat /etc/runit-services/purge-sv/"$name"/enable)
-		onupgrade=$(cat /etc/runit-services/purge-sv/"$name"/onupgrade)
-		if [ "$onupgrade" = 'nostop' ] || [ "$onupgrade" = 'reload' ]; then
-			if is_up ; then
-				#disable in runit will also stop the service
-				if [ "$1" = 'remove' ]; then
-					echo "warning: disabling $name is dangerous, skipping"
-					echo "Please disable $name manually from a getty"
-					continue
-				else  #purge
-					echo "error: failed to purge $name : still running"
-					echo "please disable $name manually from a getty first with"
-					echo "update-service --remove /etc/sv/$name"
-					echo "then run 'dpkg -P runit-services' "
-					failpurge=1
-					continue
+		if [ -r  /etc/runit-services/purge-sv/"$name"/enable ]; then
+			enable=$(cat /etc/runit-services/purge-sv/"$name"/enable)
+		else
+			enable=yes  # dh implicit default
+		fi
+		if [ -r  /etc/runit-services/purge-sv/"$name"/onupgrade ]; then
+			onupgrade=$(cat /etc/runit-services/purge-sv/"$name"/onupgrade)
+			if [ "$onupgrade" = 'nostop' ] || [ "$onupgrade" = 'reload' ]; then
+				if is_up ; then
+					#disable in runit will also stop the service
+					if [ "$1" = 'remove' ]; then
+						echo "warning: disabling $name is dangerous, skipping"
+						echo "Please disable $name manually from a getty"
+						continue
+					else  #purge
+						echo "error: failed to purge $name : still running"
+						echo "please disable $name manually from a getty first with"
+						echo "update-service --remove /etc/sv/$name"
+						echo "then run 'dpkg -P runit-services' "
+						failpurge=1
+						continue
+					fi
 				fi
 			fi
+		else
+			onupgrade=restart # dh implicit default
 		fi
 		if [ -e /lib/runit-helper/runit-helper ]; then
 			NAME=$name ENABLE=$enable ONUPGRADE=$onupgrade \

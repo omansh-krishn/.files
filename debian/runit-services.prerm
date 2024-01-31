@@ -3,8 +3,8 @@ set -e
 
 is_up () {
 # stat --> run | down
-if [ -e "/etc/sv/$name/supervise/stat" ]; then
-	stat=$(cat "/etc/sv/$name/supervise/stat")
+if [ -e "/etc/service/$name/supervise/stat" ]; then
+	stat=$(cat "/etc/service/$name/supervise/stat")
 	if [ "$stat" != run ]; then
 		return 1
 	else
@@ -16,7 +16,7 @@ fi
 }
 
 if [ "$1" = remove ]; then
-	for path in  /usr/share/runit/sv/* ; do
+	for path in  /etc/service/* ; do
 		name=$(basename "$path")
 		if [ -r /usr/share/runit/sv/"$name"/.meta/pkg ]; then
 			# /usr/share/runit/sv/ is empty at postrm
@@ -29,13 +29,17 @@ if [ "$1" = remove ]; then
 		fi
 		if [ -z "${DPKG_ROOT:-}" ] ; then
 			ENABLE=yes #irrelevant for prerm
-			onupgrade=$(cat /usr/share/runit/sv/"$name"/.meta/onupgrade)
-			if [ "$onupgrade" = "nostop" ] || [ "$onupgrade" = 'reload' ]; then
-				if is_up ; then
-					echo "warning: stop $name is dangerous, skipping"
-					echo "Please stop $name manually from a getty"
+			if [ -r /etc/service/"$name"/.meta/onupgrade ]; then
+				onupgrade=$(cat /etc/service/"$name"/.meta/onupgrade)
+				if [ "$onupgrade" = "nostop" ] || [ "$onupgrade" = 'reload' ]; then
+					if is_up ; then
+						echo "warning: stop $name is dangerous, skipping"
+						echo "Please stop $name manually from a getty"
+					fi
+					continue
 				fi
-				continue
+			else
+				onupgrade=restart #dh default
 			fi
 			NAME=$name ENABLE=yes ONUPGRADE=$onupgrade \
 				/lib/runit-helper/runit-helper prerm "$@"
