@@ -1,3 +1,12 @@
+runit-services (0.7.1) experimental; urgency=medium
+
+  * Fix piuparts failure in package removal
+     (Closes: #1062682)
+  * update years in copyright.in and
+     regenerate d/copyright
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Fri, 02 Feb 2024 11:51:43 +0100
+
 runit-services (0.7.0) experimental; urgency=medium
 
   [ Martin Steigerwald ]
