@@ -6,12 +6,12 @@ Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
 License: BSD-3-Clause
 
 Files: update-copyright
-Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+Copyright: 2022-2024 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
 Files: debian/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
-           2022 Lorenzo Puliti <plorenzo@disroot.org>
+           2022-2024 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
 #PLACEHOLDER
