@@ -3,7 +3,7 @@
 #License: CC0-1.0
 
 sv start dbus ||  exit 170
-exec 1>&2
+exec 2>&1
 
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
