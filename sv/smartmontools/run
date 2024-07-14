@@ -1,0 +1,17 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2023-2024 Dimitris T <dimitris@stinpriza.org>
+#             2024  Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+
+sv start default-syslog || true
+
+if ! /usr/sbin/smartd -q onecheck ; then
+        #no devices or other fatal problem
+        sv d "${PWD##*/}"
+fi
+
+exec 2>&1
+if [ -e /etc/runit/verbose ]; then
+        echo "Invoke-run: starting ${PWD##*/}"
+fi
+exec /usr/sbin/smartd -n $smartd_opts
