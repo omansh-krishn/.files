@@ -17,15 +17,23 @@ fi
 failpurge=
 case "$1" in
     purge|remove)
-	for path in /etc/runit-services/purge-sv/* ; do
+	for path in /usr/share/runit/sv.now/* ; do
 		name=$(basename "$path")
-		if [ -r  /etc/runit-services/purge-sv/"$name"/enable ]; then
-			enable=$(cat /etc/runit-services/purge-sv/"$name"/enable)
+		if [ -r /usr/share/runit/sv.now/"$name"/.meta/pkg ]; then
+			ispkg=$(cat /usr/share/runit/sv.now/"$name"/.meta/pkg)
+			if [ "$ispkg" != 'runit-services' ]; then
+				continue # skip: not from this package
+			fi
+		else
+			continue # skip: not from this package
+		fi
+		if [ -r  /usr/share/runit/sv.now/"$name"/.meta/enable ]; then
+			enable=$(cat /usr/share/runit/sv.now/"$name"/.meta/enable)
 		else
 			enable=yes  # dh implicit default
 		fi
-		if [ -r  /etc/runit-services/purge-sv/"$name"/onupgrade ]; then
-			onupgrade=$(cat /etc/runit-services/purge-sv/"$name"/onupgrade)
+		if [ -r  /usr/share/runit/sv.now/"$name"/.meta/onupgrade ]; then
+			onupgrade=$(cat /usr/share/runit/sv.now/"$name"/.meta/onupgrade)
 			if [ "$onupgrade" = 'nostop' ] || [ "$onupgrade" = 'reload' ]; then
 				if is_up ; then
 					#disable in runit will also stop the service
@@ -46,13 +54,12 @@ case "$1" in
 		else
 			onupgrade=restart # dh implicit default
 		fi
-		if [ -e /lib/runit-helper/runit-helper ]; then
+		if [ -e /usr/lib/runit-helper/runit-helper ]; then
 			NAME=$name ENABLE=$enable ONUPGRADE=$onupgrade \
-				/lib/runit-helper/runit-helper postrm "$@"
-		fi
-		if [ "$1" = 'purge' ]; then
-			rm -rf /etc/sv/"$name"
-			rm -rf /etc/runit-services/purge-sv/"$name"
+				/usr/lib/runit-helper/runit-helper postrm "$@"
+			if [ "$1" = 'purge' ]; then
+				NAME=$name PKG='runit-services' /usr/lib/runit-helper/runit-helper sv_purge
+			fi
 		fi
 	done
 	if [ -n "$failpurge" ] ; then

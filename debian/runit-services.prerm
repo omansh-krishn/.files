@@ -18,14 +18,13 @@ fi
 if [ "$1" = remove ]; then
 	for path in  /etc/service/* ; do
 		name=$(basename "$path")
-		if [ -r /usr/share/runit/sv/"$name"/.meta/pkg ]; then
-			# /usr/share/runit/sv/ is empty at postrm
-			ispkg=$(cat /usr/share/runit/sv/"$name"/.meta/pkg)
-			if [ "$ispkg" = 'runit-services' ]; then
-				cp -r /usr/share/runit/sv/"$name"/.meta   "/etc/runit-services/purge-sv/$name"
-			else
-				continue # not from this package
+		if [ -r /etc/service/"$name"/.meta/pkg ]; then
+			ispkg=$(cat /etc/service/"$name"/.meta/pkg)
+			if [ "$ispkg" != 'runit-services' ]; then
+				continue # skip: not from this package
 			fi
+		else
+			continue # skip: not from this package
 		fi
 		if [ -z "${DPKG_ROOT:-}" ] ; then
 			ENABLE=yes #irrelevant for prerm
