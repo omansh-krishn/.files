@@ -36,7 +36,7 @@ sv/sddm       noscripts,usr,logscript,onupgrade=nostop,finish,bin=/usr/bin/sddm
 sv/slim         noscripts,usr,logscript,onupgrade=nostop,finish,bin=/usr/bin/slim
 sv/smartmontools   noscripts,usr,bin=/usr/sbin/smartd
 sv/uuidd       noscripts,usr,finish,logscript,bin=/usr/sbin/uuidd
-sv/wicd        noscripts,usr,logscript,finish,bin=/usr/sbin/wicd
+# sv/wicd        noscripts,usr,logscript,finish,bin=/usr/sbin/wicd
 sv/xdm         noscripts,usr,finish,onupgrade=nostop,bin=/usr/bin/xdm
 sv/zcfan       noscripts,usr,finish,logscript,bin=/usr/bin/zcfan
 
