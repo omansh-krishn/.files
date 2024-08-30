@@ -5,3 +5,7 @@ Depends: apt-file,
   rsyslog,
   dbus,
 Restrictions: needs-root, breaks-testbed, flaky, allow-stderr
+
+Tests: binpath-test.sh
+Depends: apt-file,
+Restrictions: needs-root, allow-stderr
