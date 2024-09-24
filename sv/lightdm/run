@@ -4,7 +4,7 @@
 
 DEFAULT_DISPLAY_MANAGER=$(cat /etc/X11/default-display-manager)
 # start only if lightdm the default DM
-if [ $DEFAULT_DISPLAY_MANAGER != /usr/sbin/lightdm ]; then
+if [ $DEFAULT_DISPLAY_MANAGER != ##bin## ]; then
 	exit 161
 fi
 
@@ -21,4 +21,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/sbin/lightdm 
+exec ##bin## 

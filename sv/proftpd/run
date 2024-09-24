@@ -4,9 +4,9 @@
 
 [ ! -d /run/proftpd ] && mkdir /run/proftpd
 exec 2>&1
-proftpd --configtest || exit 162
+##bin## --configtest || exit 162
 
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/sbin/proftpd -n 
+exec ##bin## -n 

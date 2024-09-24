@@ -9,4 +9,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec atd -f -d
+exec ##bin## -f -d

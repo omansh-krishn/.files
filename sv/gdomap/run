@@ -12,4 +12,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/bin/gdomap  -f $GDOMAP_ARGS
+exec ##bin##  -f $GDOMAP_ARGS

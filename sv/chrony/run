@@ -7,4 +7,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
 	echo "Invoke-run: starting ${PWD##*/}"
 fi
-exec chronyd -d $DAEMON_OPTS
+exec ##bin## -d $DAEMON_OPTS

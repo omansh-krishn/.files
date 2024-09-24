@@ -9,4 +9,4 @@ sv start dbus || exit 170
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec chpst -o 65536 /usr/sbin/NetworkManager --no-daemon
+exec chpst -o 65536 ##bin## --no-daemon

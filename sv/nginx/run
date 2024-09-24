@@ -5,7 +5,7 @@
 
 exec 2>&1
 
-if ! /usr/sbin/nginx -t -q -c /etc/nginx/nginx.conf -g 'daemon off;' ; then
+if ! ##bin## -t -q -c /etc/nginx/nginx.conf -g 'daemon off;' ; then
     echo "${PWD##*/}: config test failed"
     sv d "${PWD##*/}"
 fi
@@ -14,4 +14,4 @@ if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
 # nginx only provides a config file option to run in the foreground:
-exec /usr/sbin/nginx -c /etc/nginx/nginx.conf -g 'daemon off;'
+exec ##bin## -c /etc/nginx/nginx.conf -g 'daemon off;'

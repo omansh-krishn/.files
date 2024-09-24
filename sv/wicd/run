@@ -13,4 +13,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec   /usr/sbin/wicd -f $DAEMON_ARGS
+exec   ##bin## -f $DAEMON_ARGS

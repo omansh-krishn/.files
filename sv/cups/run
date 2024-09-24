@@ -8,4 +8,4 @@ exec 1>&2
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/sbin/cupsd -f
+exec ##bin## -f

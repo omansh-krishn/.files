@@ -5,7 +5,7 @@
 
 sv start default-syslog || true
 
-if ! /usr/sbin/smartd -q onecheck ; then
+if ! ##bin## -q onecheck ; then
         #no devices or other fatal problem
         sv d "${PWD##*/}"
 fi
@@ -14,4 +14,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
         echo "Invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/sbin/smartd -n $smartd_opts
+exec ##bin## -n $smartd_opts

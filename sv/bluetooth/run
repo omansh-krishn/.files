@@ -11,4 +11,4 @@ sv start dbus || exit 170
 if [ "$VERBOSE" = 1 ]; then
 	echo "Invoke-run: Starting $NAME"
 fi
-exec /usr/sbin/bluetoothd -n
+exec ##bin## -n

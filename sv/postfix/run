@@ -5,7 +5,7 @@
 exec 2>&1
 
 [ -f /etc/postfix/main.cf ] || exit 162
-postfix check || exit 162
+##bin## check || exit 162
 
 #main.cf: log to stdout
 postconf maillog_file=/dev/stdout
@@ -14,4 +14,4 @@ postconf postlog_service_name=postlog
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/sbin/postfix start-fg
+exec ##bin## start-fg

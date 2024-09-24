@@ -18,4 +18,4 @@ sv once anacron
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/sbin/anacron -d $ANACRON_ARGS
+exec ##bin## -d $ANACRON_ARGS

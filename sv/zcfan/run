@@ -6,4 +6,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
         echo "Invoke-run: starting ${PWD##*/}"
 fi
-exec zcfan
+exec ##bin##

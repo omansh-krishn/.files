@@ -14,4 +14,4 @@ ln -sf /run/connman/resolv.conf /etc/
 if [ "$VERBOSE" = 1 ]; then
 	echo "Invoke-run: Starting $NAME"
 fi
-exec /usr/sbin/connmand -n
+exec ##bin## -n

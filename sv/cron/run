@@ -10,4 +10,4 @@ exec 1>&2
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec cron -f
+exec ##bin## -f

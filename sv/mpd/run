@@ -20,5 +20,5 @@ install -m 755 --owner=mpd  --group=audio -d  /run/mpd
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/bin/mpd --no-daemon --stderr $MPDCONF_FILE
+exec ##bin## --no-daemon --stderr $MPDCONF_FILE
 

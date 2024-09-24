@@ -12,4 +12,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec chpst -u mysql /usr/sbin/mysqld --skip-log-error
+exec chpst -u mysql ##bin## --skip-log-error

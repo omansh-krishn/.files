@@ -9,4 +9,4 @@ sv start avahi-daemon || exit 170
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/sbin/avahi-dnsconfd
+exec ##bin##

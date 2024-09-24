@@ -15,4 +15,4 @@ if [ -e /etc/runit/verbose ]; then
         echo "invoke-run: starting ${PWD##*/}"
 fi
 #-bdf is also ok but no log to stdout for svlogd
-exec /usr/sbin/exim4 -bd -d -q${QFLAGS}${QUEUEINTERVAL} $COMMONOPTIONS $QUEUERUNNEROPTIONS $SMTPLISTENEROPTIONS
+exec ##bin## -bd -d -q${QFLAGS}${QUEUEINTERVAL} $COMMONOPTIONS $QUEUERUNNEROPTIONS $SMTPLISTENEROPTIONS

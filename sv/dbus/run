@@ -15,4 +15,4 @@ fi
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec dbus-daemon --system --nofork --nopidfile 
+exec ##bin## --system --nofork --nopidfile 

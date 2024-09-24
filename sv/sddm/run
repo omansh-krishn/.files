@@ -5,7 +5,7 @@
 DEFAULT_DISPLAY_MANAGER=$(cat /etc/X11/default-display-manager)
 
 # don't start if sddm is not the default DM
-if [ $DEFAULT_DISPLAY_MANAGER != /usr/bin/sddm ]; then
+if [ $DEFAULT_DISPLAY_MANAGER != ##bin## ]; then
 	exit 161
 fi
 
@@ -20,4 +20,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec /usr/bin/sddm
+exec ##bin##

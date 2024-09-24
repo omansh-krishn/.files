@@ -6,4 +6,4 @@ exec 2>&1
 if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
-exec preload -s /var/lib/preload/preload.state -f  -l ''
+exec ##bin## -s /var/lib/preload/preload.state -f  -l ''

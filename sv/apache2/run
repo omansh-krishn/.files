@@ -12,4 +12,4 @@ if [ -e /etc/runit/verbose ]; then
 	echo "invoke-run: starting ${PWD##*/}"
 fi
 
-exec  /usr/sbin/apache2 -DNO_DETACH
+exec  ##bin## -DNO_DETACH
