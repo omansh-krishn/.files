@@ -1,2 +1,4 @@
 # log dirs are populated with symlinks by calling 'cpsv'
 runit-services: package-contains-empty-directory [usr/share/runit/sv/*/log/]
+#empty directory is not a mistake here, it may be used with chpst to set $INTERFACESv4
+runit-services: package-contains-empty-directory [usr/share/runit/sv/isc-dhcp-server/env/]
