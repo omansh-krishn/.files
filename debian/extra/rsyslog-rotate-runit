@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -f /run/runit.stopit ]; then
+    if [ -h /etc/service/rsyslog ]; then
+        sv hup rsyslog
+    fi
+fi

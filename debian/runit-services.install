@@ -1,0 +1,2 @@
+debian/extra/rsyslog-rotate-runit       /usr/lib/rsyslog/
+debian/extra/aa-rsyslog-runit            /usr/share/runit-services/logrotate.d
