@@ -1,0 +1,46 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2019-2024 cloux <jan@wespe.dev>
+#                  2024 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+
+exec 2>&1
+
+cgroupfs_mount() {
+	# see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
+	if grep -v '^#' /etc/fstab | grep -q cgroup \
+		|| [ ! -e /proc/cgroups ] \
+		|| [ ! -d /sys/fs/cgroup ]; then
+		return
+	fi
+	if ! mountpoint -q /sys/fs/cgroup; then
+		mount -t tmpfs -o uid=0,gid=0,mode=0755 cgroup /sys/fs/cgroup
+	fi
+	(
+		cd /sys/fs/cgroup
+		for sys in $(awk '!/^#/ { if ($4 == 1) print $1 }' /proc/cgroups); do
+			mkdir -p $sys
+			if ! mountpoint -q $sys; then
+				if ! mount -n -t cgroup -o $sys cgroup $sys; then
+					rmdir $sys || true
+				fi
+			fi
+		done
+	)
+}
+
+cgroupfs_mount
+
+# set system limits
+ulimit -n 1048576
+if [ "$BASH" ]; then
+	ulimit -u unlimited
+else
+	ulimit -p unlimited
+fi
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+
+exec ##bin## -H unix:///run/docker.sock $DOCKER_OPTS
+#exec /usr/sbin/dockerd -H unix:///run/docker.sock $DOCKER_OPTS 2>&1

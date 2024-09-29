@@ -12,6 +12,7 @@ sv/cups/       noscripts,usr,bin=/usr/sbin/cupsd
 sv/dbus        noscripts,usr,logscript,onupgrade=reload,finish,bin=/usr/bin/dbus-daemon
 sv/dbus.dep-fixer   noscripts,usr,onupgrade=nostop,bin=/usr/bin/dbus-daemon
 sv/dhclient   disable,noscripts,usr,finish,logscript,bin=/sbin/dhclient
+sv/docker     noscripts,usr,logscript,onupgrade=reload,bin=/usr/sbin/dockerd
 sv/elogind    noscripts,usr,finish,logscript,bin=/usr/libexec/elogind
 sv/exim4      noscripts,usr,finish,logscript,bin=/usr/sbin/exim4
 sv/gdomap/  noscripts,usr,disable,bin=/usr/bin/gdomap
