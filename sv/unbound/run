@@ -1,0 +1,17 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2024 Dimitris T. <dimitris@stinpriza.org>
+#License: BSD-3-Clause
+
+exec 2>&1
+
+if ! unbound-checkconf ; then
+        echo "wrong syntax in confg file"
+        sv d .
+fi
+
+# TODO: running in chroot not supported for now
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+exec ##bin## -d -d -p
