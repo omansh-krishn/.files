@@ -41,6 +41,7 @@ sv/radvd      noscripts,usr,logscript,finish,bin=/usr/sbin/radvd
 sv/rsyslog    noscripts,usr,bin=/usr/sbin/rsyslogd
 sv/saned      noscripts,usr,logscript,finish,bin=/usr/sbin/saned,disable
 sv/sddm       noscripts,usr,logscript,onupgrade=nostop,finish,bin=/usr/bin/sddm
+sv/slapd      noscripts,usr,finish,bin=/usr/sbin/slapd
 sv/slim         noscripts,usr,logscript,onupgrade=nostop,finish,bin=/usr/bin/slim
 sv/smartmontools   noscripts,usr,bin=/usr/sbin/smartd
 sv/snac2        noscripts,usr,logscript,bin=/usr/bin/snac

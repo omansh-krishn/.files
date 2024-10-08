@@ -1,0 +1,38 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2024,2026 Andrew Bower <andrew@bower.uk>
+#License: BSD-3-Clause
+
+exec 2>&1
+
+# Controllable inputs (others ignored)
+#  - SLAPD_CONF
+#  - SLAPD_USER
+#  - SLAPD_GROUP
+#  - SLAPD_SERVICES
+#  - SLAPD_OPTIONS
+
+sv start default-syslog
+
+# Use default config if not specified
+for conf in /etc/ldap/slapd.d /etc/ldap/slapd.conf
+do
+	[ -z "$SLAPD_CONF" -a -e "$conf" ] && SLAPD_CONF="$conf"
+done
+
+# Check the config is readable
+[ -r "$SLAPD_CONF" ] || { echo "slapd config $SLAPD_CONF not found"; exit 162; }
+
+# Create run directory; ignore failure
+install -m 0755 \
+	${SLAPD_USER:+-o $SLAPD_USER} \
+	${SLAPD_GROUP:+-g $SLAPD_GROUP} \
+	-d /run/slapd
+
+# Start daemon. Use '-d' to prevent autodaemonisation
+exec ##bin## \
+	${SLAPD_SERVICES:+-h "$SLAPD_SERVICES"} \
+	${SLAPD_USER:+-u $SLAPD_USER} \
+	${SLAPD_GROUP:+-g $SLAPD_GROUP} \
+	-$([ -d "$SLAPD_CONF" ] && echo "F" || echo "f") $SLAPD_CONF \
+	-d 0 \
+	$SLAPD_OPTIONS
