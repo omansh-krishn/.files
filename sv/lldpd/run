@@ -1,0 +1,15 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2024 Andrew Bower <andrew@bower.uk>
+#License: BSD-3-Clause
+
+exec 2>&1
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: Starting ${PWD##*/}..."
+fi
+
+# Start daemon. See lldpd(8):
+#  - 1st '-d' prevents autodaemonisation
+#  - 2nd '-d' logs to stderr rather than syslog
+#  - 3rd '-d' enables verbose logging
+#  - a 4th '-d' would enable debug logging
+exec ##bin## -d -d -d $DAEMON_ARGS

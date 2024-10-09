@@ -22,6 +22,7 @@ sv/isc-dhcp-server        noscripts,usr,finish,logscript,bin=/usr/sbin/dhcpd
 sv/lightdm   noscripts,usr,onupgrade=nostop,logscript,finish,bin=/usr/sbin/lightdm
 sv/lighttpd   noscripts,usr,bin=/usr/sbin/lighttpd
 sv/lircd         noscripts,usr,logscript,finish,bin=/usr/sbin/lircd
+sv/lldpd      noscripts,usr,logscript,finish,bin=/usr/sbin/lldpd
 sv/mariadb   noscripts,usr,logscript,finish,bin=/usr/sbin/mysqld
 sv/mdadm   noscripts,usr,finish,bin=/sbin/mdadm
 sv/mini-httpd noscripts,usr,logscript,bin=/usr/sbin/mini_httpd
