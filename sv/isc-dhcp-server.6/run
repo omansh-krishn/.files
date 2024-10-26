@@ -1,0 +1,27 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+#        2023 Lorenzo Puliti <plorenzo@disroot.org>
+#        2024 Andrew Bower <andrew@bower.uk>
+#License: BSD-3-Clause
+
+exec 2>&1
+
+if [ -z "$INTERFACESv6" ]; then
+        [ -r /etc/default/isc-dhcp-server ] && . /etc/default/isc-dhcp-server
+        [ -n "$INTERFACESv6" ] || {
+          echo "invoke-run: no IPv6 interfaces specified for ${PWD##*/}"
+          exit 162
+        }
+fi
+
+leases="/var/lib/dhcp/dhcpd6.leases"
+[ -e "$leases" ] || touch "$leases"
+
+##bin## -6 -f -d -t $INTERFACESv6 || exit 162
+##bin## -6 -f -d -T $INTERFACESv6 || exit 162
+
+if [ -e /etc/runit/verbose ]; then
+	echo "invoke-run: starting ${PWD##*/}"
+fi
+
+exec ##bin## -6 -f -d $INTERFACESv6

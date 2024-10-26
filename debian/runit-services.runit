@@ -19,6 +19,7 @@ sv/gdomap/  noscripts,usr,disable,bin=/usr/bin/gdomap
 sv/gpm         noscripts,usr,onupgrade=nostop,bin=/usr/sbin/gpm
 sv/haveged  noscripts,usr,logscript,finish,bin=/usr/sbin/haveged
 sv/isc-dhcp-server        noscripts,usr,finish,logscript,bin=/usr/sbin/dhcpd
+sv/isc-dhcp-server.6      noscripts,usr,finish,logscript,bin=/usr/sbin/dhcpd
 sv/lightdm   noscripts,usr,onupgrade=nostop,logscript,finish,bin=/usr/sbin/lightdm
 sv/lighttpd   noscripts,usr,bin=/usr/sbin/lighttpd
 sv/lircd         noscripts,usr,logscript,finish,bin=/usr/sbin/lircd

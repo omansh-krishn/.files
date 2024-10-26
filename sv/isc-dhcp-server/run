@@ -1,9 +1,18 @@
 #!/usr/bin/env /lib/runit/invoke-run
 #Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
 #        2023 Lorenzo Puliti <plorenzo@disroot.org>
+#        2024 Andrew Bower <andrew@bower.uk>
 #License: BSD-3-Clause
 
 exec 2>&1
+
+[ -n "$INTERFACESv4" ] || {
+  echo "invoke-run: no IPv4 interfaces specified for ${PWD##*/}"
+  exit 162
+}
+
+leases="/var/lib/dhcp/dhcpd.leases"
+[ -e "$leases" ] || touch "$leases"
 
 ##bin## -4 -f -d -t $INTERFACESv4 || exit 162
 ##bin## -4 -f -d -T $INTERFACESv4 || exit 162
