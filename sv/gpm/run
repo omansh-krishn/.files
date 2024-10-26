@@ -30,4 +30,4 @@ fi
 #mouse position and other data are only useful for debugging
 exec >/dev/null 
 exec 2>/dev/null
-exec /usr/sbin/gpm -D "${cmdln:- -m /dev/input/mice -t exps2}"
+exec /usr/sbin/gpm -D ${cmdln:- -m /dev/input/mice -t exps2}
