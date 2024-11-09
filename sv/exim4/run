@@ -1,11 +1,19 @@
 #!/usr/bin/env /lib/runit/invoke-run
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+#           2024 Andrew Bower <andrew@bower.uk>
 #License: CC0-1.0
 
 exec 2>&1
 
-# only works for "combined" configuration mode
-QUEUERUNNER='combined'
+# Compatibility with defaults file carried over from pre-trixie installations
+# this compat will be removed in future - likely in trixie +1
+if [ -n "$QUEUERUNNER$QUEUEINTERVAL$COMMONOPTIONS$QUEUERUNNEROPTIONS$QFLAGS$SMTPLISTENEROPTIONS" ]
+then
+  EXIMSERVICE=${EXIMSERVICE--bdf -q${QFLAGS}${QUEUEINTERVAL} $COMMONOPTIONS $QUEUERUNNEROPTIONS $SMTPLISTENEROPTIONS}
+else
+  EXIMSERVICE=${EXIMSERVICE--bdf -q30m}
+fi
+
 [ -d /run/exim4 ] || \
   install -d -oDebian-exim -gDebian-exim -m750 /run/exim4
 LANG=C
@@ -14,5 +22,8 @@ export LANG
 if [ -e /etc/runit/verbose ]; then
         echo "invoke-run: starting ${PWD##*/}"
 fi
-#-bdf is also ok but no log to stdout for svlogd
-exec ##bin## -bd -d -q${QFLAGS}${QUEUEINTERVAL} $COMMONOPTIONS $QUEUERUNNEROPTIONS $SMTPLISTENEROPTIONS
+
+# '-d' option appended to provide debug output for svlogd
+
+/usr/sbin/update-exim4.conf $UPEX4OPTS || exit 1
+exec ##bin## $EXIMSERVICE -d

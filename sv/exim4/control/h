@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -r /etc/default/exim4 ]; then
+    . /etc/default/exim4
+fi
+/usr/sbin/update-exim4.conf $UPEX4OPTS
+false
