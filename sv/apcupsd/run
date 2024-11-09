@@ -1,0 +1,10 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2024 Andrew Bower <andrew@bower.uk>
+#License: BSD-3-Clause
+
+exec 2>&1
+
+sv start default-syslog
+
+/lib/apcupsd/prestart || exit 1
+exec ##bin## -b
