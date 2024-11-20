@@ -1,0 +1,20 @@
+runit-services (0.8.0) unstable; urgency=medium
+
+    Before version (0.7.0) the dhclient service was automatically enabled at package
+    installation; however the service interacts badly with other network services such
+    as network-manager, wicd, connman and the like, causing disruption on network setup.
+    For this reason, since version (0.7.0) the dhclient service is shipped as disabled
+    by default.
+    This change is effective on new installations but for installations upgrading from old
+    versions of the package, the dhclient service remains enabled.
+    Unless dhclient was enabld as explicit choice of the sysadmin, (and no other service
+    is used to configure the network) it's recommended to permanently disable it with
+
+    # update-service --remove dhclient
+
+    to avoid network issues.
+    Note that there are networks hooks to invoke dhclient as oneshot during network
+    setup (for example during system boot), and disabling the dhclient runit service does
+    not affect such hooks.
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Wed, 20 Nov 2024 17:31:49 +0100
