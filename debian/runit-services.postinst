@@ -3,6 +3,9 @@ set -e
 
 case "$1" in
     configure)
+	if [ ! -d /etc/runit/override-sysv.d ]; then
+		mkdir -p /etc/runit/override-sysv.d #to be removed after runit-2.1.2-61 reaches oldstable
+	fi
 	if [ -z "${DPKG_ROOT:-}" ] ; then
 		echo "sync runit services.."
 		# this will copy and enable appropriate services
