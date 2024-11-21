@@ -2,6 +2,8 @@
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 #License: CC0-1.0
 
+touch /etc/runit/override-sysv.d/${PWD##*/}.pkgrunit
+
 # exit status of on_ac_power:
 # 0= on-ac // 1= on-battery // 255=unknown, likely a desktop without APM
 if [ x"$ANACRON_RUN_ON_BATTERY_POWER" != x"yes" ] && [ -x /usr/bin/on_ac_power ]; then
