@@ -1,8 +1,36 @@
-runit-services (0.7.3) UNRELEASED; urgency=medium
+runit-services (0.8.0) unstable; urgency=medium
 
-  * new changelog entry, for testing
+  [ Lorenzo Puliti ]
+  * d/control: update Vcs fields
+  * bump Standards-Version to 4.7.0
+  * update lintian overrides
+  * create the sysv override directory in postinst,
+     remove in postrm (purge)
+  * fix purge logic
+  * NEWS for runit-services users: dhclient issues
+  * update d/copyright
+  * autopkgtest: add a test for binary path (see #1069075)
+  * all runfiles (source): use ##bin## placeholder
+  * Drop services-test autopkgtest, it doesn't work with salsa
+  * Anacron, apache2, cups, openntpd: add flagfiles to
+     forward invoke-rc.d calls
+  * elogind: force log to console and use svlogd
+  * drop wicd, package no longer in Debian
+  * override rsyslog logrotate file (Closes: #1079268)
+  * add smartmontools runscript.
+    Thanks to Dimitris T." <dimitris@stinpriza.org> (Closes: #1069188)
+  * add unbound runscript.
+    Thanks to Dimitris T." <dimitris@stinpriza.org> (Closes: #1083206)
+  * add docker runscript
 
- -- Lorenzo Puliti <plorenzo@disroot.org>  Mon, 27 May 2024 00:27:58 +0200
+  [ Andrew Bower ]
+  * gpm: fix command line overquoting preventing start (Closes: #1086143)
+  * atd: fix daemon path, log to syslog
+  * exim4: fix exim4 launch with trixie default env (Closes: #1087204)
+  * add lldpd runscript
+  * isc-dhcp-server: add runscript for IPv6 interfaces (Closes: #1086144)
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Thu, 21 Nov 2024 19:47:57 +0100
 
 runit-services (0.7.2) unstable; urgency=medium
 
