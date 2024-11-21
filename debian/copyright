@@ -77,12 +77,18 @@ Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
              2022-2023  Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
+Files: sv/docker/*
+Copyright: 2019-2024 cloux <jan@wespe.dev>
+                  2024 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
 Files: sv/elogind/*
-Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+Copyright: 2022-2024 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/exim4/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+           2024 Andrew Bower <andrew@bower.uk>
 License: CC0-1.0
 
 Files: sv/gdomap/*
@@ -98,9 +104,16 @@ Files: sv/haveged/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/isc-dhcp-server.6/*
+Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
+        2023 Lorenzo Puliti <plorenzo@disroot.org>
+        2024 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
+
 Files: sv/isc-dhcp-server/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
         2023 Lorenzo Puliti <plorenzo@disroot.org>
+        2024 Andrew Bower <andrew@bower.uk>
 License: BSD-3-Clause
 
 Files: sv/lightdm/*
@@ -114,6 +127,10 @@ License: CC0-1.0
 Files: sv/lircd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
+
+Files: sv/lldpd/*
+Copyright: 2024 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
 
 Files: sv/mariadb/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
@@ -168,6 +185,15 @@ License: CC0-1.0
 Files: sv/slim/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
+
+Files: sv/smartmontools/*
+Copyright: 2023-2024 Dimitris T <dimitris@stinpriza.org>
+             2024  Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/unbound/*
+Copyright: 2024 Dimitris T. <dimitris@stinpriza.org>
+License: BSD-3-Clause
 
 Files: sv/uuidd/*
 Copyright: 2022 Cloux <cloux@rote.ch>
