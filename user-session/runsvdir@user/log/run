@@ -1,0 +1,13 @@
+#!/bin/sh
+
+exec 2>&1
+
+# Get user name (the upper directory name)
+UPDIR=$(dirname $PWD)
+USERNAME="${UPDIR##*@}"
+[ -d "/home/$USERNAME" ] || exit 1
+LOGDIR="/home/$USERNAME/.runit/log/runsvdir"
+chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/log/runsvdir"
+#[ ! -d "$LOGDIR" ] && install -m 750 -o $USERNAME -g $USERNAME -d "$LOGDIR"
+
+exec chpst -u ${USERNAME} svlogd -tt -b 2048 "$LOGDIR"

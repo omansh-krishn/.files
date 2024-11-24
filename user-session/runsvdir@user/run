@@ -1,0 +1,29 @@
+#!/bin/sh -e
+
+exec 2>&1
+
+echo "starting ${PWD##*/}"
+#NAME="${PWD##*@:-default}"
+USERNAME="${PWD##*@}"
+echo "name is $USERNAME"
+
+[ -d "/home/$USERNAME" ] || exit 1
+# create dir for runsvdir in home
+SVDIR="/home/$USERNAME/.service"
+chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/sv"
+if [ ! -d "$SVDIR" ]; then
+	chpst -u "$USERNAME" ln -s "/home/$USERNAME/.runit/sv"  "$SVDIR"
+fi
+
+groups="$(id -Gn "$USERNAME" | tr ' ' ':')"
+
+#setup env in evndir for chpst
+mkdir -p "${PWD}/env"
+#set svdir for user
+echo "$SVDIR" > "${PWD}/env/SVDIR"
+echo "$USERNAME" > "${PWD}/env/USER"
+echo "/home/$USERNAME" > "${PWD}/env/HOME"
+echo "/home/$USERNAME/.config" >  "${PWD}/env/XDG_CONFIG_HOME"
+#XAUTHORITY?
+
+exec chpst -u "$USERNAME:$groups" -e "${PWD}/env" runsvdir -P "$SVDIR"
