@@ -1,0 +1,3 @@
+user-session/exec-userinstance.sh      /usr/libexec/runit-user
+user-session/runit-user-session               /usr/share/pam-configs
+user-session/runsvdir@user                 /usr/share/runit/sv
