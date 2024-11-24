@@ -1,0 +1,7 @@
+Name: runit user session
+Default: yes
+Priority: 0
+Session-Interactive-Only: yes
+Session-Type: Additional
+Session:
+	optional 			pam_exec.so  /usr/libexec/runit-user/exec-userinstance.sh
