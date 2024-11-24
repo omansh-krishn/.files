@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+#copy or force-update the runsvdir@user template into /usr/share/runit/sv.now
+CPSV_DEST=/usr/share/runit/sv.now cpsv -f s || true
+
+pam-auth-update --package
+
+#DEBHELPER#
+
+exit 0

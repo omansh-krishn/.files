@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = remove ]; then
+	pam-auth-update --package --remove runit-user-session
+fi
+
+#TODO: should we stop the rusnvdir user instance here? but it
+# will destroy the session where apt is operating...
+
+#DEBHELPER#
+
+exit 0
