@@ -16,6 +16,8 @@ apt-file update
 cd "$AUTOPKGTEST_TMP"
 
 while read line ; do
+	# skip empty lines
+	[ -z "$line" ] && continue
 	firstchar="$(echo $line | head -c 1)"
 	if [ "$firstchar" = '#' ]; then
 		echo "skipping, line commented"
@@ -26,12 +28,18 @@ while read line ; do
 #	echo "bin path is  ${binpath}"
 	binpath=${binpath%%,*}  #just to be sure
 	binpath=${binpath#*=} #strip bin=
+	bin=${binpath##*/}
 #	echo "bin path is  ${binpath}"
 	if apt-file search "$binpath" >/dev/null ; then
 		echo "OK: $binpath found"
-	else
+	elif apt-file search "$bin" ; then
+		echo "ERROR: $bin found, but path is not $binpath"
+		#this is really bad, like #1069075
 		rc=$((rc+1))
-		echo "ERROR: $binpath not found in any package!"
+	else
+		echo "WARNING: $binpath not found in any package!"
+		# package is not in archive or is arch specific, like amd64/i386 only
+		# not really an issue but warning may help catching scripts with removed packages
 	fi
 done <  runit-services.runit
 
