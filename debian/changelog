@@ -1,3 +1,9 @@
+runit-services (0.8.1) UNRELEASED; urgency=medium
+
+  * new changelog entry, for testing
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Tue, 10 Dec 2024 01:37:56 +0100
+
 runit-services (0.8.0) unstable; urgency=medium
 
   [ Lorenzo Puliti ]
