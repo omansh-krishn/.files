@@ -1,8 +1,10 @@
-runit-services (0.8.1) UNRELEASED; urgency=medium
+runit-services (0.8.1) unstable; urgency=medium
 
-  * new changelog entry, for testing
+  * improve binpath test:
+    - fail only on wrong path, warning on missing binary path
+  * update README (Closes: #1088001)
 
- -- Lorenzo Puliti <plorenzo@disroot.org>  Tue, 10 Dec 2024 01:37:56 +0100
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Wed, 18 Dec 2024 11:19:38 +0100
 
 runit-services (0.8.0) unstable; urgency=medium
 
