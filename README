@@ -12,17 +12,15 @@ Index:
 
 == Installation and upgrade of services ==
 
-The /etc/sv/ directory contains the actual copy of each service that is
-supervised by runit; to avoid to clutter /etc/sv/ with useless directories,
-services are installed under /usr/share/runit/sv.
-
+Symlinks in /etc/service/ are services under runit supervision; the service directory
+where services are actually installed can be either /usr/share/runit/sv.current
+or in /etc/sv/ ; in the context of this package, the latter is reserved for (supposedly
+modified) local copies of services.
 When this package is installed, for each runit service in /usr/share/runit/sv/
 if a sysv or systemd service with the same name exists in the system, then
-the runit service is copied into /etc/sv.
-If a directory with the same name that contains local changes already exists
-in /etc/sv/ the local copy is not overwritten and a warning is printed.
+the runit service is copied into /usr/share/runit/sv.current.
 The cpsv(8) tool can be used to inspect the difference between a local service
-and the one provided by the runit-services package, for example
+(in /etc/sv/) and the one provided by the runit-services package, for example
 
   $ cpsv d cron
 
@@ -33,16 +31,16 @@ if desired, the local copy can be overwritten with the cpsv tool
 
 Each time a package that ships a systemd or sysv service file is installed,
 if a runit service with the same name exists under /usr/share/runit/sv/
-then it is automatically copied into /etc/sv/ thanks to a trigger that runs
+then it is automatically copied into /usr/share/runit/sv.current thanks to a
+trigger that runs
+
 ' cpsv s' .
 
-When this package is upgraded, old versions of services under /etc/sv/
-are not automatically replaced by new versions in /usr/share/runit/sv/ and
-a warning is printed: to inspect the difference and possibly overwrite the old
-version in /etc/sv/ the cpsv(8) tool can be used like decribed above, or with
-one invocation for all services (again, no backup is provided!)
-
-  # cpsv -f s
+When this package is upgraded, old versions of services under
+/usr/share/runit/sv.current are overwritten with new ones; services in /etc/sv/
+are never overwritten this way.
+The cpsv(8) tool can be used like decribed above to inspect the difference
+and possibly overwrite the old version in /etc/sv/.
 
 == Enable or disable a service ==
 
@@ -61,15 +59,15 @@ The status of all services supervised by runit can be checked with
 To disable and stop a service that is automatically enabled the admin can use
 the update-service(8) tool, for example
 
-  # update-service --remove /etc/sv/cron
+  # update-service --remove cron
 
 will disable the cron service and make sure that it is not automatically enabled
 by this package.
 
-When runit is used as a supervision suite ander another init system services
-copied into /etc/sv/ are not automatically enabled: to start a service under
-runit supervision control, first stop the service (if it's already running under
-another init system), then tell runit about the new service it should supervise.
+When runit is used as a supervision suite under another init system services
+copied into /usr/share/runit/sv.current are not automatically enabled: to start a
+service under runit supervision control, first stop the service (if it's already running
+under another init system), then tell runit about the new service it should supervise.
 
 Here's an example on how to do so with the cron service.
 
@@ -105,13 +103,13 @@ supervision generally works.
  $ w3m /usr/share/doc/runit/html/index.html
 
 To switch a service back from runit service supervision to the init
-script or systemd service, tell runit to no longer supervise the service,
+script or systemd service, first tell runit to no longer supervise the service,
 then re-enable the service through your init system.
 E.g. for the cron service.
 
 (1) tell runit to remove the cron service from service supervision
 
-        # update-service --remove /etc/sv/cron
+        # update-service --remove cron
 
 (2) re-enable the service through the init script or with systemctl
 
@@ -149,7 +147,7 @@ fail with an error such as (example for dbus)
 
         "error: failed to purge dbus : still running
          please disable dbus manually from a getty first with
-         update-service --remove /etc/sv/dbus
+         update-service --remove dbus
          then run 'dpkg -P runit-services' "
 
 This is because an unconditional removal of certain services may crash
@@ -164,8 +162,8 @@ should work:
 * if a graphic session is open, save all your work there and logout
 * press Ctrl+Alt+F2 to go to a virtual terminal, and login as root there
 * disable services that are blocking the purge
-   # update-service --remove /etc/sv/dbus
-   # update-service --remove /etc/sv/sddm
+   # update-service --remove sddm
+   # update-service --remove dbus
 * try to purge again with
    # dpkg -P runit-services
 
