@@ -66,11 +66,13 @@ case "$1" in
 		rm -f /etc/logrotate.d/aa-rsyslog-runit
 		rm -f /etc/logrotate.d/aa-rsyslog-runit.disabled
 		#sysv override dir and flagfiles
-		touch /etc/runit/override-sysv.d/placeholder.pkgrunit #if dir is empty * is not expanded and rm fails
-		for flagfile in /etc/runit/override-sysv.d/*.pkgrunit ; do
-			rm "$flagfile"
-		done
-		rmdir --ignore-fail-on-non-empty /etc/runit/override-sysv.d #remove this when runit 2.1.2-61 reaches oldstable
+		if [ -d /etc/runit/override-sysv.d ]; then
+			touch /etc/runit/override-sysv.d/placeholder.pkgrunit #if dir is empty * is not expanded and rm fails
+			for flagfile in /etc/runit/override-sysv.d/*.pkgrunit ; do
+				rm "$flagfile"
+			done
+			rmdir --ignore-fail-on-non-empty /etc/runit/override-sysv.d #remove this when runit 2.1.2-61 reaches oldstable
+		fi
 	fi
 	if [ -n "$failpurge" ] ; then
 		echo "for more details on how to purge this package read"
