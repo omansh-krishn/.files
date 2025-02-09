@@ -38,9 +38,4 @@ else
 	ulimit -p unlimited
 fi
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
-
 exec ##bin## -H unix:///run/docker.sock $DOCKER_OPTS
-#exec /usr/sbin/dockerd -H unix:///run/docker.sock $DOCKER_OPTS 2>&1

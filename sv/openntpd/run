@@ -10,7 +10,5 @@ fi
 ##bin## -n  2>&1 || exit 162
 
 exec 2>&1
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
+
 exec ##bin## -d -s $DAEMON_OPTS

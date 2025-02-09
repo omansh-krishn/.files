@@ -11,7 +11,5 @@ if ! ##bin## -q onecheck ; then
 fi
 
 exec 2>&1
-if [ -e /etc/runit/verbose ]; then
-        echo "Invoke-run: starting ${PWD##*/}"
-fi
+
 exec ##bin## -n $smartd_opts

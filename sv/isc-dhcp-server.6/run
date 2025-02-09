@@ -20,8 +20,4 @@ leases="/var/lib/dhcp/dhcpd6.leases"
 ##bin## -6 -f -d -t $INTERFACESv6 || exit 162
 ##bin## -6 -f -d -T $INTERFACESv6 || exit 162
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
-
 exec ##bin## -6 -f -d $INTERFACESv6

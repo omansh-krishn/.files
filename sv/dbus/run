@@ -12,7 +12,4 @@ if [ -x /usr/bin/dbus-uuidgen ]; then
     /usr/bin/dbus-uuidgen --ensure
 fi
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec ##bin## --system --nofork --nopidfile 

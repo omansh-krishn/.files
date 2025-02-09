@@ -8,7 +8,5 @@ test -f /proc/mdstat || exit 162
 mkdir -p /run/mdadm
 
 exec 2>&1
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
+
 exec ##bin## --monitor --scan  $DAEMON_OPTIONS

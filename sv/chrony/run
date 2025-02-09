@@ -4,7 +4,5 @@
 #License: BSD-3-Clause
 
 exec 2>&1
-if [ -e /etc/runit/verbose ]; then
-	echo "Invoke-run: starting ${PWD##*/}"
-fi
+
 exec ##bin## -d $DAEMON_OPTS

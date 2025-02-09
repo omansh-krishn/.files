@@ -17,8 +17,4 @@ leases="/var/lib/dhcp/dhcpd.leases"
 ##bin## -4 -f -d -t $INTERFACESv4 || exit 162
 ##bin## -4 -f -d -T $INTERFACESv4 || exit 162
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
-
 exec ##bin## -4 -f -d $INTERFACESv4

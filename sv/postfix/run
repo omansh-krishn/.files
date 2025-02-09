@@ -11,7 +11,4 @@ exec 2>&1
 postconf maillog_file=/dev/stdout
 postconf postlog_service_name=postlog
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec ##bin## start-fg

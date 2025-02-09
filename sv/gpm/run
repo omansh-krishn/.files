@@ -24,9 +24,6 @@ if [ -f $CFG ]; then
   fi
 fi
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 #mouse position and other data are only useful for debugging
 exec >/dev/null 
 exec 2>/dev/null

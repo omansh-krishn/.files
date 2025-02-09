@@ -6,7 +6,4 @@
 exec 2>&1
 ##bin## --configtest || exit 162
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec ##bin## -n 

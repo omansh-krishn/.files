@@ -10,7 +10,4 @@ fi
 #[ -d "/var/run/wicd" ] || mkdir -p "/var/run/wicd"
 exec 2>&1
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec   ##bin## -f $DAEMON_ARGS

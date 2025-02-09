@@ -10,7 +10,4 @@ exec 2>&1
 /usr/sbin/lircd-setup
 [ -d "/run/lirc" ] || mkdir -p "/run/lirc"
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec ##bin## --nodaemon --logfile /dev/stdout

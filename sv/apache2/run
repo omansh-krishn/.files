@@ -10,8 +10,4 @@ exec 1>&2
 
 apachectl configtest  || exit 162
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
-
 exec  ##bin## -DNO_DETACH

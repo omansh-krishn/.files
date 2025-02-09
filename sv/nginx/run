@@ -10,8 +10,5 @@ if ! ##bin## -t -q -c /etc/nginx/nginx.conf -g 'daemon off;' ; then
     sv d "${PWD##*/}"
 fi
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 # nginx only provides a config file option to run in the foreground:
 exec ##bin## -c /etc/nginx/nginx.conf -g 'daemon off;'

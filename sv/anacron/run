@@ -17,7 +17,4 @@ exec 2>&1
 # don't restart anacron when it's done
 sv once anacron
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec ##bin## -d $ANACRON_ARGS

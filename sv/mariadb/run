@@ -9,7 +9,4 @@ export HOME=/etc/mysql/
 test -e /var/run/mysqld || install -m 755 -o mysql -g root -d /var/run/mysqld
 exec 2>&1
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec chpst -u mysql ##bin## --skip-log-error

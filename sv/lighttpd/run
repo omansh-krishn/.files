@@ -15,9 +15,6 @@ if ! ##bin## -tt -f /etc/lighttpd/lighttpd.conf ; then
     sv d "${PWD##*/}"
 fi
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec ##bin## -D -f /etc/lighttpd/lighttpd.conf
 
 #    SIGTERM - shut down immediately (terminate existing connections, then exit)

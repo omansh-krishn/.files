@@ -8,7 +8,4 @@ exec 2>&1
 
 [ -d /run/uuidd ] || install -o uuidd -g uuidd -d /run/uuidd
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec ##bin## --no-fork --no-pid

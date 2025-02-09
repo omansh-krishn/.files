@@ -11,7 +11,4 @@ sv start dbus || exit 170
 mkdir -p /run/connman
 ln -sf /run/connman/resolv.conf /etc/
 
-if [ "$VERBOSE" = 1 ]; then
-	echo "Invoke-run: Starting $NAME"
-fi
 exec ##bin## -n

@@ -9,7 +9,5 @@ if [ $DEFAULT_DISPLAY_MANAGER != ##bin## ]; then
 fi
 
 exec 1>&2
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
+
 exec ##bin## -nodaemon

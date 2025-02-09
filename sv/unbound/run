@@ -11,7 +11,4 @@ fi
 
 # TODO: running in chroot not supported for now
 
-if [ -e /etc/runit/verbose ]; then
-	echo "invoke-run: starting ${PWD##*/}"
-fi
 exec ##bin## -d -d -p

@@ -19,10 +19,6 @@ fi
 LANG=C
 export LANG
 
-if [ -e /etc/runit/verbose ]; then
-        echo "invoke-run: starting ${PWD##*/}"
-fi
-
 # '-d' option appended to provide debug output for svlogd
 
 /usr/sbin/update-exim4.conf $UPEX4OPTS || exit 1
