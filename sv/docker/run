@@ -5,6 +5,8 @@
 
 exec 2>&1
 
+sv start elogind
+
 cgroupfs_mount() {
 	# see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
 	if grep -v '^#' /etc/fstab | grep -q cgroup \
