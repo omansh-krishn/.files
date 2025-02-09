@@ -28,9 +28,9 @@ Description: UNIX init scheme with service supervision (services)
  This package contains services directories for a collection of services
  available in Debian, to have them run under runit service supervision
  instead of sysvinit or systemd. Services directories are installed under
- /usr/share/runit/sv/ and only services of packages that are installed
- on the system are copied to /etc/sv/. The cpsv utility can be used to
- copy, inspect and update runscripts in /etc/sv/ after the first installation.
+ /usr/share/runit/sv/. Local copies of services can be maintained easily
+ in /etc/sv/ with the cpsv utility that can be used to copy, inspect and
+ update runscripts in /etc/sv/ after the first installation.
  It's recommended to read
- https://salsa.debian.org/Lorenzo.ru.g-guest/runit-services/-/blob/master/README
+ https://salsa.debian.org/debian/runit-services/-/blob/master/README
  before installing this package.

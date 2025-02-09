@@ -12,7 +12,7 @@ Index:
 
 == Installation and upgrade of services ==
 
-Symlinks in /etc/service/ are services under runit supervision; the service directory
+Each symlink in /etc/service/ is a service under runit supervision; the service directory
 where services are actually installed can be either /usr/share/runit/sv.current
 or in /etc/sv/ ; in the context of this package, the latter is reserved for (supposedly
 modified) local copies of services.
@@ -39,7 +39,7 @@ trigger that runs
 When this package is upgraded, old versions of services under
 /usr/share/runit/sv.current are overwritten with new ones; services in /etc/sv/
 are never overwritten this way.
-The cpsv(8) tool can be used like decribed above to inspect the difference
+The cpsv(8) tool can be used like described above to inspect the difference
 and possibly overwrite the old version in /etc/sv/.
 
 == Enable or disable a service ==
