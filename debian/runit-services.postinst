@@ -3,6 +3,20 @@ set -e
 
 case "$1" in
     configure)
+	#bookworm-trixie upgrade cleanup: REMOVE after trixie +1
+	if dpkg --compare-versions "$2" le-nl "0.8.1"; then
+		#fix elogind in /etc/sv/, see #1095025, this requires a NEWS
+		if [ -f /etc/sv/elogind/.meta/bin ]; then
+			echo "/usr/libexec/elogind" > /etc/sv/elogind/.meta/bin
+		fi
+		if [ -f /etc/sv/elogind/run ]; then
+			if [ -f /usr/share/runit/sv/elogind/run ]; then
+				mv /etc/sv/elogind/run /etc/sv/elogind/run.pkgbk
+				cp /usr/share/runit/sv/elogind/run /etc/sv/elogind/
+			fi
+		fi
+	fi
+	#END: bookwarm-trixie upgrade cleanup
 	if [ ! -d /etc/runit/override-sysv.d ]; then
 		mkdir -p /etc/runit/override-sysv.d #to be removed after runit-2.1.2-61 reaches oldstable
 	fi
