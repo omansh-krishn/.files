@@ -1,3 +1,16 @@
+runit-services (0.8.2) unstable; urgency=medium
+
+    During the Trixie development cycle, the path where elogind is installed changed
+    in a non backward compatible way and the elogind service in this package was updated
+    accordingly.
+    In order to avoid issues related to elogind failure (see #1069075, #1095025), the
+    elogind's run file in /etc/sv/elogind/, if any, is being forced-upgraded to a version
+    with the right path. A backup of the run file is available as /etc/sv/elogind/run.pkgbk.
+    If you have local changes in elogind's run file you can merge changes manually; otherwise
+    the backup file can be removed.
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Mon, 10 Feb 2025 13:58:26 +0100
+
 runit-services (0.8.0) unstable; urgency=medium
 
     Before version (0.7.0) the dhclient service was automatically enabled at package
