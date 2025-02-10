@@ -1,8 +1,20 @@
-runit-services (0.8.2) UNRELEASED; urgency=medium
+runit-services (0.8.2) unstable; urgency=medium
 
-  * new changelog entry, for testing
+  [ Andrew Bower ]
+  * docker: ensure elogind starts first
 
- -- Lorenzo Puliti <plorenzo@disroot.org>  Sun, 09 Feb 2025 12:30:08 +0100
+  [ Lorenzo Puliti ]
+  * all runscripts: drop starting message
+  * fix purge/ piuparts failure
+  * d/control: suggests: xchpst
+  * update readme and package description
+  * fix elogind for bookworm-trixie upgrade (Closes: #1095025)
+  * postinst: clean obsolete metafiles on upgrade
+  * NEWS file: elogind is force-updated
+  * binpath-test: improve regex, mark as superficial
+  * update copyright years
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Mon, 10 Feb 2025 15:31:00 +0100
 
 runit-services (0.8.1) unstable; urgency=medium
 
