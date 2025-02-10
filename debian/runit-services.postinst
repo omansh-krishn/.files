@@ -15,6 +15,19 @@ case "$1" in
 				cp /usr/share/runit/sv/elogind/run /etc/sv/elogind/
 			fi
 		fi
+		#metafiles cleanup; defaults are now implicit, so we can remove files with default content
+		for path in  /usr/share/runit/sv.now/* ; do
+			rm -f "$path"/.meta/noscripts # no longer used
+			rm -f "$path"/.meta/logscript # no longer used
+			if [ -r "$path"/.meta/enable ]; then
+				isenable=$(cat "$path"/.meta/enable)
+				[ "$isenable" = 'yes' ] && rm -f "$path"/.meta/enable # enable=yes is default
+			fi
+			if [ -r "$path"/.meta/onupgrade ]; then
+				isupgrade=$(cat "$path"/.meta/onupgrade)
+				[ "$isupgrade" = 'restart' ] && rm -f "$path"/.meta/onupgrade # onupgrade=restart is default
+			fi
+		done
 	fi
 	#END: bookwarm-trixie upgrade cleanup
 	if [ ! -d /etc/runit/override-sysv.d ]; then
