@@ -32,7 +32,7 @@ while read line ; do
 #	echo "bin path is  ${binpath}"
 	if apt-file search "$binpath" >/dev/null ; then
 		echo "OK: $binpath found"
-	elif apt-file search "$bin" ; then
+	elif apt-file search "$bin" | grep  '/bin/\|/sbin/\|/libexec/' ; then
 		echo "ERROR: $bin found, but path is not $binpath"
 		#this is really bad, like #1069075
 		rc=$((rc+1))

@@ -1,3 +1,3 @@
 Tests: binpath-test.sh
 Depends: apt-file,
-Restrictions: needs-root, allow-stderr
+Restrictions: needs-root, allow-stderr, superficial
