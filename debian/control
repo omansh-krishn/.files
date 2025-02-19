@@ -17,7 +17,7 @@ Breaks:
  elogind (<< 255.4.1-1~),
  xchpst (<< 0.6.0-1~),
  sane-utils (<< 1.4.0~),
-Recommends: runit-run | runit-init
+Recommends: runit-run | runit-init, libcap2-bin,
 Provides: mini-httpd-run
 Suggests: socklog, xchpst
 Description: UNIX init scheme with service supervision (services)

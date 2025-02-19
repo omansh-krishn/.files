@@ -1,0 +1,27 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2024 Andrew Bower <andrew@bower.uk>
+#License: BSD-3-Clause
+
+exec 2>&1
+
+[ ! -e /usr/sbin/capsh ] || capsh --has-b=CAP_SYS_TIME || exit 170
+
+# Known config file locations
+dhcp="/run/ntpsec/ntp.conf.dhcp"
+default="/etc/ntpsec/ntp.conf"
+
+# Look for config emitted from dynamic host configuration
+[ -z "$CONFIG" ] && [ "$IGNORE_DHCP" != "yes" ] && [ -e "$dhcp" ] && CONFIG=$dhcp
+
+if [ -z "$CONFIG" ]; then
+	# If the default config file is used, command line options override it.
+	overrides=$NTPD_OPTS
+else
+	# If an alternative or dhcp-supplied config file is in use, this should
+	# override command line options.
+	defopts=$NTPD_OPTS
+fi
+
+# shellcheck disable=SC2086 # word splitting is intended with option lists
+exec ${XCHPST:-chpst} -l /run/lock/ntpsec-ntpdate -- \
+	##bin## -n $defopts -c ${CONFIG:-$default} $overrides -u ntpsec:ntpsec

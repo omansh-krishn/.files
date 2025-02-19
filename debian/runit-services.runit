@@ -31,6 +31,7 @@ sv/mini-httpd noscripts,usr,logscript,bin=/usr/sbin/mini_httpd
 sv/mpd        noscripts,usr,logscript,bin=/usr/bin/mpd
 sv/nginx      noscripts,usr,bin=/usr/sbin/nginx
 sv/network-manager      noscripts,usr,finish,bin=/usr/sbin/NetworkManager
+sv/ntpsec     noscripts,usr,logscript,finish,bin=/usr/sbin/ntpd
 sv/openntpd  noscripts,usr,logscript,finish,bin=/usr/sbin/openntpd
 sv/postfix     noscripts,usr,logscript,finish,bin=/usr/sbin/postfix
 sv/power-profiles-daemon noscripts,usr,logscript,finish,bin=/usr/libexec/power-profiles-daemon
