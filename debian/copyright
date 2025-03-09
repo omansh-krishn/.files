@@ -26,6 +26,10 @@ Files: sv/apache2/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/apcupsd/*
+Copyright: 2024 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
+
 Files: sv/atd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
@@ -166,6 +170,10 @@ Files: sv/postfix/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/power-profiles-daemon/*
+Copyright: 2025 Martin Steigerwald <martin@lichtvoll.de>
+License: BSD-3-Clause
+
 Files: sv/preload/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
@@ -190,6 +198,10 @@ Files: sv/smartmontools/*
 Copyright: 2023-2024 Dimitris T <dimitris@stinpriza.org>
              2024  Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
+
+Files: sv/snac2/*
+Copyright: 2025 Dimitris T. <dimitris@stinpriza.org>
+License: BSD-3-Clause
 
 Files: sv/unbound/*
 Copyright: 2024 Dimitris T. <dimitris@stinpriza.org>
