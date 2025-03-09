@@ -1,0 +1,7 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2025 Dimitris T. <dimitris@stinpriza.org>
+#License: BSD-3-Clause
+
+exec 2>&1
+
+exec chpst -u debian-snac /usr/bin/snac httpd /var/lib/snac2
