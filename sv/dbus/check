@@ -1,5 +1,5 @@
 #!/bin/sh
 
-test -S /var/run/dbus/system_bus_socket && exit 0
+exec dbus-send --system / org.freedesktop.DBus.Peer.Ping >/dev/null 2>/dev/null
 
 exit 1
