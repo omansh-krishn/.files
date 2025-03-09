@@ -1,3 +1,6 @@
+# if you are using runit is suggested that you keep this one
+# and rename /etc/logrotate.d/rsyslog to /etc/logrotate.d/rsyslog.disabled
+# to silence the logrotate error; see #1092031
 /var/log/syslog
 /var/log/mail.log
 /var/log/kern.log

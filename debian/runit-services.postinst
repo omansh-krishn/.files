@@ -42,15 +42,16 @@ case "$1" in
 	fi
     ;;
     triggered)
-	if [ -f /etc/logrotate.d/rsyslog ] && [ ! -f /etc/logrotate.d/aa-rsyslog-runit ]; then
+	#see #1092031, #1079268, #1031399 and #1079270
+	if [ -e /usr/sbin/rsyslogd ] && [ ! -f /etc/logrotate.d/aa-rsyslog-runit ]; then
 		if [ -f /etc/logrotate.d/aa-rsyslog-runit.disabled ]; then
 			mv -f /etc/logrotate.d/aa-rsyslog-runit.disabled /etc/logrotate.d/aa-rsyslog-runit
 		else
 			cp /usr/share/runit-services/logrotate.d/aa-rsyslog-runit   /etc/logrotate.d/
 		fi
 	fi
-	if [ -f /etc/logrotate.d/rsyslog.disabled ] && [ -f /etc/logrotate.d/aa-rsyslog-runit ]; then
-		mv -f /etc/logrotate.d/aa-rsyslog-runit /etc/logrotate.d/aa-rsyslog-runit.disabled
+	if [ ! -e /usr/sbin/rsyslogd ] && [ -f /etc/logrotate.d/aa-rsyslog-runit ]; then
+		mv -f /etc/logrotate.d/aa-rsyslog-runit  /etc/logrotate.d/aa-rsyslog-runit.disabled
 	fi
     ;;
 esac
