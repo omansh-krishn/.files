@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Lorenzo Puliti <plorenzo@disroot.org>
 Build-Depends: debhelper-compat (= 13), dh-sequence-runit, dh-runit (>=2.15.2)
-Standards-Version: 4.7.0
+Standards-Version: 4.7.2
 Vcs-Browser: https://salsa.debian.org/debian/runit-services
 Vcs-Git: https://salsa.debian.org/debian/runit-services.git
 Rules-Requires-Root: no
