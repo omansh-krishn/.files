@@ -1,0 +1,7 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2025 Martin Steigerwald <martin@lichtvoll.de>
+#License: BSD-3-Clause
+
+sv start dbus || exit 170
+
+exec /usr/libexec/power-profiles-daemon 2>&1
