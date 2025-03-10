@@ -33,11 +33,11 @@ uid="$(id -u $user)"
 [ "$XDG_SESSION_TYPE" = 'tty' ] && exit 0 #getty login TODO: but what about startx from tty?
 # other possible ways to filter out non graphic logins
 #[ -z "$XDG_VTNR" ] && exit 0
-[ -z "$DISPLAY" ] && exit 0
+#[ -z "$DISPLAY" ] && exit 0 #this is not set for wayland, so we can't use it
 [ -z "$DESKTOP_SESSION" ] && exit 0 #is this ok? works with openbox and the like?
 #TODO: distinguish between xorg and wayland (any use for this?)
 #XDG_SESSION_TYPE=x11  --> this is xorg
-#XDG_SESSION_TYPE=???  --> wayland??? not sure, I don't run wayland
+#XDG_SESSION_TYPE=wayland  --> this is wayland
 
 #start/stop the runsvdir user instance
 #LOGIN
