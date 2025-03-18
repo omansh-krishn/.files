@@ -1,6 +1,6 @@
 #!/usr/bin/env /lib/runit/invoke-run
 #Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
-#           2024 Andrew Bower <andrew@bower.uk>
+#           2024-2025 Andrew Bower <andrew@bower.uk>
 #License: CC0-1.0
 
 exec 2>&1
@@ -22,4 +22,4 @@ export LANG
 # '-d' option appended to provide debug output for svlogd
 
 /usr/sbin/update-exim4.conf $UPEX4OPTS || exit 1
-exec ##bin## $EXIMSERVICE -d
+exec ${XCHPST:-} ##bin## $EXIMSERVICE -d
