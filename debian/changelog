@@ -1,8 +1,30 @@
-runit-services (0.8.3) UNRELEASED; urgency=medium
+runit-services (0.9.0) unstable; urgency=medium
 
-  * new changelog entry, for testing
+  [ Dimitris T ]
+  * add snac2 runscript
 
- -- Lorenzo Puliti <plorenzo@disroot.org>  Sun, 09 Mar 2025 11:49:41 +0100
+  [ Martin Steigerwald ]
+  * dbus check: Send a message to check whether DBUS is ready.
+  * Add power-profiles-daemon runscript
+
+  [ Andrew Bower ]
+  * add apcupsd runscript
+  * exim4: add hardening with xchpst and xchopts file
+  * network-manager: harden with xchpst xchopts file
+
+  [ Lorenzo Puliti ]
+  * rsyslog: stop tracking rsyslog logrotate
+     (see #1092031)
+  * elogind: discard check file errors
+     (Devuan #878)
+  * anacron: override term with sigusr1
+  * apache2, docker, mariadb, openntpd: add entry point
+     for xchpst (no xchopts file provided)
+  * update d/copyright for new runscripts
+  * binpath test: mark as flaky, not superficial
+  * bump standards version to 4.7.2, no changes required
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Tue, 25 Mar 2025 11:21:05 +0100
 
 runit-services (0.8.2) unstable; urgency=medium
 
