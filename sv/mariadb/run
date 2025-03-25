@@ -9,4 +9,4 @@ export HOME=/etc/mysql/
 test -e /var/run/mysqld || install -m 755 -o mysql -g root -d /var/run/mysqld
 exec 2>&1
 
-exec chpst -u mysql ##bin## --skip-log-error
+exec ${XCHPST:-chpst -u mysql}  ##bin## --skip-log-error

@@ -11,4 +11,4 @@ fi
 
 exec 2>&1
 
-exec ##bin## -d -s $DAEMON_OPTS
+exec ${XCHPST:-} ##bin## -d -s $DAEMON_OPTS

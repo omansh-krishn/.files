@@ -10,4 +10,4 @@ exec 1>&2
 
 apachectl configtest  || exit 162
 
-exec  ##bin## -DNO_DETACH
+exec ${XCHPST:-} ##bin## -DNO_DETACH

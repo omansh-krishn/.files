@@ -40,4 +40,4 @@ else
 	ulimit -p unlimited
 fi
 
-exec ##bin## -H unix:///run/docker.sock $DOCKER_OPTS
+exec ${XCHPST:-} ##bin## -H unix:///run/docker.sock $DOCKER_OPTS
