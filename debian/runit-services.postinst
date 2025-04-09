@@ -1,6 +1,20 @@
 #!/bin/sh
 set -e
 
+deploy_rsyslog_logrotate () {
+	#see #1092031, #1079268, #1031399 and #1079270
+	if [ -e /usr/sbin/rsyslogd ] && [ ! -f /etc/logrotate.d/aa-rsyslog-runit ]; then
+		if [ -f /etc/logrotate.d/aa-rsyslog-runit.disabled ]; then
+			mv -f /etc/logrotate.d/aa-rsyslog-runit.disabled /etc/logrotate.d/aa-rsyslog-runit
+		else
+			cp /usr/share/runit-services/logrotate.d/aa-rsyslog-runit   /etc/logrotate.d/
+		fi
+	fi
+	if [ ! -e /usr/sbin/rsyslogd ] && [ -f /etc/logrotate.d/aa-rsyslog-runit ]; then
+		mv -f /etc/logrotate.d/aa-rsyslog-runit  /etc/logrotate.d/aa-rsyslog-runit.disabled
+	fi
+}
+
 case "$1" in
     configure)
 	#bookworm-trixie upgrade cleanup: REMOVE after trixie +1
@@ -33,6 +47,7 @@ case "$1" in
 	if [ ! -d /etc/runit/override-sysv.d ]; then
 		mkdir -p /etc/runit/override-sysv.d #to be removed after runit-2.1.2-61 reaches oldstable
 	fi
+	deploy_rsyslog_logrotate
 	if [ -z "${DPKG_ROOT:-}" ] ; then
 		echo "sync runit services.."
 		# this will copy and enable appropriate services
@@ -42,17 +57,7 @@ case "$1" in
 	fi
     ;;
     triggered)
-	#see #1092031, #1079268, #1031399 and #1079270
-	if [ -e /usr/sbin/rsyslogd ] && [ ! -f /etc/logrotate.d/aa-rsyslog-runit ]; then
-		if [ -f /etc/logrotate.d/aa-rsyslog-runit.disabled ]; then
-			mv -f /etc/logrotate.d/aa-rsyslog-runit.disabled /etc/logrotate.d/aa-rsyslog-runit
-		else
-			cp /usr/share/runit-services/logrotate.d/aa-rsyslog-runit   /etc/logrotate.d/
-		fi
-	fi
-	if [ ! -e /usr/sbin/rsyslogd ] && [ -f /etc/logrotate.d/aa-rsyslog-runit ]; then
-		mv -f /etc/logrotate.d/aa-rsyslog-runit  /etc/logrotate.d/aa-rsyslog-runit.disabled
-	fi
+	deploy_rsyslog_logrotate
     ;;
 esac
 
