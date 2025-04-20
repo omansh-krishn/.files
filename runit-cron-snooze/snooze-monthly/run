@@ -1,0 +1,4 @@
+#!/bin/sh
+mkdir -p /var/cache/snooze
+exec snooze -d 1 -s 28d -t /var/cache/runit-snooze/monthly -- sh -c \
+	"test -d /etc/cron.monthly && run-parts --lsbsysinit /etc/cron.monthly; touch /var/cache/runit-snooze/monthly"
