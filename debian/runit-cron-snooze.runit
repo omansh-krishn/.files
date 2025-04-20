@@ -1,0 +1,5 @@
+runit-cron-snooze/snooze-hourly       noscripts,usr,logscript,finish,bin=/usr/bin/snooze
+runit-cron-snooze/snooze-daily        noscripts,usr,logscript,finish,bin=/usr/bin/snooze
+runit-cron-snooze/snooze-weekly       noscripts,usr,logscript,finish,bin=/usr/bin/snooze
+runit-cron-snooze/snooze-monthly      noscripts,usr,logscript,finish,bin=/usr/bin/snooze
+runit-cron-snooze/snooze-yearly       noscripts,usr,logscript,finish,bin=/usr/bin/snooze
