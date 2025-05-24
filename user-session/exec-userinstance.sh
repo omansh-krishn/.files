@@ -24,6 +24,9 @@ uid="$(id -u $user)"
 [ $uid -ge '1000' ] || exit 0 # try to filter out system users, uid<1000 [sddm, lightdm and so on..)
 [ -d "/home/$user" ] || exit 0 # no home directory to start runsvdir
 
+#avoid clash with openrc user-session
+[ -d "/run/user/$uid/openrc" ] && exit 0
+
 #   graphic or vt session?  this need to be accurate:
 # stopping the user session on getty/vt logout will be a problem for the graphic session
 # starting graphic session for a getty/vt login could be a problem
