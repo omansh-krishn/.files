@@ -60,3 +60,22 @@ Description: UNIX init scheme with service supervision (user session)
   * other login managers like slim, xdm, wdm are not supprted for now;
   * few user-services (pipewire, wireplumber) are provided as examples, see
      /usr/share/doc/runit-user-session/README.gz for instructions
+
+Package: runit-cron-snooze
+Architecture: all
+Pre-Depends:
+    ${misc:Pre-Depends},
+    cron-daemon-common
+Depends: ${shlibs:Depends}, ${misc:Depends}, runit-run | runit-init, snooze, cron-daemon-common
+Recommends: default-mta | mail-transport-agent,
+Breaks: ${runit:Breaks}
+Conflicts: systemd-cron, bcron, cronie, cron
+Replaces: systemd-cron, bcron, cronie, cron
+Provides: cron-daemon, anacron
+Description: cron and anacron with snooze and runit supervision
+ This package provides a replacement for cron and anacron services; snooze,
+ supervised by runit, is used to wait for the desired time before running a job.
+ Five services to process hourly, daily, weekly, monthly and yearly cronjobs
+ are included and automatically enabled.
+ For now entries in crontab, anacrontab and cronjobs in /etc/cron.d are ignored
+ and to be manually converted to snooze timers.
