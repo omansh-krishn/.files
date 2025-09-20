@@ -36,6 +36,7 @@ sv/postfix     noscripts,usr,logscript,finish,bin=/usr/sbin/postfix
 sv/power-profiles-daemon noscripts,usr,logscript,finish,bin=/usr/libexec/power-profiles-daemon
 sv/preload    noscripts,usr,logscript,finish,bin=/usr/sbin/preload
 sv/proftpd    noscripts,usr,logscript,finish,bin=/usr/sbin/proftpd
+sv/radvd      noscripts,usr,logscript,finish,bin=/usr/sbin/radvd
 sv/rsyslog    noscripts,usr,bin=/usr/sbin/rsyslogd
 sv/sddm       noscripts,usr,logscript,onupgrade=nostop,finish,bin=/usr/bin/sddm
 sv/slim         noscripts,usr,logscript,onupgrade=nostop,finish,bin=/usr/bin/slim
