@@ -1,0 +1,8 @@
+no-new-privs
+ro-sys
+ro-etc
+private-tmp
+private-run
+protect-home
+u radvd
+net-ns

@@ -1,0 +1,10 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2024,2025 Andrew Bower <andrew@bower.uk>
+#License: BSD-3-Clause
+
+exec 2>&1
+
+[ -r /etc/radvd.conf ] || exit 170
+
+${XCHPST:+xchpst --file xchopts.configtest} ##bin## --configtest || exit 162
+exec ${XCHPST:-} ##bin## --nodaemon --username radvd --logmethod stderr_clean
