@@ -92,7 +92,7 @@ License: CC0-1.0
 
 Files: sv/exim4/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
-           2024 Andrew Bower <andrew@bower.uk>
+           2024-2025 Andrew Bower <andrew@bower.uk>
 License: CC0-1.0
 
 Files: sv/gdomap/*
@@ -162,6 +162,10 @@ Copyright: 2019 Cloux <cloux@rote.ch>
              2023  Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/ntpsec/*
+Copyright: 2024 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
+
 Files: sv/openntpd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
@@ -182,9 +186,17 @@ Files: sv/proftpd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/radvd/*
+Copyright: 2024,2025 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
+
 Files: sv/rsyslog/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
+
+Files: sv/saned/*
+Copyright: 2024 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
 
 Files: sv/sddm/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
