@@ -1,3 +1,20 @@
+runit-services (0.10.0) unstable; urgency=medium
+
+  [ Andrew Bower ]
+  * reformat Breaks stanza for easier merging
+  * add saned runscript
+  * add radvd runscript
+  * add ntpsec runscript
+
+  [ Lorenzo Puliti ]
+  * slim: start in foreground with -n.
+    (Closes: #1121099)
+    +Thanks: Andrew Bower
+  * d/control: drop redundant rules-requires-root
+  * update d/copyright
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Mon, 24 Nov 2025 15:50:57 +0100
+
 runit-services (0.9.1) unstable; urgency=medium
 
   * deploy rsyslog logrotate snipped also during upgrade (Closes: #1102482)
