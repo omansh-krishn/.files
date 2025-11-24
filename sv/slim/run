@@ -18,4 +18,4 @@ fi
 
 exec 2>&1
 
-exec ##bin##
+exec ##bin## -n
