@@ -16,7 +16,15 @@ for script in '/etc/rc2.d/S'* ; do
 	[ ! -x "$script" ] && continue
 	path=$(realpath "$script")
 	name=${path##*/}
+	[ -f /etc/runit/override-sysv.d/"$name".block ] && continue
+	[ -f /etc/runit/override-sysv.d/"$name".pkgblock ] && continue
+	if [ -f /etc/runit/override-sysv.d/"$name".sysv ]; then
+		"$script" start
+		continue
+	fi
+	[ -L "/etc/service/$name" ] && continue
 	[ -d "/etc/sv/$name" ] && continue
+	[ -d "/usr/share/runit/sv.current/$name" ] && continue
 	if grep -q "$name:.*dbus" /etc/init.d/.depend.start ; then
 		"$script" start
 	fi
