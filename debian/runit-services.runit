@@ -2,6 +2,7 @@ sv/acpi-fakekey noscripts,usr,logscript,finish,bin=/usr/sbin/acpi_fakekeyd
 sv/anacron/  noscripts,usr,logscript,finish,bin=/usr/sbin/anacron
 sv/apache2  noscripts,usr,finish,bin=/usr/sbin/apache2
 sv/apcupsd    noscripts,usr,finish,bin=/usr/sbin/apcupsd
+sv/apt-cacher-ng     noscripts,usr,finish,bin=/usr/sbin/apt-cacher-ng
 sv/atd/         noscripts,usr,bin=/usr/sbin/atd
 sv/avahi-daemon      noscripts,usr,logscript,finish,bin=/usr/sbin/avahi-daemon
 sv/avahi-dnsconfd     noscripts,usr,logscript,finish,bin=/usr/sbin/avahi-dnsconfd

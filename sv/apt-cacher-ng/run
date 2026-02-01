@@ -1,0 +1,12 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2026 Andrew Bower <andrew@bower.uk>
+#License: BSD-3-Clause
+
+exec 1>&2
+
+# tmpfiles.d recursively resets SELinux context, while the initscript
+# removes the old directory.
+install -Zd -m 0755 -o apt-cacher-ng -g apt-cacher-ng /run/apt-cacher-ng
+
+exec ${XCHPST:-chpst} -u apt-cacher-ng \
+  ##bin## -c "/etc/apt-cacher-ng" ForeGround=1
