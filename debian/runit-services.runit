@@ -10,6 +10,7 @@ sv/chrony     noscripts,usr,finish,logscript,bin=/usr/sbin/chronyd
 sv/connman     noscripts,usr,finish,logscript,bin=/usr/sbin/connmand
 sv/cron         noscripts,usr,finish,bin=/usr/sbin/cron
 sv/cups/       noscripts,usr,bin=/usr/sbin/cupsd
+sv/cups-browsed     noscripts,usr,bin=/usr/sbin/cups-browsed
 sv/dbus        noscripts,usr,logscript,onupgrade=reload,finish,bin=/usr/bin/dbus-daemon
 sv/dbus.dep-fixer   noscripts,usr,onupgrade=nostop,bin=/usr/bin/dbus-daemon
 sv/dhclient   disable,noscripts,usr,finish,logscript,bin=/sbin/dhclient
