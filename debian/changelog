@@ -1,3 +1,9 @@
+runit-services (0.11.0) UNRELEASED; urgency=medium
+
+  * new changelog entry, for testing
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Tue, 03 Feb 2026 22:47:12 +0100
+
 runit-services (0.10.1) unstable; urgency=medium
 
   * dbus-dep.fixer: correctly test for existing services definition
