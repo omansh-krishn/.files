@@ -11,7 +11,7 @@ License: BSD-3-Clause
 
 Files: debian/*
 Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
-           2022-2025 Lorenzo Puliti <plorenzo@disroot.org>
+           2022-2026 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
 Files: sv/acpi-fakekey/*
@@ -28,6 +28,10 @@ License: CC0-1.0
 
 Files: sv/apcupsd/*
 Copyright: 2024 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
+
+Files: sv/apt-cacher-ng/*
+Copyright: 2026 Andrew Bower <andrew@bower.uk>
 License: BSD-3-Clause
 
 Files: sv/atd/*
@@ -64,12 +68,16 @@ Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
            2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
+Files: sv/cups-browsed/*
+Copyright: 2026 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
+
 Files: sv/cups/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/dbus.dep-fixer/*
-Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+Copyright: 2022-2026 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/dbus/*
