@@ -1,8 +1,19 @@
-runit-services (0.11.0) UNRELEASED; urgency=medium
+runit-services (0.11.0) unstable; urgency=medium
 
-  * new changelog entry, for testing
+  [ Lorenzo Puliti ]
+  * d/control: bump S-V to 4.7.3
+      - drop Priority: optional field
+  * d/copyright.in: update years to 2026
+  * dbus.dep-fixer: only start dbus services, even
+     with the sysv override (improves fix for #1126699).
+     + thanks: S. Osipiuk
+  * d/copyright: update (new rusncripts)
 
- -- Lorenzo Puliti <plorenzo@disroot.org>  Tue, 03 Feb 2026 22:47:12 +0100
+  [ Andrew Bower ]
+  * add cups-browsed service directory
+  * add apt-cacher-ng service directory
+
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Fri, 13 Feb 2026 00:12:05 +0100
 
 runit-services (0.10.1) unstable; urgency=medium
 
