@@ -1,0 +1,15 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+
+#modprobe snd_pcm_oss
+
+#nasd fails if audio device is busy
+if fuser /dev/snd/* ; then
+	echo "  ${PWD##*/}: audio device is busy, stopping the service"
+	sv d "${PWD}"
+fi
+
+exec 2>&1
+
+exec ##bin##

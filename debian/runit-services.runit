@@ -31,6 +31,7 @@ sv/mariadb   noscripts,usr,logscript,finish,bin=/usr/sbin/mysqld
 sv/mdadm   noscripts,usr,finish,bin=/sbin/mdadm
 sv/mini-httpd noscripts,usr,logscript,bin=/usr/sbin/mini_httpd
 sv/mpd        noscripts,usr,logscript,bin=/usr/bin/mpd
+sv/nas         disable,noscripts,usr,logscript,bin=/usr/bin/nasd
 sv/nginx      noscripts,usr,bin=/usr/sbin/nginx
 sv/network-manager      noscripts,usr,finish,bin=/usr/sbin/NetworkManager
 sv/ntpsec     noscripts,usr,logscript,finish,bin=/usr/sbin/ntpd
