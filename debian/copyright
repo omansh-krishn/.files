@@ -161,6 +161,10 @@ Files: sv/mpd/*
 Copyright: 2023 Friedhelm Mehnert <friedhelm@friedhelms.net>
 License: CC0-1.0
 
+Files: sv/nas/*
+Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
 Files: sv/network-manager/*
 Copyright: 2023 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
@@ -209,6 +213,10 @@ License: BSD-3-Clause
 Files: sv/sddm/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
+
+Files: sv/slapd/*
+Copyright: 2024,2026 Andrew Bower <andrew@bower.uk>
+License: BSD-3-Clause
 
 Files: sv/slim/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
