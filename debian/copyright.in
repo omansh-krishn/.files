@@ -14,6 +14,11 @@ Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
            2022-2026 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
+Files: user-session/*
+Copyright: 2024-2026 Lorenzo Puliti <plorenzo@disroot.org>
+License: BSD-3-Clause
+Comment: inspired by discussions on supervision mailing list
+
 #PLACEHOLDER
 License: BSD-3-Clause
  Redistribution and use in source and binary forms, with or without
