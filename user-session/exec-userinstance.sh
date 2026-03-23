@@ -26,6 +26,9 @@ uid="$(id -u $user)"
 
 #avoid clash with openrc user-session
 [ -d "/run/user/$uid/openrc" ] && exit 0
+#and with systemd --user
+[ -d "/run/systemd/system" ] && exit 0
+
 
 #   graphic or vt session?  this need to be accurate:
 # stopping the user session on getty/vt logout will be a problem for the graphic session
