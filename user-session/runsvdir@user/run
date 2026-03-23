@@ -10,9 +10,17 @@ echo "name is $USERNAME"
 [ -d "/home/$USERNAME" ] || exit 1
 # create dir for runsvdir in home
 SVDIR="/home/$USERNAME/.service"
+CURRENT="/home/$USERNAME/.runit/runsvdir/current"
+
 chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/sv"
+chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/runsvdir/default" #X11/wayland session
+chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/runsvdir/headless"
+
+if [ ! -d "$CURRENT" ]; then
+	chpst -u "$USERNAME" ln -s "/home/$USERNAME/.runit/runsvdir/default"  "$CURRENT"
+fi
 if [ ! -d "$SVDIR" ]; then
-	chpst -u "$USERNAME" ln -s "/home/$USERNAME/.runit/sv"  "$SVDIR"
+	chpst -u "$USERNAME" ln -s "$CURRENT"  "$SVDIR"
 fi
 
 groups="$(id -Gn "$USERNAME" | tr ' ' ':')"
