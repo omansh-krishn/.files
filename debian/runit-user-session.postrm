@@ -16,12 +16,12 @@ fi
 }
 
 if [ "$1" = purge ]; then
-	echo "/usr/share/runit/sv.now/runsvdir@user template may be in use"
+	echo "/usr/share/runit/sv.now/runsvdir@default template may be in use"
 	echo "warning: runsvdir@user not removed"
 	# TODO: same problem as in prerm, can't remove a directory if the service is up
 	# but stopping the user session could distrupt the upgrade
 	# TODO: idea: send TERM to user rusnvdir service so that all runsvs are detached
-	# and survive their runsvdir; then the rusnvdir@user template can be removed
+	# and survive their runsvdir; then the rusnvdir@default template can be removed
 fi
 
 

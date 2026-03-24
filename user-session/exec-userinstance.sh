@@ -50,7 +50,9 @@ uid="$(id -u $user)"
 if [ "$PAM_TYPE" = "open_session" ]; then #login event for $user
   #enable our runsvdir-user if it's not already enabled
   #prepare the instance
-  [ -d /usr/share/runit/sv.now/runsvdir@user ] || exit 1 #should not happen, can't do much without the template
+  [ -d /usr/share/runit/sv.now/runsvdir@default ] || exit 1 #should not happen, can't do much without the template
+  #TODO replace the following with cpsv p, but needs a versioned depends on runit >= 2.2.0-7
+  # START of cpsv replace block ##cpsv p runsvdir@default runsvdir@$user
   [ -d "/etc/sv/runsvdir@$user" ] || mkdir -p  "/etc/sv/runsvdir@$user"
   mkdir -p "/etc/sv/runsvdir@$user/env" # dir for environment
   mkdir -p "/etc/sv/runsvdir@$user/control"
@@ -60,6 +62,7 @@ if [ "$PAM_TYPE" = "open_session" ]; then #login event for $user
       ln -s /usr/share/runit/sv.now/runsvdir@user/$target  /etc/sv/runsvdir@$user/$target
     fi
   done
+  #END of cpsv p replace block
   #set env and enable the user runsvdir
   if [ ! -e /etc/service/runsvdir@$user ] && [ ! -e /etc/service/.runsvdir@$user ]; then
       # set the env for the supervision tree #TODO: which one are really needed? trim the list
