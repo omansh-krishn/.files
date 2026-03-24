@@ -7,6 +7,7 @@ echo "starting ${PWD##*/}"
 USERNAME="${PWD##*@}"
 echo "name is $USERNAME"
 
+[ "$USERNAME" = 'default' ] && exit 1
 [ -d "/home/$USERNAME" ] || exit 1
 # create dir for runsvdir in home
 SVDIR="/home/$USERNAME/.service"

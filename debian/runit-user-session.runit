@@ -1,0 +1,1 @@
+user-session/runsvdir@default          disable,onupgrade=nostop,noscripts,usr,bin=/usr/bin/runsvdir

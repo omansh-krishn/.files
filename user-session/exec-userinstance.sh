@@ -57,12 +57,14 @@ if [ "$PAM_TYPE" = "open_session" ]; then #login event for $user
   mkdir -p "/etc/sv/runsvdir@$user/env" # dir for environment
   mkdir -p "/etc/sv/runsvdir@$user/control"
   mkdir -p "/etc/sv/runsvdir@$user/log"
-  for target in run finish log/run control/t ; do
-    if [ ! -e /etc/sv/runsvdir@$user/$target ]; then
+  mkdir -p "/etc/sv/runsvdir@$user/.meta"
+  for target in run finish log/run control/t .meta/bin .meta/onupgrade .meta/enable .meta/pkg; do
+    if [ ! -e /etc/sv/runsvdir@$user/$target ] && [ ! -h /etc/sv/runsvdir@$user/$target ]; then
       ln -s /usr/share/runit/sv.now/runsvdir@user/$target  /etc/sv/runsvdir@$user/$target
     fi
   done
   #END of cpsv p replace block
+  [ ! -e /etc/sv/runsvdir@$user/run ] && exit 1 # block if is symlink is dangling, template gone
   #set env and enable the user runsvdir
   if [ ! -e /etc/service/runsvdir@$user ] && [ ! -e /etc/service/.runsvdir@$user ]; then
       # set the env for the supervision tree #TODO: which one are really needed? trim the list
