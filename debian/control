@@ -38,6 +38,7 @@ Description: UNIX init scheme with service supervision (services)
 
 Package: runit-user-session
 Architecture: any
+Conflicts: turnstile
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
