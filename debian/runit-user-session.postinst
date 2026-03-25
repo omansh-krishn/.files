@@ -4,8 +4,10 @@ set -e
 #copy or force-update the runsvdir@default template into /usr/share/runit/sv.now
 CPSV_DEST=/usr/share/runit/sv.now cpsv -f s || true
 
-pam-auth-update --package
-
+#no pam on Hurd right now
+if [ -e /usr/sbin/pam-auth-update ]; then
+	pam-auth-update --package
+fi
 #DEBHELPER#
 
 exit 0

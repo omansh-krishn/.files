@@ -2,7 +2,9 @@
 set -e
 
 if [ "$1" = remove ]; then
-	pam-auth-update --package --remove runit-user-session
+	if [ -e /usr/sbin/pam-auth-update ]; then #no pam on Hurd
+		pam-auth-update --package --remove runit-user-session
+	fi
 fi
 
 #TODO: should we stop the rusnvdir user instance here? but it
