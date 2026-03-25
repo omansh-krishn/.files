@@ -1,0 +1,2 @@
+sv/pipewire@user   disable,noscripts,usr,logscript,bin=/usr/bin/pipewire
+sv/wireplumber@user  disable,noscripts,usr,logscript,bin=/usr/bin/wireplumber

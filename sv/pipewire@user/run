@@ -1,0 +1,12 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+
+exec 2>&1
+#TODo socket?
+#ListenStream=%t/pipewire-0
+#ListenStream=%t/pipewire-0-manager
+
+# TODO set env vars see https://manpages.debian.org/unstable/pipewire-bin/pipewire.1.en.html
+
+exec ##bin## 

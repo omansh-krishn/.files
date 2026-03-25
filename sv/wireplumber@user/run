@@ -1,0 +1,9 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+
+exec 2>&1
+
+sv check "$HOME/.service/pipewire" || exit 1
+
+exec ##bin##
