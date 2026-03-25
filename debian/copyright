@@ -14,6 +14,16 @@ Copyright: 2005-2008 Gerrit Pape <pape@smarden.org>
            2022-2026 Lorenzo Puliti <plorenzo@disroot.org>
 License: BSD-3-Clause
 
+Files: user-session/*
+Copyright: 2024-2026 Lorenzo Puliti <plorenzo@disroot.org>
+License: BSD-3-Clause
+Comment: inspired by discussions on supervision mailing list
+
+Files: runit-cron-snooze/*
+Copyright: 2025 Lorenzo Puliti <plorenzo@disroot.org>
+License: BSD-3-Clause
+Comment: adapted from snooze homepage examples
+
 Files: sv/acpi-fakekey/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
@@ -82,6 +92,10 @@ License: CC0-1.0
 
 Files: sv/dbus/*
 Copyright: 2022-2023 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/dbus@user/*
+Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/dhclient/*
@@ -182,6 +196,10 @@ Files: sv/openntpd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/pipewire@user/*
+Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
 Files: sv/postfix/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
@@ -243,6 +261,10 @@ Comment: adapted to Debian from https://github.com/cloux/runit-base
 
 Files: sv/wicd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
+Files: sv/wireplumber@user/*
+Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
 Files: sv/xdm/*
