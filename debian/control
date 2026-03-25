@@ -81,13 +81,13 @@ Depends:
  runit-helper (>= 2.16.3),
  runit-user-session | turnstile,
  runit-run | runit-init,
-Description: dbus user instance (runit integration)
- This package starts a dbus user session instance at the first login event
+Description: D-Bus user instance (runit integration)
+ This package starts a D-Bus user session instance at the first login event
  for the user, and stops it at the last logout event of the same user.
- This package provides the runit dbus user service template and ensure
+ This package provides the runit D-Bus user service template and ensure
  that the service is running until the end of the session, with the help of
  the runit-user-session package.
- To start a user dbus --session instance in a runit system either use this
+ To start a user D-Bus --session instance in a runit system either use this
  package or dbus-x11.
  .
  See the dbus description for more information about D-Bus in general.
@@ -120,7 +120,7 @@ Architecture: all
 Pre-Depends:
     ${misc:Pre-Depends},
     cron-daemon-common
-Depends: ${shlibs:Depends}, ${misc:Depends}, runit-run | runit-init, snooze, cron-daemon-common
+Depends: ${shlibs:Depends}, ${misc:Depends}, runit-run | runit-init, snooze,
 Recommends: default-mta | mail-transport-agent,
 Breaks: ${runit:Breaks}
 Conflicts: systemd-cron, bcron, cronie, cron

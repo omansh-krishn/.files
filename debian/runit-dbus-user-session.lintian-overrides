@@ -1,0 +1,6 @@
+# log dirs are populated with symlinks by calling 'cpsv'
+runit-dbus-user-session: package-contains-empty-directory [usr/share/runit/sv/dbus@user/log/]
+# dbus here is the package name
+runit-dbus-user-session: capitalization-error-in-description dbus D-Bus
+# ehm, no, see above
+runit-dbus-user-session: capitalization-in-override-comment capitalization-error-in-description dbus D-Bus

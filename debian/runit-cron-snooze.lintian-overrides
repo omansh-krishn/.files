@@ -1,0 +1,2 @@
+# log dirs are populated with symlinks by calling 'cpsv'
+runit-cron-snooze: package-contains-empty-directory [usr/share/runit/sv/*/log/]

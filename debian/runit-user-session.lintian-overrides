@@ -1,0 +1,2 @@
+# but it uses [linux-any] in d/control so it can't be arch all
+runit-user-session: package-contains-no-arch-dependent-files
