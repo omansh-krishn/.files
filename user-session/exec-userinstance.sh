@@ -87,6 +87,8 @@ fi
 
 #LOGOUT
 if [ "$PAM_TYPE" = "close_session" ]; then #logout event for $user
+  #check if it's a linger session
+  [ -e "/home/$user/.runit/linger" ] && exit 0
   #disable (stop) our runsvdir-user if it's enabled
   if [ -h "/etc/service/runsvdir@$user" ]; then
     unlink "/etc/service/runsvdir@$user"

@@ -60,6 +60,7 @@ Description: UNIX init scheme with service supervision (user session)
   * other login managers like slim, xdm, wdm are not supprted for now;
   * few user-services (pipewire, wireplumber) are provided as examples, see
      /usr/share/doc/runit-user-session/README.gz for instructions
+  * lingering session are supported, with a 'linger' flag file
 
 Package: runit-cron-snooze
 Architecture: all
