@@ -1,9 +1,11 @@
 #!/bin/sh
 set -e
 
-#copy or force-update the runsvdir@default template into /usr/share/runit/sv.now
-CPSV_DEST=/usr/share/runit/sv.now cpsv -f s || true
-
+if [ "$1" = 'configure' ] && [ -z "${DPKG_ROOT:-}" ]; then
+	echo "sync runsvdir@default template.."
+	#copy or force-update the runsvdir@default template into /usr/share/runit/sv.now
+	CPSV_DEST=/usr/share/runit/sv.now CPSV_SOURCE=/usr/share/runit/sv.src cpsv -f s || true
+fi
 #no pam on Hurd right now
 if [ -e /usr/sbin/pam-auth-update ]; then
 	pam-auth-update --package
