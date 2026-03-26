@@ -54,7 +54,8 @@ if [ "$PAM_TYPE" = "open_session" ]; then #login event for $user
   #TODO replace the following with cpsv p, but needs a versioned depends on runit >= 2.2.0-7
   # START of cpsv replace block ##cpsv p runsvdir@default runsvdir@$user
   [ -d "/etc/sv/runsvdir@$user" ] || mkdir -p  "/etc/sv/runsvdir@$user"
-  mkdir -p "/etc/sv/runsvdir@$user/env" # dir for environment
+  mkdir -p "/etc/sv/runsvdir@$user/xenv" # dir for graphic environment
+  ln -s  "/etc/sv/runsvdir@$user/xenv" "/etc/sv/runsvdir@$user/env"
   mkdir -p "/etc/sv/runsvdir@$user/control"
   mkdir -p "/etc/sv/runsvdir@$user/log"
   mkdir -p "/etc/sv/runsvdir@$user/.meta"
@@ -68,18 +69,18 @@ if [ "$PAM_TYPE" = "open_session" ]; then #login event for $user
   #set env and enable the user runsvdir
   if [ ! -e /etc/service/runsvdir@$user ] && [ ! -e /etc/service/.runsvdir@$user ]; then
       # set the env for the supervision tree #TODO: which one are really needed? trim the list
-      [ -n "$PATH" ] && echo "$PATH" > "/etc/sv/runsvdir@$user/env/PATH"
-      [ -n "$XDG_RUNTIME_DIR" ] && echo "$XDG_RUNTIME_DIR" >  "/etc/sv/runsvdir@$user/env/XDG_RUNTIME_DIR"
-      [ -n "$DISPLAY" ] && echo "$DISPLAY" >  "/etc/sv/runsvdir@$user/env/DISPLAY"
-      [ -n "$XDG_VTNR" ] && echo "$XDG_VTNR" >  "/etc/sv/runsvdir@$user/env/XDG_VTNR"
-      [ -n "$XDG_SEAT" ] && echo "$XDG_SEAT" >  "/etc/sv/runsvdir@$user/env/XDG_SEAT"
-      [ -n "$XDG_SESSION_TYPE" ] && echo "$XDG_SESSION_TYPE" >  "/etc/sv/runsvdir@$user/env/XDG_SESSION_TYPE"
-      [ -n "$XDG_CURRENT_DESKTOP" ] && echo "$XDG_CURRENT_DESKTOP" >  "/etc/sv/runsvdir@$user/env/XDG_CURRENT_DESKTOP"
-      [ -n "$XDG_SESSION_ID" ] && echo "$XDG_SESSION_ID" >  "/etc/sv/runsvdir@$user/env/XDG_SESSION_ID"
-      [ -n "$XDG_SESSION_PATH" ] && echo "$XDG_SESSION_PATH" >  "/etc/sv/runsvdir@$user/env/XDG_SESSION_PATH"
-      [ -n "$XDG_SEAT_PATH" ] && echo "$XDG_SEAT_PATH" >  "/etc/sv/runsvdir@$user/env/XDG_SEAT_PATH"
-      [ -n "$XDG_SESSION_CLASS" ] && echo "$XDG_SESSION_CLASS" >  "/etc/sv/runsvdir@$user/env/XDG_SESSION_CLASS"
-      #[ -n "$" ] && echo "$" >  "/etc/sv/runsvdir@$user/env/"
+      [ -n "$PATH" ] && echo "$PATH" > "/etc/sv/runsvdir@$user/xenv/PATH"
+      [ -n "$XDG_RUNTIME_DIR" ] && echo "$XDG_RUNTIME_DIR" >  "/etc/sv/runsvdir@$user/xenv/XDG_RUNTIME_DIR"
+      [ -n "$DISPLAY" ] && echo "$DISPLAY" >  "/etc/sv/runsvdir@$user/xenv/DISPLAY"
+      [ -n "$XDG_VTNR" ] && echo "$XDG_VTNR" >  "/etc/sv/runsvdir@$user/xenv/XDG_VTNR"
+      [ -n "$XDG_SEAT" ] && echo "$XDG_SEAT" >  "/etc/sv/runsvdir@$user/xenv/XDG_SEAT"
+      [ -n "$XDG_SESSION_TYPE" ] && echo "$XDG_SESSION_TYPE" >  "/etc/sv/runsvdir@$user/xenv/XDG_SESSION_TYPE"
+      [ -n "$XDG_CURRENT_DESKTOP" ] && echo "$XDG_CURRENT_DESKTOP" >  "/etc/sv/runsvdir@$user/xenv/XDG_CURRENT_DESKTOP"
+      [ -n "$XDG_SESSION_ID" ] && echo "$XDG_SESSION_ID" >  "/etc/sv/runsvdir@$user/xenv/XDG_SESSION_ID"
+      [ -n "$XDG_SESSION_PATH" ] && echo "$XDG_SESSION_PATH" >  "/etc/sv/runsvdir@$user/xenv/XDG_SESSION_PATH"
+      [ -n "$XDG_SEAT_PATH" ] && echo "$XDG_SEAT_PATH" >  "/etc/sv/runsvdir@$user/xenv/XDG_SEAT_PATH"
+      [ -n "$XDG_SESSION_CLASS" ] && echo "$XDG_SESSION_CLASS" >  "/etc/sv/runsvdir@$user/xenv/XDG_SESSION_CLASS"
+      #[ -n "$" ] && echo "$" >  "/etc/sv/runsvdir@$user/xenv/"
       #finally, enable it
       ln -s "/etc/sv/runsvdir@$user"  "/etc/service/runsvdir@$user"  #TODO link to /etc/runit/runsvdir/default/
   fi
