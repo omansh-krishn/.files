@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+	if [ -z "${DPKG_ROOT:-}" ] ; then
+		echo "sync runit-cron-snooze services.."
+		# this will copy to runtime dir and enable appropriate services
+		/lib/runit/trigger_sv setup
+		echo ".. done"
+	fi
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
