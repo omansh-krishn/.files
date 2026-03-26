@@ -16,6 +16,8 @@ CURRENT="/home/$USERNAME/.runit/runsvdir/current"
 chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/sv"
 chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/runsvdir/default" #X11/wayland session
 chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/runsvdir/headless"
+chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/supervise"
+chpst -u "$USERNAME" mkdir -p "/home/$USERNAME/.runit/log"
 
 if [ ! -d "$CURRENT" ]; then
 	chpst -u "$USERNAME" ln -s "/home/$USERNAME/.runit/runsvdir/default"  "$CURRENT"
