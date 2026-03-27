@@ -42,6 +42,7 @@ Conflicts: turnstile
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ runit (>= 2.1.2-56),
  libpam-modules [linux-any],
 Recommends:
  runit-run | runit-init,

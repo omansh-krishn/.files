@@ -6,6 +6,21 @@ if [ "$1" = 'configure' ] && [ -z "${DPKG_ROOT:-}" ]; then
 	# copy templates to runtime dir
 	CPSV_DEST=/usr/share/runit/sv.now CPSV_SOURCE=/usr/share/runit/sv.src cpsv -f s || true
 	echo ".. done"
+	#now install and enable user services
+	if [ -d '/home' ]; then
+		for dir in /home/* ; do
+			ruser=${dir##*/}
+			if ! getent passwd "$ruser" >/dev/null ; then
+				continue
+			fi
+			if [ ! -d "$dir/.runit/sv" ] || [ ! -e "$dir/.service" ]; then
+				continue
+			fi
+			echo "sync runit user services for $ruser .."
+			chpst -u "$ruser"  /lib/runit/trigger_sv setup
+			echo ".. done"
+		done
+	fi
 fi
 
 #DEBHELPER#

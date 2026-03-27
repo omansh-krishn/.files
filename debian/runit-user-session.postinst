@@ -1,15 +1,35 @@
 #!/bin/sh
 set -e
 
+#no pam on Hurd right now
+if [ -e /usr/sbin/pam-auth-update ]; then
+	pam-auth-update --package
+fi
+
 if [ "$1" = 'configure' ] && [ -z "${DPKG_ROOT:-}" ]; then
 	echo "sync runsvdir@default template.."
 	#copy or force-update the runsvdir@default template into /usr/share/runit/sv.now
 	CPSV_DEST=/usr/share/runit/sv.now CPSV_SOURCE=/usr/share/runit/sv.src cpsv -f s || true
 fi
-#no pam on Hurd right now
-if [ -e /usr/sbin/pam-auth-update ]; then
-	pam-auth-update --package
+if [ "$1" = 'configure' ] || [ "$1" = 'triggered' ]; then
+	if [ -z "${DPKG_ROOT:-}" ] && [ -d '/home' ]; then
+		for dir in /home/* ; do
+			ruser=${dir##*/}
+			if ! getent passwd "$ruser" >/dev/null ; then
+				continue
+			fi
+			if [ ! -d "$dir/.runit/sv" ] || [ ! -e "$dir/.service" ]; then
+				continue
+			fi
+			echo "sync runit user services for $ruser .."
+			chpst -u "$ruser"  /lib/runit/trigger_sv setup
+			[ "$1" = 'configure' ] && continue
+			chpst -u "$ruser"  /lib/runit/trigger_sv upgrade
+			echo ".. done"
+		done
+	fi
 fi
+
 #DEBHELPER#
 
 exit 0
