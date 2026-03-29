@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = remove ]; then
+	for cronsv in snooze-daily  snooze-hourly snooze-monthly snooze-weekly snooze-yearly ; do
+		if [ ! -r /etc/service/"$cronsv"/.meta/pkg ]; then
+			continue #not from this pkg
+		fi
+		ispkg=$(cat /etc/service/"$cronsv"/.meta/pkg)
+		if [ "$ispkg" != 'runit-cron-snooze' ]; then
+			continue # skip: not from this package
+		fi
+		if [ -z "${DPKG_ROOT:-}" ] && [ -h "/etc/service/$cronsv" ]; then
+			sv -w 2 d $cronsv || true
+		fi
+	done
+fi
+
+#DEBHELPER#
+
+exit 0

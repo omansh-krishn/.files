@@ -7,8 +7,22 @@ if [ "$1" = remove ]; then
 	fi
 fi
 
-#TODO: should we stop the rusnvdir user instance here? but it
-# will destroy the session where apt is operating...
+#should we really stop the rusnvdir user instance here?
+# NOTE it can turn off the session where apt is running..
+if [ "$1" = remove ]; then
+	for rdir in /etc/service/runsvdir@* ; do
+		if [ ! -r "$rdir/.meta/pkg" ]; then
+			continue #not from this pkg
+		fi
+		ispkg=$(cat "$rdir/.meta/pkg")
+		if [ "$ispkg" != 'runit-user-session' ]; then
+			continue # skip: not from this package
+		fi
+		if [ -z "${DPKG_ROOT:-}" ]; then
+			sv -w 2 d "$rdir" || true
+		fi
+	done
+fi
 
 #DEBHELPER#
 

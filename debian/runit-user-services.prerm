@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = remove ] && [ -d '/home' ]; then
+	for dir in /home/* ; do
+		ruser=${dir##*/}
+		[ ! -e "/etc/service/runsvdir@$ruser" ] && continue
+		[ ! -e "$dir"/.service/ ] && continue
+		for usersv in "$dir"/.service/* ; do
+			if [ ! -r "$usersv/.meta/pkg" ]; then
+				continue #not from this pkg
+			fi
+			ispkg=$(cat "$usersv/.meta/pkg")
+			if [ "$ispkg" != 'runit-user-services' ]; then
+				continue # skip: not from this package
+			fi
+			if [ -z "${DPKG_ROOT:-}" ] && getent passwd "$ruser" >/dev/null ; then
+				chpst -u "$ruser" sv d "$usersv" || true
+			fi
+		done
+	done
+fi
+
+#DEBHELPER#
+
+exit 0

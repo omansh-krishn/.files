@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+#NOTE stopping dbus from this package may require to logout and
+# login again (with dbus-x11) to have a working user-session+ dbus
+if [ "$1" = remove ] && [ -d '/home' ]; then
+	for dir in /home/* ; do
+		ruser=${dir##*/}
+		[ ! -e "/etc/service/runsvdir@$ruser" ] && continue
+		if [ ! -r "$dir/.service/dbus/.meta/pkg" ]; then
+			continue #not from this pkg || not enabled
+		fi
+		ispkg=$(cat "$dir/.service/dbus/.meta/pkg")
+		if [ "$ispkg" != 'runit-dbus-user-session' ]; then
+			continue # skip: not from this package
+		fi
+		if [ -z "${DPKG_ROOT:-}" ] && getent passwd "$ruser" >/dev/null ; then
+			chpst -u "$ruser" sv -w 1 d "$dir/.service/dbus" || true
+		fi
+	done
+fi
+
+#DEBHELPER#
+
+exit 0
