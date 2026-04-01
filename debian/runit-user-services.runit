@@ -1,2 +1,3 @@
 sv/pipewire@user   disable,noscripts,usr,logscript,bin=/usr/bin/pipewire
 sv/wireplumber@user  disable,noscripts,usr,logscript,bin=/usr/bin/wireplumber
+sv/pipewire-pulse@user  disable,noscripts,usr,logscript,bin=/usr/bin/pipewire-pulse

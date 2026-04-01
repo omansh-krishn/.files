@@ -1,0 +1,11 @@
+#!/usr/bin/env /lib/runit/invoke-run
+#Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
+#License: CC0-1.0
+
+exec 2>&1
+
+#likely depends on wireplumber --> pipewire
+#sv check "$HOME/.service/pipewire" || exit 1
+sv check "$HOME/.service/wireplumber" || exit 1
+
+exec ##bin## 
