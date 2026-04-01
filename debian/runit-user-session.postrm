@@ -1,31 +1,54 @@
 #!/bin/sh
 set -e
 
-is_up () {
-# stat --> run | down
-if [ -e "/etc/service/$name/supervise/stat" ]; then
-	stat=$(cat "/etc/service/$name/supervise/stat")
-	if [ "$stat" != run ]; then
-		return 1
+rm_svdir () { #dir $runtimesvdir/$NAME #lock supervise/lock
+	dir="$1" ; lock="$2" ;
+	echo "removing (purge) $dir ..."
+	if [ -e "$dir/$lock" ]; then
+		if timeout 5 flock "$dir/$lock" true ; then
+			rm -rf "$dir" && echo " .. done"
+		else
+			echo "warning: runsv still running: $dir not purged!"
+		fi
 	else
-		return 0
+		rm -rf "$dir" && echo "..done"
 	fi
-else
-	return 1
-fi
 }
 
+etcsvdir=/etc/sv
+usersvdir=/usr/share/runit/sv.now
+logdir=/home/$sname/.runit/log
+
 if [ "$1" = purge ]; then
-	echo "/usr/share/runit/sv.now/runsvdir@default template may be in use"
-	echo "warning: runsvdir@user not removed"
-	# TODO: same problem as in prerm, can't remove a directory if the service is up
-	# but stopping the user session could distrupt the upgrade
-	# TODO: idea: send TERM to user rusnvdir service so that all runsvs are detached
-	# and survive their runsvdir; then the rusnvdir@default template can be removed
+	for dirsv in "$etcsvdir"/runsvdir@* "$usersvdir"/runsvdir@default ; do
+		sname=${dirsv##*/}
+		if [ -h /etc/service/"$sname" ]; then
+			echo "$sname: purged by: runit-user-session" > "/etc/service/$sname/down"
+			timeout 0.2 printf x >  "/etc/service/$sname/supervise/control"
+			rm -f "/etc/service/$sname"
+		fi
+		rm -f "/etc/service/.$sname"
+		rm -f "/etc/runit/runsvdir/default/$sname"
+		rm -f "/etc/runit/runsvdir/default/.$sname"
+		#etc or runtimedir
+		if [ ! -r "$dirsv/.meta/pkg" ]; then
+			continue #not from this pkg
+		fi
+		ispkg=$(cat "$dirsv/.meta/pkg")
+		if [ "$ispkg" != 'runit-user-session' ]; then
+			continue # skip: not from this package
+		fi
+		rm_svdir "$dirsv" "supervise/lock"
+		#logdir in user's home
+		if [ -d "$logdir/$sname" ]; then
+			rm_svdir "$logdir/$sname" "lock"
+		fi
+		#remove supervise
+		if [ -d "/run/runit/supervise/$sname" ]; then
+			rm_svdir "/run/runit/supervise/$sname" "lock"
+		fi
+	done
 fi
-
-
-
 
 #DEBHELPER#
 

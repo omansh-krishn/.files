@@ -1,0 +1,65 @@
+#!/bin/sh
+set -e
+
+rm_svdir () { #dir $runtimesvdir/$NAME #lock supervise/lock
+	dir="$1" ; lock="$2" ;
+	echo "removing (purge) $dir ..."
+	if [ -e "$dir/$lock" ]; then
+		if timeout 5 flock "$dir/$lock" true ; then
+			rm -rf "$dir" && echo " .. done"
+		else
+			echo "warning: runsv still running: $dir not purged!"
+		fi
+	else
+		rm -rf "$dir" && echo "..done"
+	fi
+}
+
+if [ "$1" = 'purge' ] && [ -d '/home' ]; then
+	for dir in /home/* ; do
+		usersv= ; #ruser=${dir##*/}
+		[ ! -d "$dir/.runit/sv" ] && continue
+		for uservice in "$dir"/.runit/sv/* ; do
+			usersv=${uservice##*/}
+			if [ -h "$dir/.service/$usersv" ]; then
+				echo "$usersv: purged by: runit-user-services" > "/$dir/.service/$usersv/down"
+				timeout 0.2 printf x >  "$dir/.service/$usersv/supervise/control"
+				rm -f "$dir/.service/dbus"
+			fi
+			rm -f "$dir/.service/.$usersv"
+			rm -f "$dir/.runit/runsvdir/default/$usersv"
+			rm -f "$dir/.runit/runsvdir/default/.$usersv"
+			[ ! -r "$dir/.runit/sv/$usersv/.meta/pkg" ] && continue
+			ispkg=$(cat "$dir/.runit/sv/$usersv/.meta/pkg")
+			if [ "$ispkg" != 'runit-user-services' ]; then
+				continue # skip: not from this package
+			fi
+			#user instance
+			rm_svdir "$dir/.runit/sv/$usersv" "supervise/lock"
+			#user logdir
+			if [ -d "$dir/.runit/log/$usersv" ]; then
+				rm_svdir "$dir/.runit/log/$usersv" "lock"
+			fi
+			#user supervise
+			if [ -d "$dir/.runit/supervise/$usersv" ]; then
+				rm_svdir "$dir/.runit/supervise/$usersv" "lock"
+			fi
+		done
+	done
+fi
+
+if [ "$1" = 'purge' ]; then
+	#remove templates in runtime dir
+	for rdir in /usr/share/runit/sv.current/* ; do
+		usersv=${rdir%@user};
+		[ "$rdir" = "$usersv" ] && continue #not a user service
+		[ ! -r "$rdir/.meta/pkg" ] && continue
+		ispkg=$(cat "$rdir/.meta/pkg")
+		[ "$ispkg" != 'runit-user-services' ] && continue
+		rm -rf "$rdir"
+	done
+fi
+
+#DEBHELPER#
+
+exit 0

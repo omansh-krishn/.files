@@ -1,0 +1,57 @@
+#!/bin/sh
+set -e
+
+rm_svdir () { #dir $runtimesvdir/$NAME #lock supervise/lock
+	dir="$1" ; lock="$2" ;
+	echo "removing (purge) $dir ..."
+	if [ -e "$dir/$lock" ]; then
+		if timeout 5 flock "$dir/$lock" true ; then
+			rm -rf "$dir" && echo " .. done"
+		else
+			echo "warning: runsv still running: $dir not purged!"
+		fi
+	else
+		rm -rf "$dir" && echo "..done"
+	fi
+}
+
+usersvdir=/usr/share/runit/sv.current
+logdir=/var/log/runit
+
+if [ "$1" = 'purge' ]; then
+	for cronsv in snooze-daily snooze-hourly snooze-monthly snooze-weekly snooze-yearly ; do
+		if [ -h /etc/service/"$cronsv" ]; then
+			echo "$cronsv: purged by: runit-cron-snooze" > "/etc/service/$cronsv/down"
+			timeout 0.2 printf x >  "/etc/service/$cronsv/supervise/control"
+			rm -f "/etc/service/$cronsv"
+		fi
+		rm -f "/etc/service/.$cronsv"
+		rm -f "/etc/runit/runsvdir/default/$cronsv"
+		rm -f "/etc/runit/runsvdir/default/.$cronsv"
+		 #runtimedir
+		if [ ! -r "$usersvdir/$cronsv/.meta/pkg" ]; then
+			continue #not from this pkg
+		fi
+		ispkg=$(cat "$usersvdir/$cronsv"/.meta/pkg)
+		if [ "$ispkg" != 'runit-cron-snooze' ]; then
+			continue # skip: not from this package
+		fi
+		rm_svdir "$usersvdir/$cronsv" "supervise/lock"
+		#logdir
+		if [ -d "$logdir/$cronsv" ] && [ -r "$logdir/$cronsv/.pkg" ]; then
+			ispkg="$(cat "$logdir/$cronsv/.pkg")"
+			if [ "$ispkg" != 'runit-cron-snooze' ]; then
+				continue # skip: not from this package
+			fi
+			rm_svdir "$logdir/$cronsv" "lock"
+		fi
+		#remove supervise
+		if [ -d "/run/runit/supervise/$cronsv" ]; then
+			rm_svdir "/run/runit/supervise/$cronsv" "lock"
+		fi
+	done
+fi
+
+#DEBHELPER#
+
+exit 0

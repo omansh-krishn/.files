@@ -1,0 +1,55 @@
+#!/bin/sh
+set -e
+
+rm_svdir () { #dir $runtimesvdir/$NAME #lock supervise/lock
+	dir="$1" ; lock="$2" ;
+	echo "removing (purge) $dir ..."
+	if [ -e "$dir/$lock" ]; then
+		if timeout 5 flock "$dir/$lock" true ; then
+			rm -rf "$dir" && echo " .. done"
+		else
+			echo "warning: runsv still running: $dir not purged!"
+		fi
+	else
+		rm -rf "$dir" && echo "..done"
+	fi
+}
+
+#NOTE stopping dbus from this package may require to logout and
+# login again (with dbus-x11) to have a working user-session+ dbus
+if [ "$1" = 'purge' ] && [ -d '/home' ]; then
+	for dir in /home/* ; do
+		#ruser=${dir##*/}
+		if [ -h "$dir/.service/dbus" ]; then
+			echo "dbus: purged by: runit-dbus-user-session" > "/$dir/.service/dbus/down"
+			timeout 0.2 printf x >  "$dir/.service/dbus/supervise/control"
+			rm -f "$dir/.service/dbus"
+		fi
+		rm -f "$dir/.service/.dbus"
+		rm -f "$dir/.runit/runsvdir/default/dbus"
+		rm -f "$dir/.runit/runsvdir/default/.dbus"
+		if [ ! -r "$dir/.runit/sv/dbus/.meta/pkg" ]; then
+			continue #not from this pkg 
+		fi
+		ispkg=$(cat "$dir/.runit/sv/dbus/.meta/pkg")
+		if [ "$ispkg" != 'runit-dbus-user-session' ]; then
+			continue # skip: not from this package
+		fi
+		#user instance
+		rm_svdir "$dir/.runit/sv/dbus" "supervise/lock"
+		#user logdir
+		if [ -d "$dir/.runit/log/dbus" ]; then
+			rm_svdir "$dir/.runit/log/dbus" "lock"
+		fi
+		#user supervise
+		if [ -d "$dir/.runit/supervise/dbus" ]; then
+			rm_svdir "$dir/.runit/supervise/dbus" "lock"
+		fi
+	done
+	#remove root template dbus@user
+	rm -rf /usr/share/runit/sv.current/dbus@user
+fi
+
+#DEBHELPER#
+
+exit 0
