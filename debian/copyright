@@ -196,6 +196,10 @@ Files: sv/openntpd/*
 Copyright: 2022 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
 
+Files: sv/pipewire-pulse@user/*
+Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
+License: CC0-1.0
+
 Files: sv/pipewire@user/*
 Copyright: 2026 Lorenzo Puliti <plorenzo@disroot.org>
 License: CC0-1.0
