@@ -51,20 +51,10 @@ if [ "$PAM_TYPE" = "open_session" ]; then #login event for $user
   #enable our runsvdir-user if it's not already enabled
   #prepare the instance
   [ -d /usr/share/runit/sv.now/runsvdir@default ] || exit 1 #should not happen, can't do much without the template
-  #TODO replace the following with cpsv p, but needs a versioned depends on runit >= 2.2.0-7
-  # START of cpsv replace block ##cpsv p runsvdir@default runsvdir@$user
-  [ -d "/etc/sv/runsvdir@$user" ] || mkdir -p  "/etc/sv/runsvdir@$user"
+  #create instance of runsvdir for $user
+  cpsv p runsvdir@default runsvdir@"$user"
   mkdir -p "/etc/sv/runsvdir@$user/xenv" # dir for graphic environment
   ln -s  "/etc/sv/runsvdir@$user/xenv" "/etc/sv/runsvdir@$user/env"
-  mkdir -p "/etc/sv/runsvdir@$user/control"
-  mkdir -p "/etc/sv/runsvdir@$user/log"
-  mkdir -p "/etc/sv/runsvdir@$user/.meta"
-  for target in run finish log/run control/t .meta/bin .meta/onupgrade .meta/enable .meta/pkg; do
-    if [ ! -e /etc/sv/runsvdir@$user/$target ] && [ ! -h /etc/sv/runsvdir@$user/$target ]; then
-      ln -s /usr/share/runit/sv.now/runsvdir@user/$target  /etc/sv/runsvdir@$user/$target
-    fi
-  done
-  #END of cpsv p replace block
   [ ! -e /etc/sv/runsvdir@$user/run ] && exit 1 # block if is symlink is dangling, template gone
   #set env and enable the user runsvdir
   if [ ! -e /etc/service/runsvdir@$user ] && [ ! -e /etc/service/.runsvdir@$user ]; then
