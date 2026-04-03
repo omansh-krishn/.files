@@ -62,13 +62,11 @@ Description: UNIX init scheme with service supervision (user session)
  the stash of available user services is in $HOME/.runit/sv .
  .
   * works on top of runit-init or sysvinit-core packages;
-  * works with graphic-session logins, X11 and Wayland are supported;
+  * works with graphic-session logins, both X11 and Wayland, and a login manager,
+     for now sddm, lightdm, slim and wdm are supported
   * remote and tty logins are not supported for now;
-  * works with sddm or lightdm;
-  * other login managers like slim, xdm, wdm are not supprted for now;
-  * few user-services (pipewire, wireplumber) are provided as examples, see
-     /usr/share/doc/runit-user-session/README.gz for instructions
-  * lingering session are supported, with a 'linger' flag file
+  * lingering sessions are supported, with a 'linger' flag file
+ read /usr/share/doc/runit-user-session/README.gz for instructions
 
 Package: runit-dbus-user-session
 Provides: dbus-session-bus,
