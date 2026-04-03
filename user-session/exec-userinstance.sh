@@ -13,7 +13,7 @@
 # PAM_USER= current user     THIS <-- (the user to act upon)
 # PAM_TYPE= open_session, or close_session  <-- THIS (it match login and logout)
 # PAM_TYPE= (account, auth, password,)
-# PAM_TTY=/dev/tty1 // current tty
+# PAM_TTY=/dev/tty1 // current tty, in case of x11 is ":0"(sddm, lightdm,wdm) or ":0.0" (slim)
 #exit 0
 ##end debug
 
@@ -29,21 +29,26 @@ uid="$(id -u $user)"
 #and with systemd --user
 [ -d "/run/systemd/system" ] && exit 0
 
-
-#   graphic or vt session?  this need to be accurate:
-# stopping the user session on getty/vt logout will be a problem for the graphic session
-# starting graphic session for a getty/vt login could be a problem
-#TODO: the following filter for graphic only [sddm, lightdm and the like], vt/remote neds more work
-#NOTE: this means that we are NOT catching things like "startx" on vt
-[ -z "$XDG_SESSION_TYPE" ] && exit 0 # login on xterm or the like
-[ "$XDG_SESSION_TYPE" = 'tty' ] && exit 0 #getty login TODO: but what about startx from tty?
-# other possible ways to filter out non graphic logins
-#[ -z "$XDG_VTNR" ] && exit 0
-#[ -z "$DISPLAY" ] && exit 0 #this is not set for wayland, so we can't use it
-[ -z "$DESKTOP_SESSION" ] && exit 0 #is this ok? works with openbox and the like?
-#TODO: distinguish between xorg and wayland (any use for this?)
-#XDG_SESSION_TYPE=x11  --> this is xorg
-#XDG_SESSION_TYPE=wayland  --> this is wayland
+[ -z "$PAM_SERVICE" ] && exit 0
+#continue on graphic session, exit on getty/pts/others (remote?) logins
+#NOTE in future we may have to register sessions here
+case "$PAM_SERVICE" in
+    sddm|lightdm|slim|wdm)
+      #ok continue, we support the above
+   ;;
+   login)
+    #getty on /dev/ttyN, we don't support this for now (maybe also remote login?)
+    exit 0
+   ;;
+   su-l)
+    #always stop this, root on pts
+    exit 0
+   ;;
+   *)
+    #things we don't know yet, stop for now
+    exit 0
+   ;;
+esac
 
 #start/stop the runsvdir user instance
 #LOGIN
@@ -52,7 +57,9 @@ if [ "$PAM_TYPE" = "open_session" ]; then #login event for $user
   #prepare the instance
   [ -d /usr/share/runit/sv.now/runsvdir@default ] || exit 1 #should not happen, can't do much without the template
   #create instance of runsvdir for $user
-  cpsv p runsvdir@default runsvdir@"$user"
+  if [ ! -d "/etc/sv/runsvdir@$user" ]; then
+      cpsv p runsvdir@default runsvdir@"$user"
+  fi
   mkdir -p "/etc/sv/runsvdir@$user/xenv" # dir for graphic environment
   ln -s  "/etc/sv/runsvdir@$user/xenv" "/etc/sv/runsvdir@$user/env"
   [ ! -e /etc/sv/runsvdir@$user/run ] && exit 1 # block if is symlink is dangling, template gone
