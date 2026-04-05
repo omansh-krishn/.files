@@ -1,0 +1,213 @@
+==Runit user session==
+
+This package provides a user session where the user can manage user-services as
+runit services, taking advantages of runit supervision:
+services can be enabled/disabled with provided tools (update-service) and can be
+controlled with the sv(8) program;
+the user runsvdir instance is runs as system-wide service, ensuring restart of both
+the instance and user services in case of crashes;
+resource limits can be optionally applied either to the entire runsvdir user tree or to
+single user services, and the environment can be controlled with the chpst tool.
+
+In this Howto, the user 'bob' used in many examples, you should replace it with your actual user;
+commands that starts with $ should be run with unprivilleged user (bob in examples) while
+commands that starts with # should be run with root privileges.
+
+Index:
+* user session packages overview
+* current limitations
+* recommended setup at first installation
+* managing a user service, an example
+* editing a user service
+* permanently stop the runsvdir user instance
+* linger mode
+
+
+== User session packages overview ==
+
+ * runit-user-session: this package starts/stops a runsvdir-user instance (in /etc/sv) at
+      pam login/logout events; the runsvdir user instance propagates a proper environment
+      to user services with "chpst -e style" directory; it also features a trigger that is responsible
+      for creating instances for user services, for enabling/disabling services and restart during
+      upgrades.
+
+ * runit-user-services: a collection of frequently used user services templates , to be used
+      with the runit-user-session package
+ 
+ * runit-dbus-user-session: this package enables a "dbus --session" runit service for each user
+      where a runit-user-session is active. The dbus -session service runs with the uid of the
+      user and starts many dbus-services that are commonly used in Desktop Environments
+      (not to be confused with the system wide dbus service); this package is optional, it
+      provides the "dbus-session-bus" virtual package and can be used in place of the
+      dbus-x11 package.
+
+
+== current limitations ==
+
+This package is experimental, it currently works only with graphic sessions started
+with an hardcoded list of display manager: slim, wdm, lightdm and sddm are the only
+one supported for now; others may be added later on request.
+The package was designed make it easier to run pipewire and wireplumber within
+a graphic (wayland) session, which was a common feature requested lately from users;
+further development to support non graphic logins (ttys and remote logins) is planned
+and may happen in future.
+
+
+== recommended setup at first installation ==
+
+Before or right after the first intallation it's recommended to add the following
+lines to either bash_profile or bashrc (/home/bob/.bash_profile or /home/bob/.bashrc):
+
+---------------------------------------------------------------
+#export svdir for bob
+SVDIR=/home/ombra/.service
+export SVDIR
+
+#add bash completions for sv, cpsv and update-service
+if [ -r /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+fi
+--------------------------------------------------------------
+
+At the first "graphic" login of user bob, a runsvdir instance called runsvdir@bob
+will be created in /etc/sv/ and enabled; also the expected directory tree structure
+in bob's home will be automatically created.
+In order to populate /home/bob/.runit/sv/ with all relevant user service instances
+you should do:
+
+ $ /lib/runit/trigger_sv setup
+
+this is only needed the first time this package is installed; after that the trigger
+runs automatically at upgrades.
+The trigger_sv command above will create and enable instances when appropriate;
+note that the large majority of user services are shipped as disabled by default to avoid
+conflicts (other means to start those services exists and often are already in place).
+
+In case you need to recreate the runsvdir instance and/or the user's directory tree later,
+you can do the following
+
+ # cpsv p runsvdir@default runsvdir@bob
+(this will create the runsvdir instance)
+
+ # update-service --add runsvdir@bob 
+(and this will enable it)
+
+ $ cpsv i
+(this will create the directory tree in the user's home, the uid that runs the command
+is used to select the correct home directory)
+
+
+== managing a user service, an example ==
+
+The following programs, when run without root privileges, can be used to manage
+a user service, no extra options are needed:
+update-service(8) can be used to enable and disable a user services, the sv(8)
+program can be used to control it and the cpsv(8) tool can be used to create
+and maintain new instances (see "editing a user service" for cpsv usage).
+
+User services are shipped as templates in /usr/share/runit/sv.current and are
+identified by the '@user' suffix; templates are not meant to be used directly but
+rather an instance should be created inside user's home before use.
+
+Instances are usually created automatically by a trigger and by default, the
+'@user' suffix is stripped from the template name, so for exmaple
+
+/usr/share/runit/sv.current/pipewire@user is a template for pipewire, and
+/home/bob/.runit/sv/pipewire is the pipewire instance for user 'bob'.
+
+Once the pipewire instance is in user's home below .runit/sv/ the service can be
+enabled with
+
+ $ update-service --add pipewire
+
+(this is necessary only if the service is not automatically enabled)
+
+To disable and stop a service that is automatically enabled the user can do
+
+ $ update-service --remove pipewire
+
+this will disable the pipewire service and make sure that it is not automatically
+enabled by this package.
+
+The runsvdir@bob service watches the /home/bob/.service directory, so
+the status of all user services supervised by runit can be checked with
+
+ $ sv s /home/bob/.service/*
+
+many user services comes as disabled by default to avoid conflicts; before enabling
+a user service is recommended to disable other means to start the same service, such
+as turnstile, Shed, ad-hoc shell scripts that uses & to detach, Desktop autostart and
+the like; it's also worth checking if the service is started with dbus.
+
+
+== editing a user service ==
+
+In order to edit and customize a user service you should never edit the template
+in /usr/share/runit/sv/ or /usr/share/runit/sv.current since your changes there
+will be overwritten, but you should edit the user instance inside your user's home,
+which will be in /home/bob/.runit/sv/ .
+
+If the instance does not exist in your home but there is a user template in
+/usr/share/runit/sv.current (for example /usr/share/runit/sv.current/pipewire@user)
+you can create the instance with
+
+ $ cpsv p pipewire@user pipewire
+
+This is normally not needed as instances of relevant services for your system are
+created automatically by a trigger.
+When the instance is already created you can replace symlinks with real files and
+changes will be persistent; for example, if you have an instance for pipewire in
+
+/home/bob/.runit/sv/pipewire
+
+and you want to change the run file (which is a symlink by default) you can do
+the following:
+
+ $ rm /home/bob/.runit/sv/pipewire/run
+ $ cp /usr/share/runit/sv.curent/pipewire@user/run  /home/bob/.runit/sv/pipewire/
+
+then you can edit the run file /home/bob/.runit/sv/pipewire/run.
+Note that when you do so, changes made to packages (included bug fixes) are
+not automatically applied to your pipewire/run modified file;
+the cpsv(8) tool can be used to inspect the difference between the package
+provided template and a user service instance, for example
+
+ $ cpsv d pipewire@user pipewire
+
+ 
+== permanently stop the runsvdir user instance ==
+
+ # update-service --remove runsvdir@bob
+
+this will remove the runsvdir@bob link in /etc/service and will create
+a .runsvdir@bob link, which is what prevents the service from being
+automatically started. If you need to preseed this setting, touching a
+'.runsvdir@bob' empty file in /etc/service/ will work too.
+Note that this setting is effective also when operating in 'linger mode',
+see below.
+
+
+== linger mode ==
+
+In 'linger mode' the session starts automatically at system boot and
+stops only at system shutdown, all login and logout events are ignored.
+This mode requires the following configuration, to be repeated for each user
+for whom this mode is required:
+
+first, create the directory tree in bob's home and create the 'linger' flag file
+
+ $ cpsv i
+ $ touch /home/bob/.runit/linger
+
+then create the runsvdir instance for bob user, and enable it
+(this step requires root privileges)
+
+ # cpsv p runsvdir@default runsvdir@bob
+ # update-service --add runsvdir@bob
+
+at this point the runsvdir instance for bob is running, it won't be stopped
+at logout and will automatically start at the next system boot
+
+Note that the 'linger' flag file inside bob's home is what blocks any logout event from
+stopping the runsvdir@bob service; also, for now, on Hurd systems this is the only
+operation mode supported.
