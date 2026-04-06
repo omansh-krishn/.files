@@ -62,8 +62,8 @@ Description: UNIX init scheme with service supervision (user session)
  the stash of available user services is in $HOME/.runit/sv .
  .
   * works on top of runit-init or sysvinit-core packages;
-  * works with graphic-session logins, both X11 and Wayland, and a login manager,
-     for now sddm, lightdm, slim and wdm are supported
+  * works with graphic-session logins, both X11 and Wayland, and a login
+     manager, for now sddm, lightdm, slim and wdm are supported
   * remote and tty logins are not supported for now;
   * lingering sessions are supported, with a 'linger' flag file
  read /usr/share/doc/runit-user-session/README.gz for instructions

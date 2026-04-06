@@ -3,4 +3,4 @@ runit-dbus-user-session: package-contains-empty-directory [usr/share/runit/sv/db
 # dbus here is the package name
 runit-dbus-user-session: capitalization-error-in-description dbus D-Bus
 # ehm, no, see above
-runit-dbus-user-session: capitalization-in-override-comment capitalization-error-in-description dbus D-Bus
+runit-dbus-user-session: capitalization-in-override-comment capitalization-error-in-description dbus D-Bus [usr/share/lintian/overrides/runit-dbus-user-session:3]
