@@ -17,7 +17,7 @@ if [ "$1" = 'configure' ] && [ -z "${DPKG_ROOT:-}" ]; then
 				continue
 			fi
 			echo "sync runit user services for $ruser .."
-			chpst -u "$ruser"  /lib/runit/trigger_sv setup
+			chpst -u "$ruser"  /lib/runit/trigger_sv setup || true
 			echo ".. done"
 		done
 	fi

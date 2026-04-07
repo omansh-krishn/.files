@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+
 #no pam on Hurd right now
 if [ -e /usr/sbin/pam-auth-update ]; then
 	pam-auth-update --package
@@ -22,7 +23,8 @@ if [ "$1" = 'configure' ] || [ "$1" = 'triggered' ]; then
 				continue
 			fi
 			echo "sync runit user services for $ruser .."
-			chpst -u "$ruser"  /lib/runit/trigger_sv setup
+			#TODO trigger_sv setup return 1, need to dig why and a fix in runit
+			chpst -u "$ruser"  /lib/runit/trigger_sv setup || true
 			[ "$1" = 'configure' ] && continue
 			chpst -u "$ruser"  /lib/runit/trigger_sv upgrade
 			echo ".. done"
