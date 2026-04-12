@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env /lib/runit/invoke-run
 mkdir -p /var/cache/snooze
 exec snooze -s 1d -t /var/cache/runit-snooze/daily -- sh -c \
 	"test -d /etc/cron.daily && run-parts --lsbsysinit /etc/cron.daily; touch /var/cache/runit-snooze/daily"

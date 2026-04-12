@@ -1,17 +1,23 @@
 #!/bin/sh
 set -e
 
+vinfo() {
+	if [ -e /etc/runit/verbose ]; then
+		printf '%s\n' "${0##*/}: info: $*"
+	fi
+}
+
 rm_svdir () { #dir $runtimesvdir/$NAME #lock supervise/lock
 	dir="$1" ; lock="$2" ;
-	echo "removing (purge) $dir ..."
+	vinfo "removing (purge) $dir ..."
 	if [ -e "$dir/$lock" ]; then
 		if timeout 5 flock "$dir/$lock" true ; then
-			rm -rf "$dir" && echo " .. done"
+			rm -rf "$dir" && vinfo " .. done"
 		else
 			echo "warning: runsv still running: $dir not purged!"
 		fi
 	else
-		rm -rf "$dir" && echo "..done"
+		rm -rf "$dir" && vinfo "..done"
 	fi
 }
 
@@ -50,6 +56,7 @@ if [ "$1" = 'purge' ]; then
 			rm_svdir "/run/runit/supervise/$cronsv" "lock"
 		fi
 	done
+	rm -rf /var/cache/runit-snooze/
 fi
 
 #DEBHELPER#

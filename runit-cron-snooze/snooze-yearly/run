@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env /lib/runit/invoke-run
 mkdir -p /var/cache/snooze
 exec snooze -D 1 -s 365d -t /var/cache/runit-snooze/yearly -- sh -c \
 	"test -d /etc/cron.yearly && run-parts --lsbsysinit /etc/cron.yearly; touch /var/cache/runit-snooze/yearly"
