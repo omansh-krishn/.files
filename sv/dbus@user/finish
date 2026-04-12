@@ -1,0 +1,6 @@
+#!/bin/sh
+
+uid=$(id -u)
+# rm the socket on exit
+rm /run/user/$uid/bus
+

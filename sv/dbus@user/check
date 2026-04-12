@@ -1,0 +1,7 @@
+#!/bin/sh
+
+uid=$(id -u)
+
+DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus" exec dbus-send --session / org.freedesktop.DBus.Peer.Ping >/dev/null 2>/dev/null
+
+exit 1

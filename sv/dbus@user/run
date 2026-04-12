@@ -4,10 +4,10 @@
 
 exec 2>&1
 
-#TODO reload override: ExecReload=/usr/bin/dbus-send --print-reply --session --type=method_call --dest=org.freedesktop.DBus /org.freedesktop.DBus.ReloadConfig
-#TODO check on the dbus socket?: ListenStream=%t/bus see#1128559
-#TODO DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus ??
 
+#uid=$(id -u)
+#DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus"
 #install -m700 -d $HOME/.dbus #?
+# --address=$DBUS_SESSION_BUS_ADDRESS
 
-exec ##bin## --session --nofork --nopidfile --nosyslog
+exec ##bin## --session --address=$DBUS_SESSION_BUS_ADDRESS --nofork --nopidfile --nosyslog

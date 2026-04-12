@@ -4,6 +4,11 @@
 
 exec 2>&1
 
+#TODO use chpst -e for GIO_USE_VFS
+export GIO_USE_VFS=local
 sv check "$HOME/.service/pipewire" || exit 1
+if [ -e "$HOME/.service/dbus" ]; then
+	sv check "$HOME/.service/dbus" || true
+fi
 
 exec ##bin##

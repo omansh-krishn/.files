@@ -3,10 +3,10 @@
 #License: CC0-1.0
 
 exec 2>&1
-#TODo socket?
-#ListenStream=%t/pipewire-0
-#ListenStream=%t/pipewire-0-manager
 
-# TODO set env vars see https://manpages.debian.org/unstable/pipewire-bin/pipewire.1.en.html
+#TODO see env vars see https://manpages.debian.org/unstable/pipewire-bin/pipewire.1.en.html
+if [ -e "$HOME/.service/dbus" ]; then
+	sv check "$HOME/.service/dbus" || true
+fi
 
 exec ##bin## 

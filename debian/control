@@ -69,8 +69,8 @@ Description: UNIX init scheme with service supervision (user session)
  read /usr/share/doc/runit-user-session/README.gz for instructions
 
 Package: runit-dbus-user-session
-Provides: dbus-session-bus,
-Conflicts: dbus-session-bus,
+#Provides: dbus-session-bus,
+#Conflicts: dbus-session-bus,
 Architecture: all
 Depends:
  ${shlibs:Depends},
@@ -85,9 +85,9 @@ Description: D-Bus user instance (runit integration)
  for the user, and stops it at the last logout event of the same user.
  This package provides the runit D-Bus user service template and ensure
  that the service is running until the end of the session, with the help of
- the runit-user-session package.
- To start a user D-Bus --session instance in a runit system either use this
- package or dbus-x11.
+ the runit-user-session package. Other runit user services can wait for the
+ D-Bus runit service and DBUS_SESSION_BUS_ADDRESS is defined and
+ available to all user runscripts.
  .
  See the dbus description for more information about D-Bus in general.
 
