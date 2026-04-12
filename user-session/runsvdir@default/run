@@ -29,12 +29,16 @@ fi
 groups="$(id -Gn "$USERNAME" | tr ' ' ':')"
 
 #setup env in evndir for chpst
-mkdir -p "${PWD}/env"
+mkdir -p "${PWD}/xenv"
 #set svdir for user
 echo "$SVDIR" > "${PWD}/env/SVDIR"
 echo "$USERNAME" > "${PWD}/env/USER"
 echo "/home/$USERNAME" > "${PWD}/env/HOME"
 echo "/home/$USERNAME/.config" >  "${PWD}/env/XDG_CONFIG_HOME"
-#XAUTHORITY?
+echo "/home/$USERNAME/.cache" >  "${PWD}/env/XDG_CACHE_HOME"
+echo "/home/$USERNAME/.local/share" >  "${PWD}/env/XDG_DATA_HOME"
+#XDG_DATA_DIRS=/home/$USERNAME/.local/share:/usr/local/share:/usr/share
+#XDG_CONFIG_DIRS=/etc:/etc/xdg:/usr/share
+#XAUTHORITY? --> this is X11 only
 
 exec chpst -u "$USERNAME:$groups" -e "${PWD}/env" runsvdir -P "$SVDIR"

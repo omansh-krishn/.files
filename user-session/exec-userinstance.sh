@@ -20,8 +20,8 @@
 test "$(id -u)" = 0 || exit 0 # no power to create or remove the symlinks
 user="$PAM_USER"
 [ "$user" = 'root' ] && exit 0 #root already has system runsvdir
-uid="$(id -u $user)"
-[ $uid -ge '1000' ] || exit 0 # try to filter out system users, uid<1000 [sddm, lightdm and so on..)
+uid="$(id -u "$user")"
+[ "$uid" -ge '1000' ] || exit 0 # try to filter out system users, uid<1000 [sddm, lightdm and so on..)
 [ -d "/home/$user" ] || exit 0 # no home directory to start runsvdir
 
 #avoid clash with openrc user-session
@@ -61,13 +61,21 @@ if [ "$PAM_TYPE" = "open_session" ]; then #login event for $user
       cpsv p runsvdir@default runsvdir@"$user"
   fi
   mkdir -p "/etc/sv/runsvdir@$user/xenv" # dir for graphic environment
-  ln -s  "/etc/sv/runsvdir@$user/xenv" "/etc/sv/runsvdir@$user/env"
-  [ ! -e /etc/sv/runsvdir@$user/run ] && exit 1 # block if is symlink is dangling, template gone
+  if [ ! -h "/etc/sv/runsvdir@$user/env" ] && [ ! -e "/etc/sv/runsvdir@$user/env" ] ; then
+    ln -s  "/etc/sv/runsvdir@$user/xenv" "/etc/sv/runsvdir@$user/env"
+  fi
+  [ ! -e "/etc/sv/runsvdir@$user/run" ] && exit 1 # block if is symlink is dangling, template gone
   #set env and enable the user runsvdir
-  if [ ! -e /etc/service/runsvdir@$user ] && [ ! -e /etc/service/.runsvdir@$user ]; then
+  if [ ! -e "/etc/service/runsvdir@$user" ] && [ ! -e "/etc/service/.runsvdir@$user" ]; then
       # set the env for the supervision tree #TODO: which one are really needed? trim the list
-      [ -n "$PATH" ] && echo "$PATH" > "/etc/sv/runsvdir@$user/xenv/PATH"
-      [ -n "$XDG_RUNTIME_DIR" ] && echo "$XDG_RUNTIME_DIR" >  "/etc/sv/runsvdir@$user/xenv/XDG_RUNTIME_DIR"
+      #PATH
+      echo "/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games" > "/etc/sv/runsvdir@$user/xenv/PATH"
+      #XDG_RUNTIME_DIR
+      echo "/run/user/$uid" >  "/etc/sv/runsvdir@$user/xenv/XDG_RUNTIME_DIR"
+      #DBUS_SESSION_BUS_ADDRESS + runit-dbus-user-session
+      if [ -e "/home/$user/.service/dbus" ]; then
+        echo "unix:path=/run/user/$uid/bus" >  "/etc/sv/runsvdir@$user/xenv/DBUS_SESSION_BUS_ADDRESS"
+      fi
       [ -n "$DISPLAY" ] && echo "$DISPLAY" >  "/etc/sv/runsvdir@$user/xenv/DISPLAY"
       [ -n "$XDG_VTNR" ] && echo "$XDG_VTNR" >  "/etc/sv/runsvdir@$user/xenv/XDG_VTNR"
       [ -n "$XDG_SEAT" ] && echo "$XDG_SEAT" >  "/etc/sv/runsvdir@$user/xenv/XDG_SEAT"

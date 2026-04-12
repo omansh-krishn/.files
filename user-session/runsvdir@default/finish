@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-echo "nothing to do at finish, for now"
-#TODO: clean up /env?
+#clean up env
+rm -r "${PWD}/xenv"
