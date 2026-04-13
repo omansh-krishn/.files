@@ -1,8 +1,52 @@
-runit-services (0.13.0) UNRELEASED; urgency=medium
+runit-services (0.13.0) experimental; urgency=medium
 
-  * new changelog entry, for testing
+  * new runit-user-session package:
+   - add a runsvdir runsvdir@default template, to start
+     runsvdir@$USER for each user at login; override
+     term with hup in control/t; clean xenv dir in finish;
+   - runsvdir@default/run: create directory tree in user's home
+     if missing; write several xdg variables to xenv, used to set
+     the environment of runscripts with 'chpst -e'
+   - add a pam_config file with pam_exec, to run
+     an exec-userintance script at pam events
+   - exec-userinstance:  write pam environment
+     to xenv dir; use PAM_SERVICE to filter login events;
+     works with wayland and x11, but only an hardcoded list of
+     login manager is supported for now
+   - add support for linger mode session
+   - conflicts with turnstile, no-op under systemd and
+     no-op when openrc user-session is detected
+     + thanks to Mark Hindley <mark@hindley.org.uk>
+   - make pam dependency optional on Hurd (works only
+     in linger mode)
+   - add README with examples and instructions
+  * new runit-user-services package:
+   - add pipewire@user, wireplumber@user and
+     pipewire-pulse@user templates for user services
+  * new runit-dbus-user-session package: it doesn't replace
+     dbus-x11 package for now, but user services can wait for
+     and depend on a session dbus service with a predictable
+     DBUS_SESSION_BUS_ADDRESS
+   - add dbus@user template for a session bus user service;
+     use /run/user/$uid/bus path for socket, use 'check' file
+     for readiness and remove the dbus socket in 'finish'
+  * new runit-cron-snooze package:
+   - add snooze-[hourly|daily|weekly|monthly|yearly] services, to
+     replace cron and anacron
+   - add and use /var/cache/runit-snooze for timefiles
+  * install new services with dh-runit in usr, use triggers to enable and
+      restart user services with runit's trigger_sv; sync at postinst,
+      stop in prerm and purge in postrm.
+  * user-session, user-services and dbus-user-session:
+    - depends on runit >= 2.3.0-1
+    - workround issue with trigger_sv setup for user services (needs
+      a fix in runit package)
+  * debian/gitlab-ci: set release to unstable
+  * update d/copyright.in for runit-user-session and runit-cron-snooze
+  * d/copyright: regenarate for new packages and new user services
+  * lintian: fix several issues and add overrides
 
- -- Lorenzo Puliti <plorenzo@disroot.org>  Sat, 21 Mar 2026 14:55:34 +0100
+ -- Lorenzo Puliti <plorenzo@disroot.org>  Sun, 12 Apr 2026 23:07:44 +0200
 
 runit-services (0.12.0) unstable; urgency=medium
 
