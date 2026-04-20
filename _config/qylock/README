@@ -1,0 +1,9 @@
+upstream: https://github.com/Darkkal44/qylock
+LICENCE: ./LICENSE (GPLv3)
+
+cp -r themes/* /usr/share/sddm/themes/
+(NOTE: sword depends on an external font)(use ./themes/sword/font/get_font.sh)
+
+cp theme.conf /etc/sddm.conf.d/theme.conf
+
+"theme": name of currently acive theme (in theme.conf)
