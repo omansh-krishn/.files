@@ -1,0 +1,110 @@
+@import "colors/zitchdog.css";
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "KodeMono Nerd Font", "SF Pro Text", "Adwaita Sans", "JetBrainsMono Nerd Font Propo", sans-serif;
+  font-size: 14px;
+  min-height: 0;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+window#waybar {
+  background: transparent;
+}
+tooltip {
+  background: @bg0;
+  border: 2px solid @bg3;
+  border-radius: 0;
+}
+tooltip label {
+  color: @fg;
+  padding: 6px 12px;
+}
+#workspaces {
+  background: transparent;
+  padding: 2px;
+  margin: 6px 0px 0px 8px;
+  border-radius: 0;
+}
+
+#workspaces button {
+  background: transparent;
+  border-radius: 0;
+  margin: 0rem;
+  color: @grey0;
+}
+
+#workspaces button.empty {
+  color: @bg3;
+  background: transparent;
+}
+
+#workspaces button.active {
+  color: @fg;
+  background: transparent;
+}
+
+#battery,
+#pulseaudio,
+#bluetooth,
+#network,
+#clock,
+#window,
+#custom-power,
+#custom-notification {
+  background: transparent;
+  padding: 2px 10px;
+  margin: 6px 0px 0px 0px;
+  border-radius: 0px;
+  color: @fg;
+}
+
+#custom-power {
+  margin-right: 8px;
+  padding-right: 0;
+}
+
+#window {
+  margin-left: 8px;
+}
+
+/* low/warning: yellow accent, 8px left border */
+#battery.warning:not(.charging) {
+  color: @yellow;
+  background: transparent;
+}
+/* critical: red accent, 8px left border */
+#battery.critical:not(.charging) {
+  color: @red;
+  background: transparent;
+}
+/* charging/plugged: green accent, 8px left border */
+#battery.charging,
+#battery.plugged {
+  color: @green;
+  background: transparent;
+}
+
+/* audio module setup */
+#pulseaudio.muted {
+  color: @red;
+  background: transparent;
+}
+
+/* network module setup */
+#network.disconnected {
+  color: @red;
+  background: transparent;
+}
+
+#network.linked,
+#network.disabled {
+  color: @yellow;
+  background: transparent;
+}
+
+#custom-power:hover {
+  color: @purple;
+  background: transparent;
+}
