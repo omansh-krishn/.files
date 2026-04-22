@@ -33,6 +33,8 @@ tooltip label {
   border-radius: 0;
   margin: 0rem;
   color: @grey0;
+  padding: 0 0px;
+  margin: 0 2px;
 }
 
 #workspaces button.empty {
@@ -53,6 +55,8 @@ tooltip label {
   box-shadow: none;
   text-shadow: none;
   transition: none;
+  padding: 0;
+  margin: 0 2px;
 }
 
 #cpu,
