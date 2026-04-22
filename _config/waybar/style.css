@@ -44,6 +44,16 @@ tooltip label {
   color: @fg;
   background: transparent;
 }
+/* explicitly kill hover effects  */
+#workspaces button:hover,
+#workspaces button:focus,
+#workspaces button:active {
+  background: transparent;
+  color: @fg;
+  box-shadow: none;
+  text-shadow: none;
+  transition: none;
+}
 
 #cpu,
 #memory,
