@@ -4,17 +4,22 @@
   "margin-top": 0,
   "modules-left": [
     // "tray",
-    "hyprland/workspaces"
-    // "hyprland/window"
+    "custom/launcher",
+    "hyprland/workspaces",
+    "hyprland/window"
   ],
   "modules-center": [
     "clock"
   ],
   "modules-right": [
+    "cpu",
+    "memory",
+   "backlight",
     "pulseaudio",
     "bluetooth",
     "network",
     "battery",
+    "tray",
     "custom/power"
   ],
   "clock": {
@@ -35,7 +40,7 @@
     "on-scroll-up": "hyprctl dispatch workspace e+1",
     "on-scroll-down": "hyprctl dispatch workspace e-1",
     "persistent-workspaces": {
-      "*": 4
+      "*": 7
     },
     "format-icons": {
       "active": "<span font_size='100%'></span>",
@@ -43,11 +48,11 @@
     }
   },
   "tray": {
-    "icon-size": 21,
-    "spacing": 10
+    "icon-size": 16,
+    "spacing": 8
   },
   "pulseaudio": {
-    "format": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>V:</span> {volume}%</span>",
+    "format": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>VOL:</span>&#x2009;{volume}%</span>",
     "format-bluetooth": "<span text_transform='uppercase' font_size='110%'>V: {volume}%</span>",
     "format-muted": "<span text_transform='uppercase' font_size='110%'>MUTED</span>",
     "format-icons": {
@@ -71,16 +76,20 @@
   },
   "network": {
     "interface": "wlan0",
+    "interval": 2,
+    // thin space: "&#x2009;"
     "format": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>N:</span> {ifname}</span>",
-    "format-wifi": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>N:</span> {essid}</span>",
-    "format-ethernet": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>N:</span> {ipaddr}/{cidr}</span>",
+    "format-wifi": "<span font_size='110%'><span color='#828997'>{icon}&#x2009;</span> {essid}</span>",
+    "format-ethernet": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>󰈀 </span> {ipaddr}/{cidr}</span>",
     "format-disconnected": "<span text_transform='uppercase'>No Connection</span>",
-    "on-click": "networkmanager_dmenu",
+    "on-click": "networkmanager_dmenu --config ~/.config/networkmanager-dmenu/config.ini",
     "tooltip-format": "  {ifname} via {gwaddr}",
     "tooltip-format-wifi": "󰤨  {essid} ({signalStrength}%)",
+    //"tooltip-format-wifi": "󰤨  {essid} ({signalStrength}%)\nUP: {bandwidthUpBytes}  DOWN: {bandwidthDownBytes}",
     "tooltip-format-ethernet": "  {ifname}",
     "tooltip-format-disconnected": "Internet Disconnected",
-    "max-length": 50
+    "max-length": 50,
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
   },
   "battery": {
     "interval": 60,
@@ -88,7 +97,7 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>B:</span> {capacity}%</span>",
+    "format": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>{icon}</span> {capacity}%</span>",
     "format-icons": [
       "󰂃",
       "󰁽",
@@ -96,7 +105,28 @@
       "󰂁",
       "󰁹"
     ],
-    "max-length": 25
+    "max-length": 25,
+    "on-click": "~/.config/waybar/scripts/battery_profile.sh"
+  },
+  "backlight": {
+    "format": "<span font_size='110%'><span color='#828997'>{icon}&#x2009;</span> {percent}%</span>",
+    "format-icons": [
+      "󰃞",
+      "󰃝",
+      "󰃟",
+      "󰃠"
+    ],
+    "tooltip": false
+  },
+  "memory": {
+    "format": "<span font_size='110%'><span color='#828997'>RAM:</span>&#x2009;{used}GiB</span>",
+    "interval": 5,
+    "tooltip": true,
+    "tooltip-format": "RAM: {used} | {total} GiB\n SWAP: {swapUsed} | {swapTotal} GiB"
+  },
+  "cpu": {
+    "format": "<span font_size='110%'><span color='#828997'>CPU:</span>&#x2009;{usage}%</span>",
+    "interval": 3
   },
   "custom/notification": {
     "tooltip": true,
@@ -125,9 +155,14 @@
     "tooltip-format": "Power Menu",
     "on-click": "~/.config/waybar/scripts/powermenu.sh"
   },
+  "custom/launcher": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "rofi -show drun -display-drun '' -theme ~/.config/rofi/colors/minimal_left.rasi"
+  },
   "bluetooth": {
-    "format": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>BLT:</span> {status}</span>",
-    "format-connected": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>BLT:</span> {device_alias}</span>",
+    "format": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>BT:</span> {status}</span>",
+    "format-connected": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>BT:</span> {device_alias}</span>",
     "format-off": "",
     "format-disabled": "",
     "tooltip-format": "{controller_alias}\t{controller_address}",
@@ -137,6 +172,6 @@
   },
   "hyprland/window": {
     "format": "<span color='#828997'>{}</span>",
-    "max-length": 50
+    "max-length": 60
   }
 }

@@ -45,6 +45,9 @@ tooltip label {
   background: transparent;
 }
 
+#cpu,
+#memory,
+#backlight,
 #battery,
 #pulseaudio,
 #bluetooth,
@@ -52,6 +55,8 @@ tooltip label {
 #clock,
 #window,
 #custom-power,
+#custom-launcher,
+#tray,
 #custom-notification {
   background: transparent;
   padding: 2px 10px;

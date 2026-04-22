@@ -1,0 +1,10 @@
+@import "minimal.rasi"
+
+window {
+    location:   center;
+    anchor:     center;
+}
+
+element-icon {
+    margin: 0px 4px 0px 8px;
+}
