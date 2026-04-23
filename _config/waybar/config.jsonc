@@ -156,7 +156,7 @@
     "on-click": "~/.config/waybar/scripts/powermenu.sh"
   },
   "custom/launcher": {
-    "format": "",
+    "format": "",
     "tooltip": false,
     "on-click": "rofi -show drun -display-drun '' -theme ~/.config/rofi/colors/minimal_left.rasi"
   },

@@ -1,0 +1,4 @@
+bluez-runit
+elogind
+elogind-runit
+networkmanager-runit
