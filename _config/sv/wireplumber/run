@@ -9,4 +9,6 @@ if [ "${LOGGING_ENABLE}x" == "1x" -a -n "${LOG_LEVEL}" ]; then
     export WIREPLUMBER_DEBUG="${LOG_LEVEL}"
 fi
 
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
 exec wireplumber ${OPTS:-} 2>&1

@@ -9,4 +9,6 @@ if [ "${LOGGING_ENABLE}x" = "1x" -a -n "${LOG_LEVEL}" ]; then
     export PIPEWIRE_DEBUG="${LOG_LEVEL}"
 fi
 
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
 exec pipewire-pulse ${OPTS:-} 2>&1
