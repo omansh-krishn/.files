@@ -75,7 +75,7 @@
     ]
   },
   "network": {
-    "interface": "wlan0",
+    // "interface": "wlan0",
     "interval": 2,
     // thin space: "&#x2009;"
     "format": "<span text_transform='uppercase' font_size='110%'><span color='#828997'>N:</span> {ifname}</span>",
