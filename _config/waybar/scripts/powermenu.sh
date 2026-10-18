@@ -4,9 +4,9 @@ chosen=$(printf "LOCK\nSLEEP\nPOWEROFF\nRESTART\nLOG OUT\nHIBERNATE" | rofi -dme
 
 case "$chosen" in
     "LOCK")              bash ~/.config/qylock/quickshell-lockscreen/lock.sh ;;
-    "SLEEP")             bash ~/.config/qylock/quickshell-lockscreen/lock.sh & loginctl suspend ;; # hyprlock
+    "SLEEP")             bash ~/.config/qylock/quickshell-lockscreen/lock.sh & systemctl suspend ;; # hyprlock
     "POWEROFF")          poweroff ;;
     "RESTART")           reboot ;;
     "LOG OUT")           hyprctl dispatch exit ;; #hyprshutdown
-    "HIBERNATE")         bash ~/.config/qylock/quickshell-lockscreen/lock.sh & loginctl hibernate ;;
+    "HIBERNATE")         bash ~/.config/qylock/quickshell-lockscreen/lock.sh & systemctl hibernate ;;
 esac
