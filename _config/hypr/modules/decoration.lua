@@ -1,0 +1,49 @@
+-- ~/.config/hypr/modules/decoration.lua -- decoration and stuff
+-- https://wiki.hypr.land/configuring/core/config-options/#decoration
+
+hl.config({
+    decoration = {
+        -- rounding = 2, -- adds rounded corners
+        -- rounding_power = 2, -- makes the curves mathematically accurate
+        rounding       = 8, -- adds rounded corners
+        rounding_power = 2, -- makes the curves mathematically accurate
+
+        -- change transparency of focused and unfocused windows
+        active_opacity   = 1.0,  -- sane people don't change this
+        inactive_opacity = 0.90, -- don't touch this, you are not an emo baby! # damn, i am one though... (ehhm, ehhm; i wasn't, you made me)
+
+        -- adds shadows to active windows, barely noticable tbh.
+        shadow = {
+            enabled        = true,
+            range          = 25,
+            render_power   = 3,
+            color          = "rgba(00000080)",
+            color_inactive = "rgba(00000060)",
+        },
+
+        -- see https://wiki.hypr.land/configuring/core/config-options/#blur for info
+        -- blur = {
+        --     enabled  = false,
+        --     size     = 4,
+        --     passes   = 2, -- adds more depth
+        --     vibrancy = 0.1696,
+        -- },
+        blur = {
+            enabled                   = true,
+            xray                      = true,
+            special                   = false,
+            new_optimizations         = true,
+            size                      = 10,
+            passes                    = 3,
+            brightness                = 1,
+            noise                     = 0.05,
+            contrast                  = 0.89,
+            vibrancy                  = 0.5,
+            vibrancy_darkness         = 0.5,
+            popups                    = false,
+            popups_ignorealpha        = 0.6,
+            input_methods             = true,
+            input_methods_ignorealpha = 0.8,
+        },
+    },
+})
